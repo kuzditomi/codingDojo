@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace Library
 {
@@ -19,7 +20,7 @@ namespace Library
         private static void PrintMainMenu()
         {
             Console.Clear();
-            Console.WriteLine("Choose a library option:\r\n");
+            Console.WriteLine("Choose a number from the library options:\r\n");
 
             Console.WriteLine("1 - Add new book");
             Console.WriteLine("2 - Search book");
@@ -28,13 +29,12 @@ namespace Library
             Console.WriteLine("5 - Get books' list");
             Console.WriteLine("6 - Generate books' data");
             Console.WriteLine("0 - Exit");
-            Console.Write("\r\nSelected option: ");
         }
 
         private static void PrintSearchMenu()
         {
             Console.Clear();
-            Console.WriteLine("Choose a search option:\r\n");
+            Console.WriteLine("Choose a number from the search options:\r\n");
 
             Console.WriteLine("1 - Search by title");
             Console.WriteLine("2 - Search by author");
@@ -42,14 +42,23 @@ namespace Library
             Console.WriteLine("4 - Search by year");
             Console.WriteLine("5 - Search books published before ...");
             Console.WriteLine("6 - Search books published after ...");
-            Console.Write("\r\nSelected option: ");
         }
-        
+
         private static int ReadMenuSelection()
         {
-            var input = Console.ReadLine();
-            Console.Clear();
-            return input == "" ? 0 : Convert.ToInt32(input);
+            var result = -1;
+            do
+            {
+                Console.Write("\r\nSelected option: ");
+                var input = Console.ReadLine();
+                if (input != null && Regex.IsMatch(input, @"^[0-6]$"))
+                {
+                    Console.Clear();
+                    result = input == "" ? 0 : Convert.ToInt32(input);
+                }
+                Console.WriteLine("Please select a number between 0 and 6!");
+            } while (result <= -1);
+            return result;
         }
     }
 }

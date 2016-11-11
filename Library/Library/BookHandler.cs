@@ -1,12 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 namespace Library
 {
-    public class BookHandler
+    public static class Texts
     {
-        public readonly List<Book> Books = new List<Book>();
+        public const string InLibrary = "In library";
+
+    }
+    public class BookHandler : IBookHandler
+    {
+        private readonly List<Book> Books = new List<Book>();
+
+        private int NewBookingId => Books.Count;
 
         public void AddNewBook()
         {
@@ -58,98 +67,159 @@ namespace Library
         public void ReturnBook()
         {
             var id = GetBookId();
-            foreach (var book in Books.Where(book => book.Id == Convert.ToInt32(id)))
+
+            var book = Books.FirstOrDefault(b => b.Id == Convert.ToInt32(id));
+
+            if (book != null)
             {
                 book.Available = true;
-                book.Reader = new Reader("In Library");
+                book.Reader = new Reader(Texts.InLibrary);
+            }
+            else
+            {
+                Console.WriteLine("Nincs ilyen könyv");
             }
         }
 
-        public int NewBookingId => Books.Count;
+        private void SearchBy(string property, Func<Book, string, bool> expresssion)
+        {
+            Console.Clear();
+            Console.WriteLine("\r\n{0} of book searched for: ", property);
+            var input = GetTextInput();
+            
+            var result = Books.Where(b => expresssion(b,input)).ToList();
+            if (result.Count == 0)
+            {
+                Console.WriteLine("\r\nNo book found for your search");
+            }
+            else
+            {
+                foreach (var book in result)
+                {
+                    PrintBookDetails(book);
+                }
+            }
+
+            GoToMainMenu();
+        }
 
         //ToDo: generalize the search methods?
         //ToDo: Indicate if there is no match
-        private void SearchByReader()
-        {
-            Console.WriteLine("\r\nReader of the book searched for: ");
-            var reader = Console.ReadLine();
-            foreach (var book in Books)
-            {
-                if (book.Reader != null && book.Reader.Name == reader)
-                {
-                    PrintBookDetails(book);
-                }
-            }
-            GoToMainMenu();
-        }
-
         private void SearchByTitle()
         {
-            Console.WriteLine("\r\nTitle of book searched for: ");
-            var title = Console.ReadLine();
-            foreach (var book in Books)
-            {
-                if (book.Title == title)
-                {
-                    PrintBookDetails(book);
-                }
-            }
-            GoToMainMenu();
+            this.SearchBy("Title", (b, input) => b.Title.ToLower().Contains(input.ToLower()));
         }
 
         private void SearchByAuthor()
         {
+            Console.Clear();
             Console.WriteLine("\r\nAuthor of book searched for: ");
-            var author = Console.ReadLine();
+            var input = GetTextInput();
+
+            var isMatch = false;
             foreach (var book in Books)
             {
-                if (book.Author == author)
+                if (book.Author.ToLower().Contains(input))
                 {
                     PrintBookDetails(book);
+                    isMatch = true;
                 }
             }
+            if (!isMatch)
+                Console.WriteLine("\r\nNo book found for your search");
+            GoToMainMenu();
+        }
+        private void SearchByReader()
+        {
+            Console.Clear();
+            Console.WriteLine("\r\nReader of the book searched for: ");
+            var input = GetTextInput();
+
+            var isMatch = false;
+            foreach (var book in Books)
+            {
+                if (book.Reader != null && book.Reader.Name.ToLower().Contains(input))
+                {
+                    PrintBookDetails(book);
+                    isMatch = true;
+                }
+            }
+            if (!isMatch)
+                Console.WriteLine("\r\nNo book found for your search");
             GoToMainMenu();
         }
 
         private void SearchByYear()
         {
+            Console.Clear();
             Console.WriteLine("\r\nPublication year of book searched for: ");
-            var year = Console.ReadLine();
+            var input = GetANumber();
+
+            var isMatch = false;
             foreach (var book in Books)
             {
-                if (book.Year == Convert.ToInt32(year))
+                if (book.Year == input)
                 {
                     PrintBookDetails(book);
+                    isMatch = true;
                 }
             }
+            if (!isMatch)
+                Console.WriteLine("\r\nNo book found for your search");
             GoToMainMenu();
+        }
+
+        private int GetANumber()
+        {
+            var result = -1;
+            do
+            {
+                var input = Console.ReadLine();
+                if (Regex.IsMatch(input, @"^[0-9]+$"))
+                    result = Convert.ToInt32(input);
+                else
+                    Console.WriteLine("Please type a year with numbers");
+            } while (result == -1);
+            return result;
         }
 
         private void SearchBeforeYear()
         {
+            Console.Clear();
             Console.WriteLine("\r\nPublication year BEFORE the book is searched for: ");
-            var year = Console.ReadLine();
+            var input = GetANumber();
+
+            var isMatch = false;
             foreach (var book in Books)
             {
-                if (book.Year < Convert.ToInt32(year))
+                if (book.Year < input)
                 {
                     PrintBookDetails(book);
+                    isMatch = true;
                 }
             }
+            if (!isMatch)
+                Console.WriteLine("\r\nNo book found for your search");
             GoToMainMenu();
         }
 
         private void SearchAfterYear()
         {
+            Console.Clear();
             Console.WriteLine("\r\nPublication year AFTER the book is searched for: ");
-            var year = Console.ReadLine();
+            var input = GetANumber();
+
+            var isMatch = false;
             foreach (var book in Books)
             {
-                if (book.Year > Convert.ToInt32(year))
+                if (book.Year > input)
                 {
                     PrintBookDetails(book);
+                    isMatch = true;
                 }
             }
+            if (!isMatch)
+                Console.WriteLine("\r\nNo book found for your search");
             GoToMainMenu();
         }
 
@@ -171,7 +241,8 @@ namespace Library
         {
             var id = GetBookId();
             var reader = GetNewReader();
-            foreach (var book in Books.Where(book => book.Id == Convert.ToInt32(id) && book.Available))
+            foreach (var book in Books.Where(book =>
+            book.Id == Convert.ToInt32(id) && book.Available))
             {
                 book.Reader = reader;
                 book.Available = false;
@@ -205,11 +276,11 @@ namespace Library
         {
             Console.WriteLine("====== Add a book ======");
             Console.Write("Name of the book: ");
-            var name = Console.ReadLine();
+            var name = GetAString();
             Console.Write("Author of the book: ");
-            var author = Console.ReadLine();
+            var author = GetAString();
             Console.Write("Publication year of the book: ");
-            var year = Console.ReadLine();
+            var year = GetANumber();
 
             return new Book(NewBookingId, name, author, Convert.ToInt32(year));
         }
@@ -223,6 +294,39 @@ namespace Library
         private void PrintBookDetails(Book book)
         {
             Console.WriteLine($"{book.Id} - {book.Title}, by {book.Author} from year {book.Year}, Current holder: {GetReaderOfBook(book.Title)}");
+        }
+
+        private string GetTextInput()
+        {
+            var text = string.Empty;
+            do
+            {
+                var input = Console.ReadLine();
+                if (input != null)
+                {
+                    text = input;
+                }
+                else
+                {
+                    Console.WriteLine("\r\nPlease enter the name of the book");
+                }
+
+            } while (text == string.Empty);
+            return text;
+        }
+
+        private string GetAString()
+        {
+            var result = "";
+            do
+            {
+                var input = Console.ReadLine();
+                if (input != "")
+                    result = input;
+                else
+                    Console.WriteLine("Please type the data defined above");
+            } while (result == "");
+            return result;
         }
     }
 }

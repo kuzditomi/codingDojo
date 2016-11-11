@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            var bookHandler = new BookHandler();
+            IBookHandler bookHandler = new BookHandler();
             var menuItem = 9;
 
             do
