@@ -43,13 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Book.cs" />
-    <Compile Include="BookHandler.cs" />
-    <Compile Include="IBookHandler.cs" />
-    <Compile Include="MenuHandler.cs" />
+    <Compile Include="Book\Book.cs" />
+    <Compile Include="Book\BookHandler.cs" />
+    <Compile Include="Book\IBookHandler.cs" />
+    <Compile Include="Menu\MainMenu.cs" />
+    <Compile Include="Menu\MenuHandler.cs" />
+    <Compile Include="Menu\SearchMenu.cs" />
+    <Compile Include="Helpers\Validator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reader.cs" />
+    <Compile Include="Reader\Reader.cs" />
+    <Compile Include="Helpers\Texts.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,45 +1,41 @@
-﻿namespace Library
+﻿using Library.Book;
+using Library.Menu;
+
+namespace Library
 {
     class Program
     {
         static void Main(string[] args)
         {
             IBookHandler bookHandler = new BookHandler();
-            var menuItem = 9;
+            MainMenu menuItem;
 
             do
             {
+                menuItem = MenuHandler.DoMainMenuSelection();
+
                 switch (menuItem)
                 {
-                    case 9:
-                        menuItem = MenuHandler.DoMainMenuSelection();
-                        break;
-                    case 1:
+                    case MainMenu.Add:
                         bookHandler.AddNewBook();
-                        menuItem = 9;
                         break;
-                    case 2:
+                    case MainMenu.Search:
                         bookHandler.SearchForBook();
-                        menuItem = 9;
                         break;
-                    case 3:
+                    case MainMenu.Borrow:
                         bookHandler.BorrowBook();
-                        menuItem = 9;
                         break;
-                    case 4:
+                    case MainMenu.Return:
                         bookHandler.ReturnBook();
-                        menuItem = 9;
                         break;
-                    case 5:
+                    case MainMenu.List:
                         bookHandler.GetBooksList();
-                        menuItem = 9;
                         break;
-                    case 6:
+                    case MainMenu.Generate:
                         bookHandler.GenerateBooks();
-                        menuItem = 9;
                         break;
                 }
-            } while (menuItem != 0);
+            } while (menuItem != MainMenu.Exit);
         }
     }
 }

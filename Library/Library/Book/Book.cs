@@ -1,4 +1,4 @@
-﻿namespace Library
+﻿namespace Library.Book
 {
     public class Book
     {
@@ -7,7 +7,7 @@
         public string Author { get; set; }
         public int Year { get; set; }
         public bool Available { get; set; } = true;
-        public Reader Reader { get; set; }
+        public Reader.Reader Reader { get; set; }
 
         public Book(int id, string title, string author, int year)
         {
