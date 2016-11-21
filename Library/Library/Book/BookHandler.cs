@@ -75,7 +75,7 @@ namespace Library.Book
             _books.Add(new Book(NewBookingId, "car", "bela", 2000));
             _books.Add(new Book(NewBookingId, "pineapple", "peti", 1998));
             _books.Add(new Book(NewBookingId, "phone", "tamas", 2002));
-            _books.Add(new Book(NewBookingId, "tv", "newton", 2000));
+            _books.Add(new Book(NewBookingId, "tabs", "newton", 2000));
             _books.Add(new Book(NewBookingId, "nivea", "bela", 2009));
             _books.Add(new Book(NewBookingId, "lufi", "peti", 1992));
         }
@@ -208,6 +208,7 @@ namespace Library.Book
 
         public void BorrowBook()
         {
+            Console.Clear();
             var id = GetBookId();
             var reader = GetNewReader();
             var daysToBorrow = GetDueDate();
@@ -217,7 +218,7 @@ namespace Library.Book
                 book.Reader = reader;
                 book.Available = false;
                 book.DueDate = DateTime.Now.AddDays(daysToBorrow);
-                Console.WriteLine("{0} is borrowed by {1} now.", book.Title, reader.Name);
+                Console.WriteLine("{0} is borrowed by {1} until {2}.", book.Title, reader.Name, book.DueDate);
             }
             GoToMainMenu();
         }
@@ -270,8 +271,13 @@ namespace Library.Book
 
         private void PrintBookDetails(Book book)
         {
-            Console.WriteLine("{0} - {1}, by {2} from year {3}," +
-                              " Current holder: {4}, Due Date: {5}",
+            if(book.DueDate.Date<DateTime.Today.AddDays(3))
+                Console.ForegroundColor=ConsoleColor.Red;
+            else
+                Console.ForegroundColor = ConsoleColor.Gray;
+
+            Console.WriteLine("{0} - {1} \tby {2} \t{3}" +
+                              " \tCurrent holder: {4} \tDue Date: {5}",
                               book.Id, book.Title, book.Author, book.Year,
                               GetReaderOfBook(book.Title), book.DueDate);
         }
