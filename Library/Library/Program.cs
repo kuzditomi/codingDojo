@@ -7,7 +7,7 @@ namespace Library
     {
         static void Main(string[] args)
         {
-            IBookHandler bookHandler = new BookHandler();
+            IBookHandler bookHandler = BookHandler.Instance;
             MainMenu menuItem;
 
             do
@@ -30,6 +30,9 @@ namespace Library
                         break;
                     case MainMenu.List:
                         bookHandler.GetBooksList();
+                        break;
+                    case MainMenu.Expiring:
+                        bookHandler.GetExpiringBooks();
                         break;
                     case MainMenu.Generate:
                         bookHandler.GenerateBooks();

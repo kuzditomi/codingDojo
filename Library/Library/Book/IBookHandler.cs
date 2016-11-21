@@ -6,6 +6,7 @@
         void BorrowBook();
         void GenerateBooks();
         void GetBooksList();
+        void GetExpiringBooks();
         void ReturnBook();
         void SearchForBook();
     }

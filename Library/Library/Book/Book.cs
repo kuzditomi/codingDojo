@@ -1,4 +1,6 @@
-﻿namespace Library.Book
+﻿using System;
+
+namespace Library.Book
 {
     public class Book
     {
@@ -8,6 +10,7 @@
         public int Year { get; set; }
         public bool Available { get; set; } = true;
         public Reader.Reader Reader { get; set; }
+        public DateTime DueDate { get; set; } = DateTime.Now.AddDays(30);
 
         public Book(int id, string title, string author, int year)
         {

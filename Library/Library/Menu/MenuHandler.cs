@@ -27,8 +27,9 @@ namespace Library.Menu
             Console.WriteLine("2 - Borrow book");
             Console.WriteLine("3 - Return book");
             Console.WriteLine("4 - Get books' list");
-            Console.WriteLine("5 - Generate books' data");
-            Console.WriteLine("6 - Exit");
+            Console.WriteLine("5 - Get expired books");
+            Console.WriteLine("6 - Generate books' data");
+            Console.WriteLine("7 - Exit");
         }
 
         private static void PrintSearchMenu()
