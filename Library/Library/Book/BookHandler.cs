@@ -273,6 +273,7 @@ namespace Library.Book
         {
             if(book.DueDate.Date<DateTime.Today.AddDays(3))
                 Console.ForegroundColor=ConsoleColor.Red;
+            //ToDo move to proper place (main menu beginning?)
             else
                 Console.ForegroundColor = ConsoleColor.Gray;
 

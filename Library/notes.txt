@@ -1,0 +1,14 @@
+? operátort ??-vel együött hasznbákjuk
+CTRL+K+D auto format
+singleton-t használni
+factory, repository, 
+fájlba tárolás, csv, írás, olvasás
+
+
+1. input reader-t fixálni és használni 
+2. könyvek file-ba mentése (bináris serializáció, fel kell attributálni a book modellt (serializable) .petibá kiterjeszétsbe. mikor mensük, és olvbassuk? eldönteni. nincs multithreading. olvasás közben írás a file-ba. frissítsük-e file-ból?
+3. kölcsönzési idő a nem kölcsönzött könyveknek nincs!
+4. Input reader -> egy sorba fel lehessen venni egy új könyvet, vesszővel elválasztva (ősosztály az egysoros olvasást támogatja)
+5. Validator class refactoring -> repository pattern? (INTERFACE + ABSRACT BASE CLASS)
+6. használt irodalmat hozzátanulni (intefészek, absztrakció, generikusok)
++1 hibakezelés, kivételek, loggolás
