@@ -136,62 +136,17 @@ namespace Library.Book
 
         private void SearchByYear()
         {
-            Console.Clear();
-            Console.WriteLine(Texts.BooksFound);
-            var input = NumberInputReader.Reader.Read();
-
-            var isMatch = false;
-            foreach (var book in _books)
-            {
-                if (book.Year == input)
-                {
-                    PrintBookDetails(book);
-                    isMatch = true;
-                }
-            }
-            if (!isMatch)
-                Console.WriteLine(Texts.NoBook);
-            GoToMainMenu();
+            SearchBy("Year", (b, input) => b.Year == int.Parse(input));
         }
 
         private void SearchBeforeYear()
         {
-            Console.Clear();
-            Console.WriteLine(Texts.BooksFound);
-            var input = NumberInputReader.Reader.Read();
-
-            var isMatch = false;
-            foreach (var book in _books)
-            {
-                if (book.Year < input)
-                {
-                    PrintBookDetails(book);
-                    isMatch = true;
-                }
-            }
-            if (!isMatch)
-                Console.WriteLine(Texts.NoBook);
-            GoToMainMenu();
+            SearchBy("Year", (b, input) => b.Year < int.Parse(input));
         }
 
         private void SearchAfterYear()
         {
-            Console.Clear();
-            Console.WriteLine(Texts.BooksFound);
-            var input = NumberInputReader.Reader.Read();
-
-            var isMatch = false;
-            foreach (var book in _books)
-            {
-                if (book.Year > input)
-                {
-                    PrintBookDetails(book);
-                    isMatch = true;
-                }
-            }
-            if (!isMatch)
-                Console.WriteLine(Texts.NoBook);
-            GoToMainMenu();
+            SearchBy("Year", (b, input) => b.Year > int.Parse(input));
         }
 
         public void GetBooksList()
@@ -271,8 +226,8 @@ namespace Library.Book
 
         private void PrintBookDetails(Book book)
         {
-            if(book.DueDate.Date<DateTime.Today.AddDays(3))
-                Console.ForegroundColor=ConsoleColor.Red;
+            if (book.DueDate.Date < DateTime.Today.AddDays(3))
+                Console.ForegroundColor = ConsoleColor.Red;
             //ToDo move to proper place (main menu beginning?)
             else
                 Console.ForegroundColor = ConsoleColor.Gray;
@@ -291,7 +246,7 @@ namespace Library.Book
 
             foreach (var book in _books)
             {
-                if(book.DueDate<DateTime.Now.AddDays(limit))
+                if (book.DueDate < DateTime.Now.AddDays(limit))
                     PrintBookDetails(book);
             }
 
