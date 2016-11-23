@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Text.RegularExpressions;
+using Library.Helpers;
 
 namespace Library.Menu
 {
@@ -47,30 +47,12 @@ namespace Library.Menu
 
         private static Search ReadSearchMenuSelection()
         {
-            return (Search)ReadMenuSelection(5);
+            return (Search) ReadMenuSelection.Reader.Read(boundary:5);
         }
 
         private static MainMenu ReadMainMenuSelection()
         {
-            return (MainMenu)ReadMenuSelection(7);
-        }
-
-        private static int ReadMenuSelection(int boundary)
-        {
-            var pattern = string.Format("^[0-{0}]$", boundary);
-            var result = -1;
-            do
-            {
-                Console.Write("\r\nSelected option: ");
-                var input = Console.ReadLine();
-                if (input != null && Regex.IsMatch(input, @pattern))
-                {
-                    Console.Clear();
-                    result = input == "" ? 0 : Convert.ToInt32(input);
-                }
-                Console.WriteLine("Please select a number from the list above!");
-            } while (result <= -1);
-            return result;
+            return (MainMenu) ReadMenuSelection.Reader.Read(boundary:7);
         }
     }
 }

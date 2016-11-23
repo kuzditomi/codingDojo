@@ -101,7 +101,7 @@ namespace Library.Book
         {
             Console.Clear();
             Console.WriteLine("\r\n{0} of book searched for: ", property);
-            var input = Validator.GetAString();
+            var input = StringInputReader.Reader.Read();
 
             var result = _books.Where(b => expression(b, input)).ToList();
             if (result.Count == 0)
@@ -138,7 +138,7 @@ namespace Library.Book
         {
             Console.Clear();
             Console.WriteLine(Texts.BooksFound);
-            var input = Validator.GetANumber();
+            var input = NumberInputReader.Reader.Read();
 
             var isMatch = false;
             foreach (var book in _books)
@@ -158,7 +158,7 @@ namespace Library.Book
         {
             Console.Clear();
             Console.WriteLine(Texts.BooksFound);
-            var input = Validator.GetANumber();
+            var input = NumberInputReader.Reader.Read();
 
             var isMatch = false;
             foreach (var book in _books)
@@ -178,7 +178,7 @@ namespace Library.Book
         {
             Console.Clear();
             Console.WriteLine(Texts.BooksFound);
-            var input = Validator.GetANumber();
+            var input = NumberInputReader.Reader.Read();
 
             var isMatch = false;
             foreach (var book in _books)
@@ -235,30 +235,30 @@ namespace Library.Book
         private static Reader.Reader GetNewReader()
         {
             Console.WriteLine("\r\nReader name: ");
-            return new Reader.Reader(Console.ReadLine());
+            return new Reader.Reader(StringInputReader.Reader.Read());
         }
 
         private static int GetBookId()
         {
             Console.WriteLine("\r\nId of the book: ");
-            return Validator.GetANumber();
+            return NumberInputReader.Reader.Read();
         }
 
         private static int GetDueDate()
         {
             Console.WriteLine("\r\nFor how many days: ");
-            return Validator.GetANumber();
+            return NumberInputReader.Reader.Read();
         }
 
         private Book GetNewBookDetails()
         {
             Console.WriteLine("====== Add a book ======");
             Console.Write("Name of the book: ");
-            var name = Validator.GetAString();
+            var name = StringInputReader.Reader.Read();
             Console.Write("Author of the book: ");
-            var author = Validator.GetAString();
+            var author = StringInputReader.Reader.Read();
             Console.Write("Publication year of the book: ");
-            var year = Validator.GetANumber();
+            var year = NumberInputReader.Reader.Read();
 
             return new Book(NewBookingId, name, author, Convert.ToInt32(year));
         }
@@ -287,7 +287,7 @@ namespace Library.Book
         {
             Console.Clear();
             Console.WriteLine("How many days should be the limit for the search:");
-            var limit = Validator.GetANumber();
+            var limit = NumberInputReader.Reader.Read();
 
             foreach (var book in _books)
             {
