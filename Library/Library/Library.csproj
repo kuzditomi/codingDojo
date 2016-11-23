@@ -46,6 +46,7 @@
     <Compile Include="Book\Book.cs" />
     <Compile Include="Book\BookHandler.cs" />
     <Compile Include="Book\IBookHandler.cs" />
+    <Compile Include="Helpers\Screen.cs" />
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Menu\MenuHandler.cs" />
     <Compile Include="Menu\SearchMenu.cs" />

@@ -33,7 +33,7 @@ namespace Library.Book
 
         public void AddNewBook()
         {
-            Console.Clear();
+            Screen.Reset();
 
             var newBook = GetNewBookDetails();
             _books.Add(newBook);
@@ -82,6 +82,7 @@ namespace Library.Book
 
         public void ReturnBook()
         {
+            Screen.Reset();
             var id = GetBookId();
 
             var book = _books.FirstOrDefault(b => b.Id == Convert.ToInt32(id));
@@ -89,17 +90,18 @@ namespace Library.Book
             if (book != null)
             {
                 book.Available = true;
-                book.Reader = new Reader.Reader(Texts.InLibrary);
+                book.Reader = null;
             }
             else
             {
                 Console.WriteLine(Texts.NoBook);
             }
+            GoToMainMenu();
         }
 
         private void SearchBy(string property, Func<Book, string, bool> expression)
         {
-            Console.Clear();
+            Screen.Reset();
             Console.WriteLine("\r\n{0} of book searched for: ", property);
             var input = StringInputReader.Reader.Read();
 
@@ -151,7 +153,7 @@ namespace Library.Book
 
         public void GetBooksList()
         {
-            Console.Clear();
+            Screen.Reset();
             Console.WriteLine("====== List of books ======");
 
             foreach (var book in _books)
@@ -163,7 +165,7 @@ namespace Library.Book
 
         public void BorrowBook()
         {
-            Console.Clear();
+            Screen.Reset();
             var id = GetBookId();
             var reader = GetNewReader();
             var daysToBorrow = GetDueDate();
@@ -226,27 +228,31 @@ namespace Library.Book
 
         private void PrintBookDetails(Book book)
         {
-            if (book.DueDate.Date < DateTime.Today.AddDays(3))
+            if (book.Reader != null && book.DueDate.Date < DateTime.Today.AddDays(3))
                 Console.ForegroundColor = ConsoleColor.Red;
-            //ToDo move to proper place (main menu beginning?)
             else
                 Console.ForegroundColor = ConsoleColor.Gray;
 
-            Console.WriteLine("{0} - {1} \tby {2} \t{3}" +
-                              " \tCurrent holder: {4} \tDue Date: {5}",
-                              book.Id, book.Title, book.Author, book.Year,
-                              GetReaderOfBook(book.Title), book.DueDate);
+            Console.Write("{0} - {1} \tby {2} \t{3}" +
+                              " \tCurrent holder: {4}",
+                book.Id, book.Title, book.Author, book.Year,
+                GetReaderOfBook(book.Title));
+
+            if (book.Reader == null)
+                Console.WriteLine();
+            else
+                Console.WriteLine("\tDue Date: {0}", book.DueDate);
         }
 
         public void GetExpiringBooks()
         {
-            Console.Clear();
+            Screen.Reset();
             Console.WriteLine("How many days should be the limit for the search:");
             var limit = NumberInputReader.Reader.Read();
 
             foreach (var book in _books)
             {
-                if (book.DueDate < DateTime.Now.AddDays(limit))
+                if (book.Reader != null && book.DueDate < DateTime.Now.AddDays(limit))
                     PrintBookDetails(book);
             }
 

@@ -19,7 +19,7 @@ namespace Library.Menu
 
         private static void PrintMainMenu()
         {
-            Console.Clear();
+            Screen.Reset();
             Console.WriteLine("Choose a number from the library options:\r\n");
 
             Console.WriteLine("0 - Add new book");
@@ -34,7 +34,7 @@ namespace Library.Menu
 
         private static void PrintSearchMenu()
         {
-            Console.Clear();
+            Screen.Reset();
             Console.WriteLine("Choose a number from the search options:\r\n");
 
             Console.WriteLine("0 - Search by title");
