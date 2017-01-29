@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Library.Helpers
@@ -43,6 +44,28 @@ namespace Library.Helpers
         protected override bool CanConvert(string input, int boundary)
         {
             return input != "";
+        }
+
+        protected override string Convert(string input)
+        {
+            return input;
+        }
+    }
+
+    class BookDataInputReader : InputReaderBase<string>
+    {
+        private static BookDataInputReader _reader;
+        private BookDataInputReader() { }
+        public static BookDataInputReader Reader => _reader ?? (_reader = new BookDataInputReader());
+
+        protected override bool CanConvert(string input, int boundary)
+        {
+            int n;
+            var valid = true;
+            var data = input.Split(',');
+            if (data.Count() < 3 || data[0].Length < 1 || data[1].Length < 1 || !Int32.TryParse(data[2], out n))
+                valid = false;
+            return valid;
         }
 
         protected override string Convert(string input)

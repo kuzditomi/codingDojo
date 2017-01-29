@@ -29,7 +29,9 @@ namespace Library.Menu
             Console.WriteLine("4 - Get books' list");
             Console.WriteLine("5 - Get expired books");
             Console.WriteLine("6 - Generate books' data");
-            Console.WriteLine("7 - Exit");
+            Console.WriteLine("7 - Save books to file");
+            Console.WriteLine("8 - Load books from file");
+            Console.WriteLine("9 - Exit");
         }
 
         private static void PrintSearchMenu()
@@ -52,7 +54,7 @@ namespace Library.Menu
 
         private static MainMenu ReadMainMenuSelection()
         {
-            return (MainMenu) ReadMenuSelection.Reader.Read(boundary:7);
+            return (MainMenu) ReadMenuSelection.Reader.Read(boundary:9);
         }
     }
 }

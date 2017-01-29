@@ -1,4 +1,4 @@
-﻿using Library.Book;
+﻿using Library.Contracts;
 using Library.Menu;
 
 namespace Library
@@ -36,6 +36,12 @@ namespace Library
                         break;
                     case MainMenu.Generate:
                         bookHandler.GenerateBooks();
+                        break;
+                    case MainMenu.Save:
+                        bookHandler.SaveBooks();
+                        break;
+                    case MainMenu.Load:
+                        bookHandler.LoadBooks();
                         break;
                 }
             } while (menuItem != MainMenu.Exit);

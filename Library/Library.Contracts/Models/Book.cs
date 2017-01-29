@@ -1,7 +1,6 @@
 ﻿using System;
-using Library.Helpers;
 
-namespace Library.Book
+namespace Library.Contracts.Models
 {
     public class Book
     {
@@ -10,7 +9,7 @@ namespace Library.Book
         public string Author { get; set; }
         public int Year { get; set; }
         public bool Available { get; set; } = true;
-        public Reader.Reader Reader { get; set; }
+        public Reader Reader { get; set; }
         public DateTime DueDate { get; set; }
 
         public Book(int id, string title, string author, int year)

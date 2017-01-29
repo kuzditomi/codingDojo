@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using Library.Contracts;
+using Library.Contracts.Models;
+using Library.Data;
 using Library.Helpers;
 using Library.Menu;
 
-namespace Library.Book
+namespace Library
 {
     public class BookHandler : IBookHandler
     {
@@ -24,9 +30,9 @@ namespace Library.Book
             }
         }
 
-        private readonly List<Book> _books = new List<Book>();
+        private List<Contracts.Models.Book> _books = new List<Book>();
 
-        private int NewBookingId
+        public int NewBookingId
         {
             get { return _books.Count; }
         }
@@ -78,6 +84,10 @@ namespace Library.Book
             _books.Add(new Book(NewBookingId, "tabs", "newton", 2000));
             _books.Add(new Book(NewBookingId, "nivea", "bela", 2009));
             _books.Add(new Book(NewBookingId, "lufi", "peti", 1992));
+
+            Screen.Reset();
+            Console.WriteLine("\nTest data generation was successful");
+            GoToMainMenu();
         }
 
         public void ReturnBook()
@@ -189,10 +199,10 @@ namespace Library.Book
             return Texts.InLibrary;
         }
 
-        private static Reader.Reader GetNewReader()
+        private static Reader GetNewReader()
         {
             Console.WriteLine("\r\nReader name: ");
-            return new Reader.Reader(StringInputReader.Reader.Read());
+            return new Reader(StringInputReader.Reader.Read());
         }
 
         private static int GetBookId()
@@ -210,14 +220,12 @@ namespace Library.Book
         private Book GetNewBookDetails()
         {
             Console.WriteLine("====== Add a book ======");
-            Console.Write("Name of the book: ");
-            var name = StringInputReader.Reader.Read();
-            Console.Write("Author of the book: ");
-            var author = StringInputReader.Reader.Read();
-            Console.Write("Publication year of the book: ");
-            var year = NumberInputReader.Reader.Read();
 
-            return new Book(NewBookingId, name, author, Convert.ToInt32(year));
+            Console.Write("Name, Author, Publication Year of the book:");
+            var input = BookDataInputReader.Reader.Read();
+
+            var data = input.Split(',');
+            return new Book(NewBookingId, data[0].Trim(), data[1].Trim(), int.Parse(data[2].Trim()));
         }
 
         private static void GoToMainMenu()
@@ -256,6 +264,26 @@ namespace Library.Book
                     PrintBookDetails(book);
             }
 
+            GoToMainMenu();
+        }
+
+        public void SaveBooks()
+        {
+            var serializer = new BookSerializer();
+            serializer.Save(_books);
+
+            Screen.Reset();
+            Console.WriteLine("\nSaving data to file was successful");
+            GoToMainMenu();
+        }
+
+        public void LoadBooks()
+        {
+            var serializer = new BookSerializer();
+            _books = serializer.Load().ToList();
+            
+            Screen.Reset();
+            Console.WriteLine("\nLoading data from file was successful");
             GoToMainMenu();
         }
     }

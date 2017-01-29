@@ -1,4 +1,4 @@
-﻿namespace Library.Book
+﻿namespace Library.Contracts
 {
     public interface IBookHandler
     {
@@ -9,5 +9,7 @@
         void GetExpiringBooks();
         void ReturnBook();
         void SearchForBook();
+        void SaveBooks();
+        void LoadBooks();
     }
 }

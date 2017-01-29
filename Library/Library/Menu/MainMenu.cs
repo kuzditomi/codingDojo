@@ -9,6 +9,8 @@
         List,
         Expiring,
         Generate,
+        Save,
+        Load,
         Exit,
         Main
     };
