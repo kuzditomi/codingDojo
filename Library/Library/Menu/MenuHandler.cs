@@ -22,16 +22,14 @@ namespace Library.Menu
             Screen.Reset();
             Console.WriteLine("Choose a number from the library options:\r\n");
 
-            Console.WriteLine("0 - Add new book");
+            Console.WriteLine("0 - Add book");
             Console.WriteLine("1 - Search book");
             Console.WriteLine("2 - Borrow book");
             Console.WriteLine("3 - Return book");
-            Console.WriteLine("4 - Get books' list");
-            Console.WriteLine("5 - Get expired books");
-            Console.WriteLine("6 - Generate books' data");
-            Console.WriteLine("7 - Save books to file");
-            Console.WriteLine("8 - Load books from file");
-            Console.WriteLine("9 - Exit");
+            Console.WriteLine("4 - List books");
+            Console.WriteLine("5 - List expired books");
+            Console.WriteLine("6 - Seed data");
+            Console.WriteLine("7 - Exit");
         }
 
         private static void PrintSearchMenu()

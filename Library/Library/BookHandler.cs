@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using Library.Contracts;
 using Library.Contracts.Models;
 using Library.Data;
@@ -30,12 +27,7 @@ namespace Library
             }
         }
 
-        private List<Contracts.Models.Book> _books = new List<Book>();
-
-        public int NewBookingId
-        {
-            get { return _books.Count; }
-        }
+        private List<Book> _books = new List<Book>();
 
         public void AddNewBook()
         {
@@ -45,6 +37,7 @@ namespace Library
             _books.Add(newBook);
             Console.WriteLine("\r\nBook added: {0}, by {1} from year {2}",
                 newBook.Title, newBook.Author, newBook.Year);
+            SaveBooks();
 
             GoToMainMenu();
         }
@@ -77,13 +70,14 @@ namespace Library
 
         public void GenerateBooks()
         {
-            _books.Add(new Book(NewBookingId, "apple", "newton", 2006));
-            _books.Add(new Book(NewBookingId, "car", "bela", 2000));
-            _books.Add(new Book(NewBookingId, "pineapple", "peti", 1998));
-            _books.Add(new Book(NewBookingId, "phone", "tamas", 2002));
-            _books.Add(new Book(NewBookingId, "tabs", "newton", 2000));
-            _books.Add(new Book(NewBookingId, "nivea", "bela", 2009));
-            _books.Add(new Book(NewBookingId, "lufi", "peti", 1992));
+            _books.Add(new Book("apple", "newton", 2006));
+            _books.Add(new Book("car", "bela", 2000));
+            _books.Add(new Book("pineapple", "peti", 1998));
+            _books.Add(new Book("phone", "tamas", 2002));
+            _books.Add(new Book("tabs", "newton", 2000));
+            _books.Add(new Book("nivea", "bela", 2009));
+            _books.Add(new Book("lufi", "peti", 1992));
+            SaveBooks();
 
             Screen.Reset();
             Console.WriteLine("\nTest data generation was successful");
@@ -166,6 +160,7 @@ namespace Library
             Screen.Reset();
             Console.WriteLine("====== List of books ======");
 
+            LoadBooks();
             foreach (var book in _books)
             {
                 PrintBookDetails(book);
@@ -175,18 +170,23 @@ namespace Library
 
         public void BorrowBook()
         {
+            Book book;
             Screen.Reset();
             var id = GetBookId();
             var reader = GetNewReader();
             var daysToBorrow = GetDueDate();
-            foreach (var book in _books.Where(book =>
-            book.Id == id && book.Available))
+
+            using (var context = new DataContext())
             {
+                book = context.Books.FirstOrDefault(n => n.Id == id);
                 book.Reader = reader;
                 book.Available = false;
                 book.DueDate = DateTime.Now.AddDays(daysToBorrow);
-                Console.WriteLine("{0} is borrowed by {1} until {2}.", book.Title, reader.Name, book.DueDate);
+                context.SaveChanges();
             }
+
+            Console.WriteLine("{0} is borrowed by {1} until {2}.", book.Title, reader.Name, book.DueDate);
+
             GoToMainMenu();
         }
 
@@ -220,12 +220,11 @@ namespace Library
         private Book GetNewBookDetails()
         {
             Console.WriteLine("====== Add a book ======");
-
             Console.Write("Name, Author, Publication Year of the book:");
             var input = BookDataInputReader.Reader.Read();
 
             var data = input.Split(',');
-            return new Book(NewBookingId, data[0].Trim(), data[1].Trim(), int.Parse(data[2].Trim()));
+            return new Book(data[0].Trim(), data[1].Trim(), int.Parse(data[2].Trim()));
         }
 
         private static void GoToMainMenu()
@@ -258,6 +257,7 @@ namespace Library
             Console.WriteLine("How many days should be the limit for the search:");
             var limit = NumberInputReader.Reader.Read();
 
+            LoadBooks();
             foreach (var book in _books)
             {
                 if (book.Reader != null && book.DueDate < DateTime.Now.AddDays(limit))
@@ -267,24 +267,21 @@ namespace Library
             GoToMainMenu();
         }
 
-        public void SaveBooks()
+        private void SaveBooks()
         {
-            var serializer = new BookSerializer();
-            serializer.Save(_books);
-
-            Screen.Reset();
-            Console.WriteLine("\nSaving data to file was successful");
-            GoToMainMenu();
+            using (var context = new DataContext())
+            {
+                context.Books.AddRange(_books);
+                context.SaveChanges();
+            }
         }
 
-        public void LoadBooks()
+        private void LoadBooks()
         {
-            var serializer = new BookSerializer();
-            _books = serializer.Load().ToList();
-            
-            Screen.Reset();
-            Console.WriteLine("\nLoading data from file was successful");
-            GoToMainMenu();
+            using (var context = new DataContext())
+            {
+                _books = context.Books.ToList();
+            }
         }
     }
 }

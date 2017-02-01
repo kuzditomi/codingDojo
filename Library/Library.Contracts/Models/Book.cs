@@ -1,20 +1,22 @@
 ﻿using System;
+using System.CodeDom;
 
 namespace Library.Contracts.Models
 {
     public class Book
     {
-        public int Id { get; }
+        public Book(){}
+
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
         public int Year { get; set; }
         public bool Available { get; set; } = true;
         public Reader Reader { get; set; }
-        public DateTime DueDate { get; set; }
+        public DateTime DueDate { get; set; } = new DateTime(1900,1,1);
 
-        public Book(int id, string title, string author, int year)
+        public Book(string title, string author, int year)
         {
-            Id = id;
             Title = title;
             Author = author;
             Year = year;

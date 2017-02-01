@@ -9,7 +9,5 @@
         void GetExpiringBooks();
         void ReturnBook();
         void SearchForBook();
-        void SaveBooks();
-        void LoadBooks();
     }
 }

@@ -37,12 +37,6 @@ namespace Library
                     case MainMenu.Generate:
                         bookHandler.GenerateBooks();
                         break;
-                    case MainMenu.Save:
-                        bookHandler.SaveBooks();
-                        break;
-                    case MainMenu.Load:
-                        bookHandler.LoadBooks();
-                        break;
                 }
             } while (menuItem != MainMenu.Exit);
         }
