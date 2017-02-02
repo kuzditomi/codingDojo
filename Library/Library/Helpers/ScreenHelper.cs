@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Library.Contracts.Models;
 using Library.DatabaseOperations;
 
@@ -28,6 +29,22 @@ namespace Library.Helpers
                 Console.WriteLine();
             else
                 Console.WriteLine("\tDue Date: {0}", book.DueDate);
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
+        public static void PrintSearchResult(List<Book> result)
+        {
+            if (result.Count == 0)
+            {
+                Console.WriteLine(Texts.NoBook);
+            }
+            else
+            {
+                foreach (var book in result)
+                {
+                    PrintBookDetails(book);
+                }
+            }
         }
 
         public static Reader GetNewReader()
@@ -46,6 +63,12 @@ namespace Library.Helpers
         {
             Console.WriteLine("\r\nFor how many days: ");
             return NumberInputReader.Reader.Read();
+        }
+
+        public static string ReadInputString(string property)
+        {
+            Console.Write("\r\n{0} of book searched for: ", property);
+            return StringInputReader.Reader.Read();
         }
 
         public static Book GetNewBookDetails()

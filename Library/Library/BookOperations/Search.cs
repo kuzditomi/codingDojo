@@ -34,7 +34,7 @@ namespace Library.BookOperations
                     break;
             }
         }
-        
+
         private static void SearchForTitle()
         {
             SearchBy("Title", (b, input) => b.Title.ToLower().Contains(input.ToLower()));
@@ -47,7 +47,7 @@ namespace Library.BookOperations
 
         private static void SearchForReader()
         {
-            SearchBy("Reader", (b, input) => b.Reader.Name.ToLower().Contains(input.ToLower()));
+            SearchBy("Reader", (b, input) => b.Reader != null && b.Reader.Name.ToLower().Contains(input.ToLower()));
         }
 
         private static void SearchForYear()
@@ -64,25 +64,15 @@ namespace Library.BookOperations
         {
             SearchBy("Year", (b, input) => b.Year > int.Parse(input));
         }
+
         private static void SearchBy(string property, Func<Book, string, bool> expression)
         {
             ScreenHelper.Reset();
-            Console.WriteLine("\r\n{0} of book searched for: ", property);
-            var input = StringInputReader.Reader.Read();
+            var input = ScreenHelper.ReadInputString(property);
 
             var books = Fetch.GetAllBooks();
             var result = books.Where(b => expression(b, input)).ToList();
-            if (result.Count == 0)
-            {
-                Console.WriteLine(Texts.NoBook);
-            }
-            else
-            {
-                foreach (var book in result)
-                {
-                    ScreenHelper.PrintBookDetails(book);
-                }
-            }
+            ScreenHelper.PrintSearchResult(result);
 
             MenuHelper.NavigateToMainMenu();
         }

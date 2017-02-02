@@ -7,7 +7,7 @@ namespace Library.Helpers
     {
         public static void NavigateToMainMenu()
         {
-            Console.WriteLine("\r\nPress Enter to go back to main menu.");
+            Console.WriteLine(Texts.GoToMainMenu);
             Console.ReadLine();
         }
 
