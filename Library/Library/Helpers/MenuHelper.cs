@@ -1,17 +1,23 @@
 ﻿using System;
-using Library.Helpers;
+using Library.Menu;
 
-namespace Library.Menu
+namespace Library.Helpers
 {
-    public static class MenuHandler
+    public static class MenuHelper
     {
+        public static void NavigateToMainMenu()
+        {
+            Console.WriteLine("\r\nPress Enter to go back to main menu.");
+            Console.ReadLine();
+        }
+
         public static MainMenu DoMainMenuSelection()
         {
             PrintMainMenu();
             return ReadMainMenuSelection();
         }
 
-        public static Search DoSearchMenuSelection()
+        public static SearchFor DoSearchMenuSelection()
         {
             PrintSearchMenu();
             return ReadSearchMenuSelection();
@@ -19,14 +25,14 @@ namespace Library.Menu
 
         private static void PrintMainMenu()
         {
-            Screen.Reset();
+            ScreenHelper.Reset();
             Console.WriteLine("Choose a number from the library options:\r\n");
 
             Console.WriteLine("0 - Add book");
             Console.WriteLine("1 - Search book");
             Console.WriteLine("2 - Borrow book");
             Console.WriteLine("3 - Return book");
-            Console.WriteLine("4 - List books");
+            Console.WriteLine("4 - List all books");
             Console.WriteLine("5 - List expired books");
             Console.WriteLine("6 - Seed data");
             Console.WriteLine("7 - Exit");
@@ -34,7 +40,7 @@ namespace Library.Menu
 
         private static void PrintSearchMenu()
         {
-            Screen.Reset();
+            ScreenHelper.Reset();
             Console.WriteLine("Choose a number from the search options:\r\n");
 
             Console.WriteLine("0 - Search by title");
@@ -45,9 +51,9 @@ namespace Library.Menu
             Console.WriteLine("5 - Search books published after ...");
         }
 
-        private static Search ReadSearchMenuSelection()
+        private static SearchFor ReadSearchMenuSelection()
         {
-            return (Search) ReadMenuSelection.Reader.Read(boundary:5);
+            return (SearchFor) ReadMenuSelection.Reader.Read(boundary:5);
         }
 
         private static MainMenu ReadMainMenuSelection()

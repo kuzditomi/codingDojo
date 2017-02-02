@@ -1,4 +1,5 @@
-﻿using Library.Contracts;
+﻿using Library.BookOperations;
+using Library.Helpers;
 using Library.Menu;
 
 namespace Library
@@ -7,35 +8,34 @@ namespace Library
     {
         static void Main(string[] args)
         {
-            IBookHandler bookHandler = BookHandler.Instance;
             MainMenu menuItem;
 
             do
             {
-                menuItem = MenuHandler.DoMainMenuSelection();
+                menuItem = MenuHelper.DoMainMenuSelection();
 
                 switch (menuItem)
                 {
                     case MainMenu.Add:
-                        bookHandler.AddNewBook();
+                        Add.NewBook();
                         break;
                     case MainMenu.Search:
-                        bookHandler.SearchForBook();
+                        Search.SingleBook();
                         break;
                     case MainMenu.Borrow:
-                        bookHandler.BorrowBook();
+                        Borrow.SingleBook();
                         break;
                     case MainMenu.Return:
-                        bookHandler.ReturnBook();
+                        Return.ReturnBook();
                         break;
                     case MainMenu.List:
-                        bookHandler.GetBooksList();
+                        List.AllBooks();
                         break;
                     case MainMenu.Expiring:
-                        bookHandler.GetExpiringBooks();
+                        List.ExpiringBooks();
                         break;
-                    case MainMenu.Generate:
-                        bookHandler.GenerateBooks();
+                    case MainMenu.Seed:
+                        Seed.GenerateBooks();
                         break;
                 }
             } while (menuItem != MainMenu.Exit);

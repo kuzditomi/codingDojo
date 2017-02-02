@@ -52,10 +52,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookHandler.cs" />
-    <Compile Include="Helpers\Screen.cs" />
+    <Compile Include="BookOperations\List.cs" />
+    <Compile Include="BookOperations\Borrow.cs" />
+    <Compile Include="BookOperations\Return.cs" />
+    <Compile Include="BookOperations\Search.cs" />
+    <Compile Include="BookOperations\Add.cs" />
+    <Compile Include="BookOperations\Seed.cs" />
+    <Compile Include="DatabaseOperations\Fetch.cs" />
+    <Compile Include="DatabaseOperations\Store.cs" />
+    <Compile Include="Helpers\ScreenHelper.cs" />
     <Compile Include="Menu\MainMenu.cs" />
-    <Compile Include="Menu\MenuHandler.cs" />
+    <Compile Include="Helpers\MenuHelper.cs" />
     <Compile Include="Menu\SearchMenu.cs" />
     <Compile Include="Helpers\InputReaders.cs" />
     <Compile Include="Program.cs" />

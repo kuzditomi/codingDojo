@@ -1,6 +1,4 @@
-﻿using System.CodeDom;
-
-namespace Library.Contracts.Models
+﻿namespace Library.Contracts.Models
 {
     public class Reader
     {

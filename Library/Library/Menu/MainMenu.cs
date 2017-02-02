@@ -8,7 +8,7 @@
         Return,
         List,
         Expiring,
-        Generate,
+        Seed,
         Exit,
         Main
     };

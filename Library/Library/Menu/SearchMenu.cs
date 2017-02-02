@@ -1,11 +1,11 @@
 ﻿namespace Library.Menu
 {
-    public enum Search
+    public enum SearchFor
     {
-        ByTitle,
-        ByAuthor,
-        ByReader,
-        ByYear,
+        Title,
+        Author,
+        Reader,
+        Year,
         BeforeYear,
         AfterYear
     };
