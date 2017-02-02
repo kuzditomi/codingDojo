@@ -1,29 +1,26 @@
 ﻿using System;
-using System.Linq;
-using Library.Contracts.Models;
-using Library.Data;
+using Library.Contracts;
 using Library.Helpers;
 
 namespace Library.BookOperations
 {
-    public static class Borrow
+    public class Borrow
     {
-        public static void SingleBook()
+        private readonly IBookRepository _bookrepository;
+
+        public Borrow(IBookRepository repo)
         {
-            Book book;
+            _bookrepository = repo;
+        }
+
+        public void SingleBook()
+        {
             ScreenHelper.Reset();
             var id = ScreenHelper.GetBookId();
             var reader = ScreenHelper.GetNewReader();
             var daysToBorrow = ScreenHelper.GetDueDate();
 
-            using (var context = new DataContext())
-            {
-                book = context.Books.FirstOrDefault(n => n.Id == id);
-                book.Reader = reader;
-                book.Available = false;
-                book.DueDate = DateTime.Now.AddDays(daysToBorrow);
-                context.SaveChanges();
-            }
+            var book = _bookrepository.BorrowABook(id, reader,daysToBorrow);
 
             Console.WriteLine("{0} is borrowed by {1} until {2}.", book.Title, reader.Name, book.DueDate);
 

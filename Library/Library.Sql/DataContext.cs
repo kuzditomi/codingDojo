@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using Library.Contracts.Models;
 
-namespace Library.Data
+namespace Library.Sql
 {
     public class DataContext : DbContext
     {

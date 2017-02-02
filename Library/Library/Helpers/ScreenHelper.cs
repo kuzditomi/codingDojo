@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Library.Contracts.Models;
-using Library.DatabaseOperations;
 
 namespace Library.Helpers
 {
@@ -13,7 +12,7 @@ namespace Library.Helpers
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        public static void PrintBookDetails(Book book)
+        public static void PrintBookDetails(Book book, string reader)
         {
             if (book.Reader != null && book.DueDate.Date < DateTime.Today.AddDays(3))
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -22,8 +21,7 @@ namespace Library.Helpers
 
             Console.Write("{0} - {1} \tby {2} \t{3}" +
                           " \tCurrent holder: {4}",
-                book.Id, book.Title, book.Author, book.Year,
-                Fetch.GetReaderOfBook(book.Title));
+                book.Id, book.Title, book.Author, book.Year, reader);
 
             if (book.Reader == null)
                 Console.WriteLine();
@@ -42,7 +40,8 @@ namespace Library.Helpers
             {
                 foreach (var book in result)
                 {
-                    PrintBookDetails(book);
+                    var reader = book.Reader?.Name != null ? book.Reader.Name : "Library";
+                    PrintBookDetails(book, reader);
                 }
             }
         }

@@ -1,16 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using Library.Contracts;
 using Library.Contracts.Models;
-using Library.DatabaseOperations;
 using Library.Helpers;
 
 namespace Library.BookOperations
 {
-    public static class Seed
+    public class Seed
     {
-        private static List<Book> books = new List<Book>();
+        private readonly IBookRepository _bookrepository;
 
-        public static void GenerateBooks()
+        public Seed(IBookRepository repo)
+        {
+            _bookrepository = repo;
+        }
+
+        private List<Book> books = new List<Book>();
+
+        public void GenerateBooks()
         {
             books.Add(new Book("apple", "newton", 2006));
             books.Add(new Book("car", "bela", 2000));
@@ -19,7 +26,7 @@ namespace Library.BookOperations
             books.Add(new Book("tabs", "newton", 2000));
             books.Add(new Book("nivea", "bela", 2009));
             books.Add(new Book("lufi", "peti", 1992));
-            Store.MultipleBooks(books);
+            _bookrepository.StoreMultipleBooks(books);
 
             ScreenHelper.Reset();
             Console.WriteLine("\nTest data generation was successful");

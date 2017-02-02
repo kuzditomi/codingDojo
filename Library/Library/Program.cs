@@ -1,6 +1,8 @@
 ﻿using Library.BookOperations;
+using Library.Contracts;
 using Library.Helpers;
 using Library.Menu;
+using Library.Sql;
 
 namespace Library
 {
@@ -9,6 +11,13 @@ namespace Library
         static void Main(string[] args)
         {
             MainMenu menuItem;
+            IBookRepository repo = new SqlBookRepostiroy();
+            var _add = new Add(repo);
+            var _borrow = new Borrow(repo);
+            var _list = new List(repo);
+            var _return = new Return(repo);
+            var _search = new Search(repo);
+            var _seed = new Seed(repo);
 
             do
             {
@@ -17,25 +26,25 @@ namespace Library
                 switch (menuItem)
                 {
                     case MainMenu.Add:
-                        Add.NewBook();
+                        _add.NewBook();
                         break;
                     case MainMenu.Search:
-                        Search.SingleBook();
+                        _search.SingleBook();
                         break;
                     case MainMenu.Borrow:
-                        Borrow.SingleBook();
+                        _borrow.SingleBook();
                         break;
                     case MainMenu.Return:
-                        Return.ReturnBook();
+                        _return.ReturnBook();
                         break;
                     case MainMenu.List:
-                        List.AllBooks();
+                        _list.AllBooks();
                         break;
                     case MainMenu.Expiring:
-                        List.ExpiringBooks();
+                        _list.ExpiringBooks();
                         break;
                     case MainMenu.Seed:
-                        Seed.GenerateBooks();
+                        _seed.GenerateBooks();
                         break;
                 }
             } while (menuItem != MainMenu.Exit);

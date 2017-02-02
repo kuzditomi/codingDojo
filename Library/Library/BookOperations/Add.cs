@@ -1,17 +1,25 @@
 ﻿using System;
-using Library.DatabaseOperations;
+using Library.Contracts;
 using Library.Helpers;
 
 namespace Library.BookOperations
 {
-    public static class Add
+    public class Add
     {
-        public static void NewBook()
+        private readonly IBookRepository _bookrepository;
+
+        public Add(IBookRepository repo)
+        {
+            _bookrepository = repo;
+        }
+
+        public void NewBook()
         {
             ScreenHelper.Reset();
 
             var newBook = ScreenHelper.GetNewBookDetails();
-            Store.SingleBook(newBook);
+
+            _bookrepository.StoreABook(newBook);
 
             Console.WriteLine("\r\nBook added: {0}, by {1} from year {2}",
                 newBook.Title, newBook.Author, newBook.Year);

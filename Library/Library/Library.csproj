@@ -58,8 +58,6 @@
     <Compile Include="BookOperations\Search.cs" />
     <Compile Include="BookOperations\Add.cs" />
     <Compile Include="BookOperations\Seed.cs" />
-    <Compile Include="DatabaseOperations\Fetch.cs" />
-    <Compile Include="DatabaseOperations\Store.cs" />
     <Compile Include="Helpers\ScreenHelper.cs" />
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Helpers\MenuHelper.cs" />
@@ -77,6 +75,10 @@
     <ProjectReference Include="..\Library.Contracts\Library.Contracts.csproj">
       <Project>{e527be35-ff23-424f-89c6-bcd2b18a9a39}</Project>
       <Name>Library.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library.Sql\Library.Sql.csproj">
+      <Project>{f4952211-74ce-42bb-bd50-0ff47b76c9b1}</Project>
+      <Name>Library.Sql</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

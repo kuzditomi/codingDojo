@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Linq;
-using Library.DatabaseOperations;
+using Library.Contracts;
 using Library.Helpers;
 
 namespace Library.BookOperations
 {
-    public static class Return
+    public class Return
     {
-        public static void ReturnBook()
+        private readonly IBookRepository _bookrepository;
+
+        public Return(IBookRepository repo)
+        {
+            _bookrepository = repo;
+        }
+
+        public void ReturnBook()
         {
             ScreenHelper.Reset();
             var id = ScreenHelper.GetBookId();
 
-            var books = Fetch.GetAllBooks();
+            var books = _bookrepository.GetAllBooks();
             var book = books.FirstOrDefault(b => b.Id == Convert.ToInt32(id));
 
             if (book != null)
