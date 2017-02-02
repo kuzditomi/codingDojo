@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using Library.Contracts;
 using Library.Contracts.Models;
@@ -34,11 +35,10 @@ namespace Library
             Screen.Reset();
 
             var newBook = GetNewBookDetails();
-            _books.Add(newBook);
+            SaveBook(newBook);
+
             Console.WriteLine("\r\nBook added: {0}, by {1} from year {2}",
                 newBook.Title, newBook.Author, newBook.Year);
-            SaveBooks();
-
             GoToMainMenu();
         }
 
@@ -77,7 +77,7 @@ namespace Library
             _books.Add(new Book("tabs", "newton", 2000));
             _books.Add(new Book("nivea", "bela", 2009));
             _books.Add(new Book("lufi", "peti", 1992));
-            SaveBooks();
+            SaveMultipleBooks(_books);
 
             Screen.Reset();
             Console.WriteLine("\nTest data generation was successful");
@@ -267,11 +267,19 @@ namespace Library
             GoToMainMenu();
         }
 
-        private void SaveBooks()
+        private void SaveBook(Book book)
         {
             using (var context = new DataContext())
             {
-                context.Books.AddRange(_books);
+                context.Books.Add(book);
+                context.SaveChanges();
+            }
+        }
+        private void SaveMultipleBooks(List<Book> books)
+        {
+            using (var context = new DataContext())
+            {
+                context.Books.AddRange(books);
                 context.SaveChanges();
             }
         }
@@ -280,7 +288,7 @@ namespace Library
         {
             using (var context = new DataContext())
             {
-                _books = context.Books.ToList();
+                _books = context.Books.Include(n => n.Reader).ToList();
             }
         }
     }
