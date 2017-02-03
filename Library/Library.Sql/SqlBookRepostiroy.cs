@@ -17,6 +17,7 @@ namespace Library.Sql
                 context.SaveChanges();
             }
         }
+
         public void StoreMultipleBooks(List<Book> books)
         {
             using (var context = new DataContext())
@@ -30,11 +31,29 @@ namespace Library.Sql
         {
             using (var context = new DataContext())
             {
-                Book book = context.Books.FirstOrDefault(n => n.Id == id);
-                book.Reader = reader;
-                book.Available = false;
-                book.DueDate = DateTime.Now.AddDays(daysToBorrow);
-                context.SaveChanges();
+                var book = context.Books.FirstOrDefault(n => n.Id == id);
+                if (book != null)
+                {
+                    book.Reader = reader;
+                    book.Available = false;
+                    book.DueDate = DateTime.Now.AddDays(daysToBorrow);
+                    context.SaveChanges();
+                }
+                return book;
+            }
+        }
+
+        public Book ReturnABook(int bookId)
+        {
+            using (var context = new DataContext())
+            {
+                var book = context.Books.Include(n => n.Reader).FirstOrDefault(n => n.Id == bookId);
+                if (book != null)
+                {
+                    book.Available = true;
+                    book.Reader = null;
+                    context.SaveChanges();
+                }
                 return book;
             }
         }

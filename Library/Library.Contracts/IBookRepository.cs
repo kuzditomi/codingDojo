@@ -8,6 +8,7 @@ namespace Library.Contracts
         void StoreABook(Book book);
         void StoreMultipleBooks(List<Book> books);
         Book BorrowABook(int id, Reader reader, int daysToBorrow);
+        Book ReturnABook(int id);
         IEnumerable<Book> GetAllBooks();
         string GetBookReader(string title);
     }

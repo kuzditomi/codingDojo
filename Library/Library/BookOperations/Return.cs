@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Library.Contracts;
 using Library.Helpers;
 
@@ -18,19 +17,9 @@ namespace Library.BookOperations
         {
             ScreenHelper.Reset();
             var id = ScreenHelper.GetBookId();
-
-            var books = _bookrepository.GetAllBooks();
-            var book = books.FirstOrDefault(b => b.Id == Convert.ToInt32(id));
-
-            if (book != null)
-            {
-                book.Available = true;
-                book.Reader = null;
-            }
-            else
-            {
+            var book = _bookrepository.ReturnABook(id);
+            if (book == null)
                 Console.WriteLine(Texts.NoBook);
-            }
             MenuHelper.NavigateToMainMenu();
         }
     }
