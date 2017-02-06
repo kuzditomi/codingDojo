@@ -1,5 +1,6 @@
 ﻿using Library.BookOperations;
 using Library.Contracts;
+using Library.File;
 using Library.Helpers;
 using Library.Menu;
 using Library.Sql;
@@ -11,7 +12,8 @@ namespace Library
         static void Main(string[] args)
         {
             MainMenu menuItem;
-            IBookRepository repo = new SqlBookRepostiroy();
+            //IBookRepository repo = new SqlBookRepostiroy();
+            IBookRepository repo = new FileBookRepository();
             var _add = new Add(repo);
             var _borrow = new Borrow(repo);
             var _list = new List(repo);

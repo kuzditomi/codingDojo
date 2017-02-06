@@ -76,6 +76,10 @@
       <Project>{e527be35-ff23-424f-89c6-bcd2b18a9a39}</Project>
       <Name>Library.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Library.File\Library.File.csproj">
+      <Project>{985C77DE-A3AB-4929-AB8D-F7CC795D32BC}</Project>
+      <Name>Library.File</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Library.Sql\Library.Sql.csproj">
       <Project>{f4952211-74ce-42bb-bd50-0ff47b76c9b1}</Project>
       <Name>Library.Sql</Name>
