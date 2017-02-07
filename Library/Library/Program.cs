@@ -12,8 +12,8 @@ namespace Library
         static void Main(string[] args)
         {
             MainMenu menuItem;
-            //IBookRepository repo = new SqlBookRepostiroy();
-            IBookRepository repo = new FileBookRepository();
+            IBookRepository repo = new SqlBookRepostiroy();
+            //IBookRepository repo = new FileBookRepository();
             var _add = new Add(repo);
             var _borrow = new Borrow(repo);
             var _list = new List(repo);

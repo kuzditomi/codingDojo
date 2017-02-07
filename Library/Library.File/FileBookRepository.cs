@@ -27,7 +27,6 @@ namespace Library.File
 
         public void StoreMultipleBooks(List<Book> books)
         {
-            //ToDo:Optimize this. Should not open and save file for each books
             foreach (var book in books)
             {
                 StoreABook(book);
@@ -36,35 +35,72 @@ namespace Library.File
 
         public Book BorrowABook(int id, Reader reader, int daysToBorrow)
         {
-            throw new NotImplementedException();
+            var books = GetAllBooks().ToList();
+            DeleteFile();
+            Book chosenBook = null;
+            foreach (var book in books)
+            {
+                if (book.Id == id && book.Available)
+                {
+                    book.Reader = reader;
+                    book.Available = false;
+                    book.DueDate = DateTime.Now.AddDays(daysToBorrow);
+                    chosenBook = book;
+                }
+            }
+            StoreMultipleBooks(books);
+            return chosenBook;
         }
 
         public Book ReturnABook(int id)
         {
-            throw new NotImplementedException();
+            var books = GetAllBooks().ToList();
+            DeleteFile();
+            Book chosenBook = null;
+            foreach (var book in books)
+            {
+                if (book.Id == id)
+                {
+                    book.Available = true;
+                    book.Reader = null;
+                    chosenBook = book;
+                }
+            }
+            StoreMultipleBooks(books);
+            return chosenBook;
         }
 
         public IEnumerable<Book> GetAllBooks()
         {
+            _numOfBooks = 0;
             IFormatter formatter = new BinaryFormatter();
             using (var stream = new FileStream("books.yeti", FileMode.Open, FileAccess.Read, FileShare.Read))
             {
-                var bookDTOs = (List<Book>)formatter.Deserialize(stream);
-                return bookDTOs;
-                //return bookDtos.Select(b => new Book(b.Id, b.Title, b.Author, b.Year)).ToList();
+                List<Book> books = new List<Book>();
+                while (stream.Position != stream.Length)
+                {
+                    var bookDtOs = (List<Book>) formatter.Deserialize(stream);
+                    bookDtOs[0].Id = _numOfBooks++;
+                    books.AddRange(bookDtOs);
+                }
+                return books;
             }
         }
 
         public string GetBookReader(string title)
         {
-            IFormatter formatter = new BinaryFormatter();
-            using (var stream = new FileStream("books.yeti", FileMode.Open, FileAccess.Read, FileShare.Read))
+            var books = GetAllBooks();
+            foreach (var book in books)
             {
-                var bookDTOs = (List<Book>)formatter.Deserialize(stream);
-                //if (bookDTOs.Title == title && bookDTOs.Reader != null)
-                //    return bookDTOs.Reader.Name;
-                return "Library";
+                if (book.Title == title && book.Reader != null)
+                    return book.Reader.Name;
             }
+            return "Library";
+        }
+
+        private void DeleteFile()
+        {
+            System.IO.File.Delete("books.yeti");
         }
     }
 }
