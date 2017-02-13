@@ -62,8 +62,7 @@ namespace Library.Sql
         {
             using (var context = new DataContext())
             {
-                var books = context.Books.Include(n => n.Reader).ToList();
-                return books;
+                return context.Books.Include(n => n.Reader).ToArray();
             }
         }
 
