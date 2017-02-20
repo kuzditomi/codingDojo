@@ -14,7 +14,8 @@ namespace Library.Helpers
 
         public static void PrintBookDetails(Book book, string reader)
         {
-            if (book.Reader != null && book.DueDate.Date < DateTime.Today.AddDays(3))
+            if (book.Reader != null && book.DueDate.Date < DateTime.Today.AddDays(3) &&
+                book.DueDate.Date != new DateTime(1900, 01, 01))
                 Console.ForegroundColor = ConsoleColor.Red;
             else
                 Console.ForegroundColor = ConsoleColor.Gray;
@@ -23,7 +24,7 @@ namespace Library.Helpers
                           " \tCurrent holder: {4}",
                 book.Id, book.Title, book.Author, book.Year, reader);
 
-            if (book.Reader == null)
+            if (reader == "Library")
                 Console.WriteLine();
             else
                 Console.WriteLine("\tDue Date: {0}", book.DueDate);

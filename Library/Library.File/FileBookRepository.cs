@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Linq;
 using Library.Contracts;
 using Library.Contracts.Models;
 
@@ -11,18 +9,42 @@ namespace Library.File
 {
     public class FileBookRepository : IBookRepository
     {
-        private int _numOfBooks;
+        private const string FileName = "books.xml";
+        private const string RootElement = "Library";
 
         public void StoreABook(Book book)
         {
-            book.Id = _numOfBooks++;
-            var books = new List<Book> {book};
-            var bookDtos = books.Select(b => new Book(b.Title, b.Author, b.Year)).ToList();
-            IFormatter formatter = new BinaryFormatter();
-            using (var stream = new FileStream("books.yeti", FileMode.Append, FileAccess.Write, FileShare.None))
+            if (!System.IO.File.Exists(FileName))
             {
-                formatter.Serialize(stream, bookDtos);
+                CreateFile();
             }
+            SaveBookToFile(book, GetBooksCount());
+        }
+
+        private void CreateFile()
+        {
+            XDocument inventoryDoc =
+                new XDocument(
+                    new XDeclaration("1.0", "utf-8", "yes"),
+                    new XComment("Library of books"),
+                    new XElement(RootElement));
+
+            inventoryDoc.Save(FileName);
+        }
+
+        private void SaveBookToFile(Book book, int id)
+        {
+            var doc = XDocument.Load(FileName);
+            doc.Element(RootElement).Add(
+                new XElement("Book",
+                    new XElement("Id", id),
+                    new XElement("Title", book.Title),
+                    new XElement("Author", book.Author),
+                    new XElement("Year", book.Year),
+                    new XElement("Available", book.Available),
+                    new XElement("Reader", book.Reader?.Name),
+                    new XElement("DueDate", book.DueDate)));
+            doc.Save(FileName);
         }
 
         public void StoreMultipleBooks(List<Book> books)
@@ -63,6 +85,7 @@ namespace Library.File
                 {
                     book.Available = true;
                     book.Reader = null;
+                    book.DueDate = new DateTime(1900, 1, 1);
                     chosenBook = book;
                 }
             }
@@ -72,19 +95,31 @@ namespace Library.File
 
         public IEnumerable<Book> GetAllBooks()
         {
-            _numOfBooks = 0;
-            IFormatter formatter = new BinaryFormatter();
-            using (var stream = new FileStream("books.yeti", FileMode.Open, FileAccess.Read, FileShare.Read))
+            var booksList = new List<Book>();
+
+            var xelement = XElement.Load(FileName);
+            var books = xelement.Elements();
+
+            foreach (var book in books)
             {
-                List<Book> books = new List<Book>();
-                while (stream.Position != stream.Length)
+                booksList.Add(new Book()
                 {
-                    var bookDtOs = (List<Book>) formatter.Deserialize(stream);
-                    bookDtOs[0].Id = _numOfBooks++;
-                    books.AddRange(bookDtOs);
-                }
-                return books;
+                    Id = int.Parse(book.Element("Id").Value),
+                    Title = book.Element("Title").Value,
+                    Author = book.Element("Author").Value,
+                    Year = int.Parse(book.Element("Year").Value),
+                    Available = bool.Parse(book.Element("Available").Value),
+                    Reader = new Reader(book.Element("Reader").Value),
+                    DueDate = DateTime.Parse(book.Element("DueDate").Value)
+                });
             }
+            return booksList;
+        }
+
+        private int GetBooksCount()
+        {
+            var xelement = XElement.Load(FileName);
+            return xelement.Elements().Count();
         }
 
         public string GetBookReader(string title)
@@ -92,7 +127,7 @@ namespace Library.File
             var books = GetAllBooks();
             foreach (var book in books)
             {
-                if (book.Title == title && book.Reader != null)
+                if (book.Title == title && book.Reader.Name != "")
                     return book.Reader.Name;
             }
             return "Library";
@@ -100,7 +135,7 @@ namespace Library.File
 
         private void DeleteFile()
         {
-            System.IO.File.Delete("books.yeti");
+            System.IO.File.Delete(FileName);
         }
     }
 }
