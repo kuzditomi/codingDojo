@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
 using Library.Contracts;
 using Library.Contracts.Models;
@@ -10,18 +9,20 @@ namespace Library.Sql
 {
     public class SqlBookRepostiroy : IBookRepository
     {
+        ModelConverter converter = new ModelConverter();
+
         public void StoreABook(Book book)
         {
             using (var context = new DataContext())
             {
-                context.Books.Add(ConverToSqlBook(book));
+                context.Books.Add(converter.ConverToSqlBook(book));
                 context.SaveChanges();
             }
         }
 
         public void StoreMultipleBooks(List<Book> books)
         {
-            var bookDtos = books.Select(ConverToSqlBook).ToList();
+            var bookDtos = books.Select(converter.ConverToSqlBook).ToList();
             using (var context = new DataContext())
             {
                 context.Books.AddRange(bookDtos);
@@ -36,13 +37,14 @@ namespace Library.Sql
                 var book = context.Books.FirstOrDefault(b => b.ReaderId == id);
                 if (book != null)
                 {
-                    book.Reader = ConverToSqlReader(reader);
+                    book.Reader = converter.ConverToSqlReader(reader);
                     book.Available = false;
                     book.DueDate = DateTime.Now.AddDays(daysToBorrow);
                     book.Reader.Address = GenerateAddress();
                     context.SaveChanges();
+                    return converter.ConverToContractBook(book);
                 }
-                return ConverToContractBook(book);
+                return null;
             }
         }
 
@@ -56,8 +58,9 @@ namespace Library.Sql
                     book.Available = true;
                     book.Reader = null;
                     context.SaveChanges();
+                    return converter.ConverToContractBook(book);
                 }
-                return ConverToContractBook(book);
+                return null;
             }
         }
 
@@ -65,9 +68,9 @@ namespace Library.Sql
         {
             using (var context = new DataContext())
             {
-                var books = context.Books.Include(n => n.Reader).ToArray();
+                var books = context.Books.Include(n => n.Reader).Include(a => a.Reader.Address).ToArray();
                 var bookList = books.OrderBy(book => book.BookId).ToList();
-                return bookList.Select(ConverToContractBook).ToList();
+                return bookList.Select(converter.ConverToContractBook).ToList();
             }
         }
 
@@ -78,59 +81,6 @@ namespace Library.Sql
                 var book = context.Books.Include(n => n.Reader).FirstOrDefault(n => n.Title == title);
                 return book?.Reader != null ? book.Reader.Name : "Library";
             }
-        }
-
-        private Models.Book ConverToSqlBook(Contracts.Models.Book book)
-        {
-            Models.Reader sqlReader=new Models.Reader();
-            if (book?.Reader != null)
-            {
-                sqlReader = ConverToSqlReader(book.Reader);
-            }
-
-            var sqlBook = new Models.Book
-            {
-                Title = book.Title,
-                Author = book.Author,
-                Year = book.Year,
-                Available = book.Available,
-                BookId = book.Id,
-                DueDate = book.DueDate,
-                Reader = sqlReader,
-                ReaderId = book.Id
-            };
-            return sqlBook;
-        }
-
-        private Contracts.Models.Book ConverToContractBook(Models.Book book)
-        {
-            Contracts.Models.Reader contractReader = new Contracts.Models.Reader();
-            if (book?.Reader != null)
-            {
-                contractReader = ConverToContractReader(book.Reader);
-            }
-
-            var contractBook = new Contracts.Models.Book
-            {
-                Title = book.Title,
-                Author = book.Author,
-                Year = book.Year,
-                Available = book.Available,
-                Id = book.BookId,
-                DueDate = book.DueDate,
-                Reader = contractReader
-            };
-            return contractBook;
-        }
-
-        private Models.Reader ConverToSqlReader(Contracts.Models.Reader reader)
-        {
-            return new Models.Reader {ReaderId = reader.Id, Name = reader.Name};
-        }
-
-        private Contracts.Models.Reader ConverToContractReader(Models.Reader reader)
-        {
-            return new Contracts.Models.Reader {Id = reader.ReaderId, Name = reader.Name};
         }
 
         private Sql.Models.Address GenerateAddress()
