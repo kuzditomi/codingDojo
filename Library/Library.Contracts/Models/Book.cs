@@ -20,15 +20,5 @@ namespace Library.Contracts.Models
             Author = author;
             Year = year;
         }
-
-        public static explicit operator Book(Library.Sql.Models.Book v)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static explicit operator Book(Library.Sql.Models.Book v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

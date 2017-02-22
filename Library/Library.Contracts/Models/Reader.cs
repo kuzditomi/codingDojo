@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Library.Contracts.Models
+﻿namespace Library.Contracts.Models
 {
     public class Reader
     {

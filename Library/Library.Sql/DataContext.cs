@@ -7,7 +7,7 @@ namespace Library.Sql
     {
         public DbSet<Book> Books { get; set; }
         public DbSet<Reader> Readers { get; set; }
-        public DbSet<Address> Addresses { get; set; }
+        //public DbSet<Address> Addresses { get; set; }
     }
 
     //public class BookEntity

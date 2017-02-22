@@ -7,12 +7,12 @@ namespace Library.Sql.Models
     public class Book
     {
         [Key]
-        public int Id { get; set; }
+        public int BookId { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
         public int Year { get; set; }
         public bool Available { get; set; } = true;
-        public int ReaderId { get; set; }
+        public int? ReaderId { get; set; }
         [ForeignKey("ReaderId")]
         public Reader Reader { get; set; }
 
