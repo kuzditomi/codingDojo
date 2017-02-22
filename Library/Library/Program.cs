@@ -47,7 +47,7 @@ namespace Library
                         _list.ExpiringBooks();
                         break;
                     case MainMenu.Seed:
-                        _seed.GenerateData(100, _borrow);
+                        _seed.GenerateData(10, _borrow);
                         break;
                 }
             } while (menuItem != MainMenu.Exit);
