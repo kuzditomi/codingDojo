@@ -68,7 +68,7 @@ namespace Library.Sql
         {
             using (var context = new DataContext())
             {
-                var books = context.Books.Include(n => n.Reader).Include(a => a.Reader.Address).ToArray();
+                var books = context.Books.Include("Reader.Address").ToArray();
                 var bookList = books.OrderBy(book => book.BookId).ToList();
                 return bookList.Select(converter.ConverToContractBook).ToList();
             }

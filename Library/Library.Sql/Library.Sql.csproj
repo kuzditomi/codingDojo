@@ -52,6 +52,7 @@
     <Compile Include="DataContext.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Book.cs" />
+    <Compile Include="ModelConverter.cs" />
     <Compile Include="Models\Reader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlBookRepostiroy.cs" />
