@@ -135,7 +135,7 @@ namespace Library.File
                 if (book.Title == title && book.Reader.Name != "")
                     return book.Reader.Name;
             }
-            return "Library";
+            return null;
         }
 
         private void DeleteFile()
