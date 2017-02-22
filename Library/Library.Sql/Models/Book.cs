@@ -14,7 +14,7 @@ namespace Library.Sql.Models
         public bool Available { get; set; } = true;
         public int? ReaderId { get; set; }
         [ForeignKey("ReaderId")]
-        public Reader Reader { get; set; }
+        public virtual Reader Reader { get; set; }
 
         public DateTime DueDate { get; set; } = new DateTime(1900,1,1);
 

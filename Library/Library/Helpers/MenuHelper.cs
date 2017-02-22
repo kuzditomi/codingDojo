@@ -35,7 +35,9 @@ namespace Library.Helpers
             Console.WriteLine("4 - List all books");
             Console.WriteLine("5 - List expired books");
             Console.WriteLine("6 - Seed data");
-            Console.WriteLine("7 - Exit");
+            Console.WriteLine("7 - LazyLoad");;
+            Console.WriteLine("8 - EagerLoad");;
+            Console.WriteLine("9 - Exit");
         }
 
         private static void PrintSearchMenu()

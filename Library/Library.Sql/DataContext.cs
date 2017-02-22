@@ -8,25 +8,11 @@ namespace Library.Sql
         public DbSet<Book> Books { get; set; }
         public DbSet<Reader> Readers { get; set; }
         public DbSet<Address> Addresses { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            this.Configuration.ProxyCreationEnabled = true;
+            this.Configuration.LazyLoadingEnabled = false;
+        }
     }
-
-    //public class BookEntity
-    //{
-    //    [Key]
-    //    public int Id { get; set; }
-
-    //    [ForeignKey(nameof(Reader))]
-    //    public int? ReaderId { get; set; }
-
-    //    public virtual ReaderEntity Reader { get; set; }
-    //}
-
-    //public class ReaderEntity
-    //{
-    //    [Key]
-    //    public int Id { get; set; }
-
-    //    public string Name { get; set; }
-
-    //}
 }

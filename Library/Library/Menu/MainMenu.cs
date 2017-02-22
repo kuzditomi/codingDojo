@@ -9,6 +9,8 @@
         List,
         Expiring,
         Seed,
+        LazyLoad,
+        EagerLoad,
         Exit,
         Main
     };

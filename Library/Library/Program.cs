@@ -21,6 +21,7 @@ namespace Library
             var _return = new Return(repo);
             var _search = new Search(repo);
             var _seed = new Seed(repo);
+            var _load = new Load(repo);
 
             do
             {
@@ -47,7 +48,13 @@ namespace Library
                         _list.ExpiringBooks();
                         break;
                     case MainMenu.Seed:
-                        _seed.GenerateData(10, _borrow);
+                        _seed.GenerateData(100, _borrow);
+                        break;
+                    case MainMenu.LazyLoad:
+                        _load.LazyLoad();
+                        break;
+                    case MainMenu.EagerLoad:
+                        _load.EagerLoad();
                         break;
                 }
             } while (menuItem != MainMenu.Exit);

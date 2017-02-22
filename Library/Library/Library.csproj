@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="BookOperations\List.cs" />
     <Compile Include="BookOperations\Borrow.cs" />
+    <Compile Include="BookOperations\Load.cs" />
     <Compile Include="BookOperations\Return.cs" />
     <Compile Include="BookOperations\Search.cs" />
     <Compile Include="BookOperations\Add.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Library.Contracts;
 using Library.Helpers;
 
@@ -17,7 +18,7 @@ namespace Library.BookOperations
         {
             ScreenHelper.Reset();
             Console.WriteLine("====== List of books ======");
-
+            
             var books = _bookrepository.GetAllBooks();
             foreach (var book in books)
             {
