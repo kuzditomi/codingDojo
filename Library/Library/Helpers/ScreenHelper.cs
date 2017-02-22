@@ -20,14 +20,15 @@ namespace Library.Helpers
             else
                 Console.ForegroundColor = ConsoleColor.Gray;
 
-            Console.Write("{0} - {1} \tby {2} \t{3}" +
-                          " \tCurrent holder: {4}",
-                book.Id, book.Title, book.Author, book.Year, reader);
+            Console.Write("{0} - {1} \tby {2} \t{3}",
+                book.Id, book.Title, book.Author, book.Year);
 
-            if (reader == "Library")
-                Console.WriteLine();
-            else
-                Console.WriteLine("\tDue Date: {0}", book.DueDate);
+            if (reader != null)
+            {
+                Console.Write(" \tCurrent holder: {0}", reader);
+                Console.Write("\tDue Date: {0}", book.DueDate);
+            }
+            Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
