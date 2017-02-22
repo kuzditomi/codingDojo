@@ -51,16 +51,5 @@ namespace Library.BookOperations
                 }, rnd.Next(1, 30));
             }
         }
-
-        private static void GenerateAddresses(int amount)
-        {
-            var rnd = new Random();
-            var addr = new Address
-            {
-                City = "City-" + Guid.NewGuid().ToString().Substring(0, 5),
-                PostalCode = rnd.Next(1000, 9999),
-                Street = "Street-" + Guid.NewGuid().ToString().Substring(0, 5)
-            };
-        }
     }
 }

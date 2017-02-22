@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using Library.Contracts;
 using Library.Contracts.Models;
@@ -38,6 +39,7 @@ namespace Library.Sql
                     book.Reader = ConverToSqlReader(reader);
                     book.Available = false;
                     book.DueDate = DateTime.Now.AddDays(daysToBorrow);
+                    book.Reader.Address = GenerateAddress();
                     context.SaveChanges();
                 }
                 return ConverToContractBook(book);
@@ -129,6 +131,17 @@ namespace Library.Sql
         private Contracts.Models.Reader ConverToContractReader(Models.Reader reader)
         {
             return new Contracts.Models.Reader {Id = reader.ReaderId, Name = reader.Name};
+        }
+
+        private Sql.Models.Address GenerateAddress()
+        {
+            var rnd = new Random();
+            return new Sql.Models.Address
+            {
+                City = "City-" + Guid.NewGuid().ToString().Substring(0, 5),
+                PostalCode = rnd.Next(1000, 9999),
+                Street = "Street-" + Guid.NewGuid().ToString().Substring(0, 5)
+            };
         }
     }
 }
