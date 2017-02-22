@@ -12,8 +12,8 @@ namespace Library
         static void Main(string[] args)
         {
             MainMenu menuItem;
-            //IBookRepository repo = new SqlBookRepostiroy();
-            IBookRepository repo = new FileBookRepository();
+            IBookRepository repo = new SqlBookRepostiroy();
+            //IBookRepository repo = new FileBookRepository();
             
             var _add = new Add(repo);
             var _borrow = new Borrow(repo);
@@ -47,7 +47,7 @@ namespace Library
                         _list.ExpiringBooks();
                         break;
                     case MainMenu.Seed:
-                        _seed.GenerateBooks();
+                        _seed.GenerateData(100, _borrow);
                         break;
                 }
             } while (menuItem != MainMenu.Exit);

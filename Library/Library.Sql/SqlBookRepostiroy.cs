@@ -13,16 +13,17 @@ namespace Library.Sql
         {
             using (var context = new DataContext())
             {
-                context.Books.Add(book);
+                context.Books.Add((Library.Sql.Models.Book)book);
                 context.SaveChanges();
             }
         }
 
         public void StoreMultipleBooks(List<Book> books)
         {
+            var bookDtos = books.Select(book => (Library.Sql.Models.Book) book).ToList();
             using (var context = new DataContext())
             {
-                context.Books.AddRange(books);
+                context.Books.AddRange(bookDtos);
                 context.SaveChanges();
             }
         }
@@ -34,7 +35,7 @@ namespace Library.Sql
                 var book = context.Books.FirstOrDefault(n => n.Id == id);
                 if (book != null)
                 {
-                    book.Reader = reader;
+                    book.Reader = (Library.Sql.Models.Reader)reader;
                     book.Available = false;
                     book.DueDate = DateTime.Now.AddDays(daysToBorrow);
                     context.SaveChanges();
@@ -62,7 +63,8 @@ namespace Library.Sql
         {
             using (var context = new DataContext())
             {
-                return context.Books.Include(n => n.Reader).ToArray();
+                var books = context.Books.Include(n => n.Reader).ToArray();
+                return books.OrderBy(book => book.Id);
             }
         }
 
@@ -73,6 +75,19 @@ namespace Library.Sql
                 var book = context.Books.Include(n => n.Reader).FirstOrDefault(n => n.Title == title);
                 return book?.Reader != null ? book.Reader.Name : "Library";
             }
+        }
+
+        private Contracts.Models.Book ConvertSqlBook(Models.Book sqlBook)
+        {
+            var book = new Contracts.Models.Book
+            {
+                Id = sqlBook.Id,
+                Reader = new Models.Reader(sqlBook.Reader.Name),
+                Author = sqlBook.Author,
+                Available = sqlBook.Available,
+                DueDate = sqlBook.DueDate,
+                Year = sqlBook.Year
+            };
         }
     }
 }

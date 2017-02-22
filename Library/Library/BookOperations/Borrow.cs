@@ -1,5 +1,6 @@
 ﻿using System;
 using Library.Contracts;
+using Library.Contracts.Models;
 using Library.Helpers;
 
 namespace Library.BookOperations
@@ -25,6 +26,11 @@ namespace Library.BookOperations
             Console.WriteLine("{0} is borrowed by {1} until {2}.", book.Title, reader.Name, book.DueDate);
 
             MenuHelper.NavigateToMainMenu();
+        }
+
+        public void SingleBook(int id, Reader reader, int daysToBorrow)
+        {
+            _bookrepository.BorrowABook(id, reader, daysToBorrow);
         }
     }
 }

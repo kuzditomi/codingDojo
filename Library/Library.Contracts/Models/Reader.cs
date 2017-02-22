@@ -2,7 +2,6 @@
 
 namespace Library.Contracts.Models
 {
-    [Serializable]
     public class Reader
     {
         public Reader(){}

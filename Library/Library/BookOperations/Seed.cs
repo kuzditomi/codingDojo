@@ -17,20 +17,36 @@ namespace Library.BookOperations
 
         private List<Book> books = new List<Book>();
 
-        public void GenerateBooks()
+        public void GenerateData(int amount, Borrow borrow)
         {
-            books.Add(new Book("apple", "newton", 2006));
-            books.Add(new Book("car", "bela", 2000));
-            books.Add(new Book("pineapple", "peti", 1998));
-            books.Add(new Book("phone", "tamas", 2002));
-            books.Add(new Book("tabs", "newton", 2000));
-            books.Add(new Book("nivea", "bela", 2009));
-            books.Add(new Book("lufi", "peti", 1992));
-            _bookrepository.StoreMultipleBooks(books);
+            GenerateBooks(amount);
+            GenerateReaders(amount, borrow);
 
             ScreenHelper.Reset();
             Console.WriteLine("\nTest data generation was successful");
             MenuHelper.NavigateToMainMenu();
+        }
+
+        private static void GenerateReaders(int amount, Borrow borrow)
+        {
+            var rnd = new Random();
+            for (int i = 1; i < amount; i = i + 10)
+            {
+                borrow.SingleBook(i, new Reader {Name = "Reader-" + Guid.NewGuid().ToString().Substring(0, 5)}, rnd.Next(1, 30));
+            }
+        }
+
+        private void GenerateBooks(int amount)
+        {
+            var rnd = new Random();
+            for (int i = 0; i < amount; i++)
+            {
+                books.Add(new Book(
+                    "Book-" + Guid.NewGuid().ToString().Substring(0, 4),
+                    "Author-" + Guid.NewGuid().ToString().Substring(0, 4),
+                    rnd.Next(1500, 2017)));
+            }
+            _bookrepository.StoreMultipleBooks(books);
         }
     }
 }

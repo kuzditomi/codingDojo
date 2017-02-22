@@ -95,6 +95,11 @@ namespace Library.File
 
         public IEnumerable<Book> GetAllBooks()
         {
+            if (!System.IO.File.Exists(FileName))
+            {
+                Console.WriteLine("Library is empty.");
+                return new List<Book>();
+            }
             var booksList = new List<Book>();
 
             var xelement = XElement.Load(FileName);

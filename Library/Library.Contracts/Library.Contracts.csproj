@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBookRepository.cs" />
+    <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Reader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
