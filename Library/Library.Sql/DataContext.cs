@@ -12,7 +12,7 @@ namespace Library.Sql
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             this.Configuration.ProxyCreationEnabled = true;
-            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.LazyLoadingEnabled = true;
         }
     }
 }
