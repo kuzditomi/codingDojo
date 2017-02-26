@@ -7,12 +7,14 @@ namespace Library.BookOperations
     public class List
     {
         private readonly IBookRepository _bookrepository;
-        private readonly ScreenHelper _screenHelper = new ScreenHelper();
-        readonly MenuHelper _menuHelper = new MenuHelper();
+        private readonly IScreenHelper _screenHelper;
+        private readonly IMenuHelper _menuHelper;
 
-        public List(IBookRepository repo)
+        public List(IBookRepository repo, IScreenHelper screenHelper, IMenuHelper menuHelper)
         {
             _bookrepository = repo;
+            _screenHelper = screenHelper;
+            _menuHelper = menuHelper;
         }
 
         public void AllBooks()

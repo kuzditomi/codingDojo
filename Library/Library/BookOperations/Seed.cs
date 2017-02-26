@@ -8,13 +8,15 @@ namespace Library.BookOperations
 {
     public class Seed
     {
-        private readonly IBookRepository _bookrepository;
-        readonly ScreenHelper _screenHelper = new ScreenHelper();
-        readonly MenuHelper _menuHelper = new MenuHelper();
+        private readonly IBookRepository _bookRepository;
+        private readonly IScreenHelper _screenHelper;
+        private readonly IMenuHelper _menuHelper;
 
-        public Seed(IBookRepository repo)
+        public Seed(IBookRepository repo, IScreenHelper screenHelper, IMenuHelper menuHelper)
         {
-            _bookrepository = repo;
+            _bookRepository = repo;
+            _screenHelper = screenHelper;
+            _menuHelper = menuHelper;
         }
 
         private List<Book> books = new List<Book>();
@@ -39,7 +41,7 @@ namespace Library.BookOperations
                     "Author-" + Guid.NewGuid().ToString().Substring(0, 4),
                     rnd.Next(1500, 2017)));
             }
-            _bookrepository.StoreMultipleBooks(books);
+            _bookRepository.StoreMultipleBooks(books);
         }
 
         private static void GenerateReaders(int amount, Borrow borrow)

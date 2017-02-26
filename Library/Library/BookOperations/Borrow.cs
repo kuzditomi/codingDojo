@@ -8,12 +8,14 @@ namespace Library.BookOperations
     public class Borrow
     {
         private readonly IBookRepository _bookrepository;
-        readonly ScreenHelper _screenHelper = new ScreenHelper();
-        readonly MenuHelper _menuHelper = new MenuHelper();
+        private readonly IScreenHelper _screenHelper;
+        private readonly IMenuHelper _menuHelper;
 
-        public Borrow(IBookRepository repo)
+        public Borrow(IBookRepository repo, IScreenHelper screenHelper, IMenuHelper menuHelper)
         {
             _bookrepository = repo;
+            _screenHelper = screenHelper;
+            _menuHelper = menuHelper;
         }
 
         public void SingleBook()

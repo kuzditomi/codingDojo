@@ -10,13 +10,15 @@ namespace Library.BookOperations
 {
     class Load
     {
-        private readonly IBookRepository _bookrepository;
-        readonly ScreenHelper _screenHelper = new ScreenHelper();
-        readonly MenuHelper _menuHelper = new MenuHelper();
+        private readonly IBookRepository _bookRepository;
+        private readonly IScreenHelper _screenHelper;
+        private readonly IMenuHelper _menuHelper;
 
-        public Load(IBookRepository repo)
+        public Load(IBookRepository repo, IScreenHelper screenHelper, IMenuHelper menuHelper)
         {
-            _bookrepository = repo;
+            _bookRepository = repo;
+            _screenHelper = screenHelper;
+            _menuHelper = menuHelper;
         }
 
         public void LazyLoad()

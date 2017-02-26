@@ -12,18 +12,18 @@ namespace Library
         static void Main(string[] args)
         {
             MainMenu menuItem;
-            IBookRepository repo = new SqlBookRepostiroy();
+            IBookRepository repository = new SqlBookRepostiroy();
             var screenHelper = new ScreenHelper();
             var menuHelper = new MenuHelper();
             //IBookRepository repo = new FileBookRepository();
             
-            var _add = new Add(repo, screenHelper, menuHelper);
-            var _borrow = new Borrow(repo);
-            var _list = new List(repo);
-            var _return = new Return(repo);
-            var _search = new Search(repo);
-            var _seed = new Seed(repo);
-            var _load = new Load(repo);
+            var _add = new Add(repository, screenHelper, menuHelper);
+            var _borrow = new Borrow(repository, screenHelper, menuHelper);
+            var _list = new List(repository, screenHelper, menuHelper);
+            var _return = new Return(repository, screenHelper, menuHelper);
+            var _search = new Search(repository, screenHelper, menuHelper);
+            var _seed = new Seed(repository, screenHelper, menuHelper);
+            var _load = new Load(repository, screenHelper, menuHelper);
 
             do
             {

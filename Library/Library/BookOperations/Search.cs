@@ -9,13 +9,15 @@ namespace Library.BookOperations
 {
     public class Search
     {
-        private readonly IBookRepository _bookrepository;
-        readonly ScreenHelper _screenHelper = new ScreenHelper();
-        readonly MenuHelper _menuHelper = new MenuHelper();
+        private readonly IBookRepository _bookRepository;
+        private readonly IScreenHelper _screenHelper;
+        private readonly IMenuHelper _menuHelper;
 
-        public Search(IBookRepository repo)
+        public Search(IBookRepository repo, IScreenHelper screenHelper, IMenuHelper menuHelper)
         {
-            _bookrepository = repo;
+            _bookRepository = repo;
+            _screenHelper = screenHelper;
+            _menuHelper = menuHelper;
         }
 
         public void SingleBook()
@@ -79,7 +81,7 @@ namespace Library.BookOperations
             _screenHelper.Reset();
             var input = _screenHelper.ReadInputString(property);
 
-            var books = _bookrepository.GetAllBooks();
+            var books = _bookRepository.GetAllBooks();
             var result = books.Where(b => expression(b, input)).ToList();
             _screenHelper.PrintSearchResult(result);
 
