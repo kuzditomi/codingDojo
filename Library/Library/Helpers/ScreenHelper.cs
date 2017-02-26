@@ -4,15 +4,15 @@ using Library.Contracts.Models;
 
 namespace Library.Helpers
 {
-    public static class ScreenHelper
+    public class ScreenHelper
     {
-        public static void Reset()
+        public void Reset()
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        public static void PrintBookDetails(Book book, string reader)
+        public void PrintBookDetails(Book book, string reader)
         {
             if (book.Reader != null && book.DueDate.Date < DateTime.Today.AddDays(3) &&
                 book.DueDate.Date != new DateTime(1900, 01, 01))
@@ -32,7 +32,7 @@ namespace Library.Helpers
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        public static void PrintSearchResult(List<Book> result)
+        public void PrintSearchResult(List<Book> result)
         {
             if (result.Count == 0)
             {
@@ -48,31 +48,31 @@ namespace Library.Helpers
             }
         }
 
-        public static Reader GetNewReader()
+        public Reader GetNewReader()
         {
             Console.WriteLine("\r\nReader name: ");
             return new Reader(StringInputReader.Reader.Read());
         }
 
-        public static int GetBookId()
+        public int GetBookId()
         {
             Console.WriteLine("\r\nId of the book: ");
             return NumberInputReader.Reader.Read();
         }
 
-        public static int GetDueDate()
+        public int GetDueDate()
         {
             Console.WriteLine("\r\nFor how many days: ");
             return NumberInputReader.Reader.Read();
         }
 
-        public static string ReadInputString(string property)
+        public string ReadInputString(string property)
         {
             Console.Write("\r\n{0} of book searched for: ", property);
             return StringInputReader.Reader.Read();
         }
 
-        public static Book GetNewBookDetails()
+        public Book GetNewBookDetails()
         {
             Console.WriteLine("====== Add a book ======");
             Console.Write("Name, Author, Publication Year of the book:");
@@ -80,6 +80,12 @@ namespace Library.Helpers
 
             var data = input.Split(',');
             return new Book(data[0].Trim(), data[1].Trim(), int.Parse(data[2].Trim()));
+        }
+
+        public void PrintBookAddedMessage(Book book)
+        {
+            Console.WriteLine("\r\nBook added: {0}, by {1} from year {2}",
+                book.Title, book.Author, book.Year);
         }
     }
 }

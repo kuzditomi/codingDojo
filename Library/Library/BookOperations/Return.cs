@@ -7,6 +7,8 @@ namespace Library.BookOperations
     public class Return
     {
         private readonly IBookRepository _bookrepository;
+        readonly ScreenHelper _screenHelper = new ScreenHelper();
+        readonly MenuHelper _menuHelper = new MenuHelper();
 
         public Return(IBookRepository repo)
         {
@@ -15,12 +17,12 @@ namespace Library.BookOperations
 
         public void ReturnBook()
         {
-            ScreenHelper.Reset();
-            var id = ScreenHelper.GetBookId();
+            _screenHelper.Reset();
+            var id = _screenHelper.GetBookId();
             var book = _bookrepository.ReturnABook(id);
             if (book == null)
                 Console.WriteLine(Texts.NoBook);
-            MenuHelper.NavigateToMainMenu();
+            _menuHelper.NavigateToMainMenu();
         }
     }
 }

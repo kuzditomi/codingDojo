@@ -13,6 +13,7 @@ namespace Library
         {
             MainMenu menuItem;
             IBookRepository repo = new SqlBookRepostiroy();
+            var menuHelper = new MenuHelper();
             //IBookRepository repo = new FileBookRepository();
             
             var _add = new Add(repo);
@@ -25,7 +26,7 @@ namespace Library
 
             do
             {
-                menuItem = MenuHelper.DoMainMenuSelection();
+                menuItem = menuHelper.DoMainMenuSelection();
 
                 switch (menuItem)
                 {

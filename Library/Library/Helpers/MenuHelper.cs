@@ -3,29 +3,31 @@ using Library.Menu;
 
 namespace Library.Helpers
 {
-    public static class MenuHelper
+    public class MenuHelper
     {
-        public static void NavigateToMainMenu()
+        readonly ScreenHelper _screenHelper = new ScreenHelper();
+
+        public void NavigateToMainMenu()
         {
             Console.WriteLine(Texts.GoToMainMenu);
             Console.ReadLine();
         }
 
-        public static MainMenu DoMainMenuSelection()
+        public MainMenu DoMainMenuSelection()
         {
             PrintMainMenu();
             return ReadMainMenuSelection();
         }
 
-        public static SearchFor DoSearchMenuSelection()
+        public SearchFor DoSearchMenuSelection()
         {
             PrintSearchMenu();
             return ReadSearchMenuSelection();
         }
 
-        private static void PrintMainMenu()
+        private void PrintMainMenu()
         {
-            ScreenHelper.Reset();
+            _screenHelper.Reset();
             Console.WriteLine("Choose a number from the library options:\r\n");
 
             Console.WriteLine("0 - Add book");
@@ -40,9 +42,9 @@ namespace Library.Helpers
             Console.WriteLine("9 - Exit");
         }
 
-        private static void PrintSearchMenu()
+        private void PrintSearchMenu()
         {
-            ScreenHelper.Reset();
+            _screenHelper.Reset();
             Console.WriteLine("Choose a number from the search options:\r\n");
 
             Console.WriteLine("0 - Search by title");
@@ -53,12 +55,12 @@ namespace Library.Helpers
             Console.WriteLine("5 - Search books published after ...");
         }
 
-        private static SearchFor ReadSearchMenuSelection()
+        private SearchFor ReadSearchMenuSelection()
         {
             return (SearchFor) ReadMenuSelection.Reader.Read(boundary:5);
         }
 
-        private static MainMenu ReadMainMenuSelection()
+        private MainMenu ReadMainMenuSelection()
         {
             return (MainMenu) ReadMenuSelection.Reader.Read(boundary:9);
         }

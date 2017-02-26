@@ -9,6 +9,8 @@ namespace Library.BookOperations
     public class Seed
     {
         private readonly IBookRepository _bookrepository;
+        readonly ScreenHelper _screenHelper = new ScreenHelper();
+        readonly MenuHelper _menuHelper = new MenuHelper();
 
         public Seed(IBookRepository repo)
         {
@@ -22,9 +24,9 @@ namespace Library.BookOperations
             GenerateBooks(amount);
             GenerateReaders(amount, borrow);
 
-            ScreenHelper.Reset();
+            _screenHelper.Reset();
             Console.WriteLine("\nTest data generation was successful");
-            MenuHelper.NavigateToMainMenu();
+            _menuHelper.NavigateToMainMenu();
         }
         
         private void GenerateBooks(int amount)

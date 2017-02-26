@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using Library.Contracts;
 using Library.Helpers;
 
@@ -8,6 +7,8 @@ namespace Library.BookOperations
     public class List
     {
         private readonly IBookRepository _bookrepository;
+        private readonly ScreenHelper _screenHelper = new ScreenHelper();
+        readonly MenuHelper _menuHelper = new MenuHelper();
 
         public List(IBookRepository repo)
         {
@@ -16,21 +17,21 @@ namespace Library.BookOperations
 
         public void AllBooks()
         {
-            ScreenHelper.Reset();
+            _screenHelper.Reset();
             Console.WriteLine("====== List of books ======");
             
             var books = _bookrepository.GetAllBooks();
             foreach (var book in books)
             {
-                ScreenHelper.PrintBookDetails(book, _bookrepository.GetBookReader(book.Title));
+                _screenHelper.PrintBookDetails(book, _bookrepository.GetBookReader(book.Title));
             }
 
-            MenuHelper.NavigateToMainMenu();
+            _menuHelper.NavigateToMainMenu();
         }
 
         public void ExpiringBooks()
         {
-            ScreenHelper.Reset();
+            _screenHelper.Reset();
             Console.WriteLine("How many days should be the limit for the search:");
             var limit = NumberInputReader.Reader.Read();
 
@@ -40,10 +41,10 @@ namespace Library.BookOperations
                 if (book.Reader != null && 
                     book.DueDate < DateTime.Now.AddDays(limit) &&
                     book.DueDate != new DateTime(1900, 01, 01))
-                    ScreenHelper.PrintBookDetails(book, _bookrepository.GetBookReader(book.Title));
+                    _screenHelper.PrintBookDetails(book, _bookrepository.GetBookReader(book.Title));
             }
 
-            MenuHelper.NavigateToMainMenu();
+            _menuHelper.NavigateToMainMenu();
         }
     }
 }

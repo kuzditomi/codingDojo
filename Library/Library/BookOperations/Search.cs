@@ -10,6 +10,8 @@ namespace Library.BookOperations
     public class Search
     {
         private readonly IBookRepository _bookrepository;
+        readonly ScreenHelper _screenHelper = new ScreenHelper();
+        readonly MenuHelper _menuHelper = new MenuHelper();
 
         public Search(IBookRepository repo)
         {
@@ -18,7 +20,7 @@ namespace Library.BookOperations
 
         public void SingleBook()
         {
-            var searchMenuItem = MenuHelper.DoSearchMenuSelection();
+            var searchMenuItem = _menuHelper.DoSearchMenuSelection();
             switch (searchMenuItem)
             {
                 case SearchFor.Title:
@@ -74,14 +76,14 @@ namespace Library.BookOperations
 
         private void SearchBy(string property, Func<Book, string, bool> expression)
         {
-            ScreenHelper.Reset();
-            var input = ScreenHelper.ReadInputString(property);
+            _screenHelper.Reset();
+            var input = _screenHelper.ReadInputString(property);
 
             var books = _bookrepository.GetAllBooks();
             var result = books.Where(b => expression(b, input)).ToList();
-            ScreenHelper.PrintSearchResult(result);
+            _screenHelper.PrintSearchResult(result);
 
-            MenuHelper.NavigateToMainMenu();
+            _menuHelper.NavigateToMainMenu();
         }
     }
 }

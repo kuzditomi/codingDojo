@@ -11,6 +11,8 @@ namespace Library.BookOperations
     class Load
     {
         private readonly IBookRepository _bookrepository;
+        readonly ScreenHelper _screenHelper = new ScreenHelper();
+        readonly MenuHelper _menuHelper = new MenuHelper();
 
         public Load(IBookRepository repo)
         {
@@ -19,7 +21,7 @@ namespace Library.BookOperations
 
         public void LazyLoad()
         {
-            ScreenHelper.Reset();
+            _screenHelper.Reset();
             var sw = new Stopwatch();
 
             //Lazy loading: delaying the loading of related data, until you specifically request for it.
@@ -41,12 +43,12 @@ namespace Library.BookOperations
             Console.WriteLine("Elapsed time: {0}", sw.ElapsedMilliseconds);
             Console.WriteLine();
 
-            MenuHelper.NavigateToMainMenu();
+            _menuHelper.NavigateToMainMenu();
         }
         
         public void EagerLoad()
         {
-            ScreenHelper.Reset();
+            _screenHelper.Reset();
             var sw = new Stopwatch();
 
             //Eager loading: a query for one type of entity also loads related entities as part of the query.
@@ -67,7 +69,7 @@ namespace Library.BookOperations
             Console.WriteLine("Elapsed time: {0}", sw.ElapsedMilliseconds);
             Console.WriteLine();
 
-            MenuHelper.NavigateToMainMenu();
+            _menuHelper.NavigateToMainMenu();
         }
     }
 }
