@@ -59,6 +59,8 @@
     <Compile Include="BookOperations\Search.cs" />
     <Compile Include="BookOperations\Add.cs" />
     <Compile Include="BookOperations\Seed.cs" />
+    <Compile Include="Helpers\IMenuHelper.cs" />
+    <Compile Include="Helpers\IScreenHelper.cs" />
     <Compile Include="Helpers\ScreenHelper.cs" />
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Helpers\MenuHelper.cs" />

@@ -13,10 +13,11 @@ namespace Library
         {
             MainMenu menuItem;
             IBookRepository repo = new SqlBookRepostiroy();
+            var screenHelper = new ScreenHelper();
             var menuHelper = new MenuHelper();
             //IBookRepository repo = new FileBookRepository();
             
-            var _add = new Add(repo);
+            var _add = new Add(repo, screenHelper, menuHelper);
             var _borrow = new Borrow(repo);
             var _list = new List(repo);
             var _return = new Return(repo);
@@ -31,7 +32,7 @@ namespace Library
                 switch (menuItem)
                 {
                     case MainMenu.Add:
-                        _add.NewBook();
+                        _add.AddNewBook();
                         break;
                     case MainMenu.Search:
                         _search.SingleBook();

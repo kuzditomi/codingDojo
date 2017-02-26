@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Library.Contracts.Models;
 
 namespace Library.Helpers
 {
-    public class ScreenHelper
+    public class ScreenHelper : IScreenHelper
     {
         public void Reset()
         {
@@ -32,9 +33,9 @@ namespace Library.Helpers
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        public void PrintSearchResult(List<Book> result)
+        public void PrintSearchResult(IEnumerable<Book> result)
         {
-            if (result.Count == 0)
+            if (result.ToArray().Length == 0)
             {
                 Console.WriteLine(Texts.NoBook);
             }

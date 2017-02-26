@@ -3,9 +3,9 @@ using Library.Menu;
 
 namespace Library.Helpers
 {
-    public class MenuHelper
+    public class MenuHelper : IMenuHelper
     {
-        readonly ScreenHelper _screenHelper = new ScreenHelper();
+        private readonly ScreenHelper _screenHelper = new ScreenHelper();
 
         public void NavigateToMainMenu()
         {
@@ -37,8 +37,8 @@ namespace Library.Helpers
             Console.WriteLine("4 - List all books");
             Console.WriteLine("5 - List expired books");
             Console.WriteLine("6 - Seed data");
-            Console.WriteLine("7 - LazyLoad");;
-            Console.WriteLine("8 - EagerLoad");;
+            Console.WriteLine("7 - LazyLoad");
+            Console.WriteLine("8 - EagerLoad");
             Console.WriteLine("9 - Exit");
         }
 
@@ -57,12 +57,12 @@ namespace Library.Helpers
 
         private SearchFor ReadSearchMenuSelection()
         {
-            return (SearchFor) ReadMenuSelection.Reader.Read(boundary:5);
+            return (SearchFor) ReadMenuSelection.Reader.Read(boundary: 5);
         }
 
         private MainMenu ReadMainMenuSelection()
         {
-            return (MainMenu) ReadMenuSelection.Reader.Read(boundary:9);
+            return (MainMenu) ReadMenuSelection.Reader.Read(boundary: 9);
         }
     }
 }
