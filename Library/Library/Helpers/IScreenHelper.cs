@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Library.Contracts.Models;
 
 namespace Library.Helpers
@@ -14,5 +15,12 @@ namespace Library.Helpers
         int GetDueDate();
         string ReadInputString(string property);
         void PrintBookAddedMessage(Book book);
+        void PrintBookBorrowedMessage(Book book, Reader reader);
+        void PrintListOfBooks();
+        void GetLimit();
+        void PrintLazyLoading();
+        void PrintEagerLoading();
+        void PrintElapsedTime(TimeSpan elapsed);
+        void PrintSuccessfulSeeding();
     }
 }

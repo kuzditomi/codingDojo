@@ -26,8 +26,7 @@ namespace Library.BookOperations
             _screenHelper.Reset();
             var sw = new Stopwatch();
 
-            //Lazy loading: delaying the loading of related data, until you specifically request for it.
-            Console.WriteLine("Lazy loading happens");
+            _screenHelper.PrintLazyLoading();
             using (var context = new DataContext())
             {
                 sw.Start();
@@ -41,9 +40,8 @@ namespace Library.BookOperations
 
                 sw.Stop();
             }
-            
-            Console.WriteLine("Elapsed time: {0}", sw.ElapsedMilliseconds);
-            Console.WriteLine();
+
+            _screenHelper.PrintElapsedTime(sw.Elapsed);
 
             _menuHelper.NavigateToMainMenu();
         }
@@ -53,9 +51,7 @@ namespace Library.BookOperations
             _screenHelper.Reset();
             var sw = new Stopwatch();
 
-            //Eager loading: a query for one type of entity also loads related entities as part of the query.
-            //Eager loading is achieved using the Include() method.
-            Console.WriteLine("Eager loading happens");
+            _screenHelper.PrintEagerLoading();
             using (var context = new DataContext())
             {
                 sw.Start();
@@ -68,8 +64,7 @@ namespace Library.BookOperations
                 sw.Stop();
             }
 
-            Console.WriteLine("Elapsed time: {0}", sw.ElapsedMilliseconds);
-            Console.WriteLine();
+            _screenHelper.PrintElapsedTime(sw.Elapsed);
 
             _menuHelper.NavigateToMainMenu();
         }

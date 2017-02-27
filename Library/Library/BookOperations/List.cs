@@ -20,7 +20,7 @@ namespace Library.BookOperations
         public void AllBooks()
         {
             _screenHelper.Reset();
-            Console.WriteLine("====== List of books ======");
+            _screenHelper.PrintListOfBooks();
             
             var books = _bookrepository.GetAllBooks();
             foreach (var book in books)
@@ -34,7 +34,7 @@ namespace Library.BookOperations
         public void ExpiringBooks()
         {
             _screenHelper.Reset();
-            Console.WriteLine("How many days should be the limit for the search:");
+            _screenHelper.GetLimit();
             var limit = NumberInputReader.Reader.Read();
 
             var books = _bookrepository.GetAllBooks();

@@ -19,7 +19,7 @@ namespace Library.BookOperations
             _menuHelper = menuHelper;
         }
 
-        private List<Book> books = new List<Book>();
+        private readonly List<Book> _books = new List<Book>();
 
         public void GenerateData(int amount, Borrow borrow)
         {
@@ -27,21 +27,21 @@ namespace Library.BookOperations
             GenerateReaders(amount, borrow);
 
             _screenHelper.Reset();
-            Console.WriteLine("\nTest data generation was successful");
+            _screenHelper.PrintSuccessfulSeeding();
             _menuHelper.NavigateToMainMenu();
         }
         
         private void GenerateBooks(int amount)
         {
             var rnd = new Random();
-            for (int i = 0; i < amount; i++)
+            for (var i = 0; i < amount; i++)
             {
-                books.Add(new Book(
+                _books.Add(new Book(
                     "Book-" + Guid.NewGuid().ToString().Substring(0, 4),
                     "Author-" + Guid.NewGuid().ToString().Substring(0, 4),
                     rnd.Next(1500, 2017)));
             }
-            _bookRepository.StoreMultipleBooks(books);
+            _bookRepository.StoreMultipleBooks(_books);
         }
 
         private static void GenerateReaders(int amount, Borrow borrow)

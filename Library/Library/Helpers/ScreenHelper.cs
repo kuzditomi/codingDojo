@@ -88,5 +88,41 @@ namespace Library.Helpers
             Console.WriteLine("\r\nBook added: {0}, by {1} from year {2}",
                 book.Title, book.Author, book.Year);
         }
+
+        public void PrintBookBorrowedMessage(Book book, Reader reader)
+        {
+            Console.WriteLine("{0} is borrowed by {1} until {2}.", book.Title, reader.Name, book.DueDate);
+        }
+
+        public void PrintListOfBooks()
+        {
+            Console.WriteLine(Texts.ListOfBooks);
+        }
+
+        public void GetLimit()
+        {
+            Console.WriteLine("How many days should be the limit for the search:");
+        }
+
+        public void PrintLazyLoading()
+        {
+            Console.WriteLine("Lazy loading happens");
+        }
+
+        public void PrintEagerLoading()
+        {
+            Console.WriteLine("Eager loading happens");
+        }
+
+        public void PrintElapsedTime(TimeSpan elapsed)
+        {
+            Console.WriteLine("Elapsed time: {0}", elapsed.Milliseconds);
+            Console.WriteLine();
+        }
+
+        public void PrintSuccessfulSeeding()
+        {
+            Console.WriteLine("\nTest data generation was successful");
+        }
     }
 }
