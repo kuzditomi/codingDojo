@@ -61,7 +61,7 @@ namespace Library.Helpers
             return NumberInputReader.Reader.Read();
         }
 
-        public int GetDueDate()
+        public int GetBorrowDays()
         {
             Console.WriteLine("\r\nFor how many days: ");
             return NumberInputReader.Reader.Read();

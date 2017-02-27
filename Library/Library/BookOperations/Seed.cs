@@ -47,9 +47,9 @@ namespace Library.BookOperations
         private static void GenerateReaders(int amount, Borrow borrow)
         {
             var rnd = new Random();
-            for (int i = 1; i < amount; i = i + 10)
+            for (var i = 1; i < amount; i = i + 10)
             {
-                borrow.SingleBook(i, new Reader
+                borrow.BorrowSingleBook(i, new Reader
                 {
                     Name = "Reader-" + Guid.NewGuid().ToString().Substring(0, 5)
                 }, rnd.Next(1, 30));

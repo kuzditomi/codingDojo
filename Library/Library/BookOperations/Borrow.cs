@@ -17,22 +17,22 @@ namespace Library.BookOperations
             _menuHelper = menuHelper;
         }
 
-        public void SingleBook()
+        public void PerformBorrowingProcess()
         {
             _screenHelper.Reset();
             var id = _screenHelper.GetBookId();
             var reader = _screenHelper.GetNewReader();
-            var daysToBorrow = _screenHelper.GetDueDate();
+            var daysToBorrow = _screenHelper.GetBorrowDays();
 
-            var book = _bookrepository.BorrowABook(id, reader,daysToBorrow);
-
+            var book = BorrowSingleBook(id, reader, daysToBorrow);
             _screenHelper.PrintBookBorrowedMessage(book, reader);
+
             _menuHelper.NavigateToMainMenu();
         }
 
-        public void SingleBook(int id, Reader reader, int daysToBorrow)
+        public Book BorrowSingleBook(int id, Reader reader, int daysToBorrow)
         {
-            _bookrepository.BorrowABook(id, reader, daysToBorrow);
+            return _bookrepository.BorrowABook(id, reader, daysToBorrow);
         }
     }
 }

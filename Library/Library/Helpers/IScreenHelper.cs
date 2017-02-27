@@ -12,7 +12,7 @@ namespace Library.Helpers
         void PrintSearchResult(IEnumerable<Book> result);
         Reader GetNewReader();
         int GetBookId();
-        int GetDueDate();
+        int GetBorrowDays();
         string ReadInputString(string property);
         void PrintBookAddedMessage(Book book);
         void PrintBookBorrowedMessage(Book book, Reader reader);

@@ -38,7 +38,7 @@ namespace Library
                         _search.SingleBook();
                         break;
                     case MainMenu.Borrow:
-                        _borrow.SingleBook();
+                        _borrow.PerformBorrowingProcess();
                         break;
                     case MainMenu.Return:
                         _return.ReturnBook();
