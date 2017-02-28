@@ -13,7 +13,7 @@ namespace Library.Helpers
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        public void PrintBookDetails(Book book, string reader)
+        public void PrintBookDetails(Book book, string readerName)
         {
             if (book.Reader != null && book.DueDate.Date < DateTime.Today.AddDays(3) &&
                 book.DueDate.Date != new DateTime(1900, 01, 01))
@@ -24,9 +24,9 @@ namespace Library.Helpers
             Console.Write("{0} - {1} \tby {2} \t{3}",
                 book.Id, book.Title, book.Author, book.Year);
 
-            if (reader != null)
+            if (readerName != null)
             {
-                Console.Write(" \tCurrent holder: {0}", reader);
+                Console.Write(" \tCurrent holder: {0}", readerName);
                 Console.Write("\tDue Date: {0}", book.DueDate);
             }
             Console.WriteLine();
@@ -43,8 +43,8 @@ namespace Library.Helpers
             {
                 foreach (var book in result)
                 {
-                    var reader = book.Reader?.Name != null ? book.Reader.Name : "Library";
-                    PrintBookDetails(book, reader);
+                    var readerName = book.Reader?.Name != null ? book.Reader.Name : "Library";
+                    PrintBookDetails(book, readerName);
                 }
             }
         }
@@ -94,7 +94,7 @@ namespace Library.Helpers
             Console.WriteLine("{0} is borrowed by {1} until {2}.", book.Title, reader.Name, book.DueDate);
         }
 
-        public void PrintListOfBooks()
+        public void PrintBookListingText()
         {
             Console.WriteLine(Texts.ListOfBooks);
         }

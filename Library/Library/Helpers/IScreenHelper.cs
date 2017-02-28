@@ -8,7 +8,7 @@ namespace Library.Helpers
     {
         Book GetNewBookDetails();
         void Reset();
-        void PrintBookDetails(Book book, string reader);
+        void PrintBookDetails(Book book, string readerName);
         void PrintSearchResult(IEnumerable<Book> result);
         Reader GetNewReader();
         int GetBookId();
@@ -16,7 +16,7 @@ namespace Library.Helpers
         string ReadInputString(string property);
         void PrintBookAddedMessage(Book book);
         void PrintBookBorrowedMessage(Book book, Reader reader);
-        void PrintListOfBooks();
+        void PrintBookListingText();
         void GetLimit();
         void PrintLazyLoading();
         void PrintEagerLoading();

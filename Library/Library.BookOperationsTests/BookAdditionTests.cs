@@ -26,7 +26,7 @@ namespace Library.BookOperationsTests
         }
 
         [Test]
-        public void Add_SingleBook()
+        public void AddBook_SingleBookGetsAdded()
         {
             //Arrange
             var book = new Book
@@ -48,7 +48,7 @@ namespace Library.BookOperationsTests
         }
 
         [Test]
-        public void Add_CanFetchNewBookDetails()
+        public void GetNewBookDetails_CanFetchNewBookDetails()
         {
             //Arrange
             var expectedBook = new Book

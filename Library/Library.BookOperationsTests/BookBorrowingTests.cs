@@ -29,7 +29,7 @@ namespace Library.BookOperationsTests
         }
 
         [Test]
-        public void Borrow_SingleBook()
+        public void BorrowSingleBook_SingleBookGetsBorrowed()
         {
             //Arrange
             var bookId = _screenHelper.Object.GetBookId();
@@ -44,7 +44,7 @@ namespace Library.BookOperationsTests
         }
 
         [Test]
-        public void Borrow_CanFetchBorrowingDetails()
+        public void PerformBorrowingProcess_CanFetchBorrowingDetails()
         {
             //Arrange
             var bookId = _screenHelper.Object.GetBookId();

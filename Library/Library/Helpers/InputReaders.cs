@@ -4,12 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace Library.Helpers
 {
-    interface InputReader<T>
-    {
-        T Read(int boundary);
-    }
-
-    abstract class InputReaderBase<T> : InputReader<T>
+    abstract class InputReaderBase<T> : IInputReader<T>
     {
         private T ReadFromInput(int boundary)
         {

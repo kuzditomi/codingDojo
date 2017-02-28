@@ -44,10 +44,10 @@ namespace Library
                         _return.ReturnBook();
                         break;
                     case MainMenu.List:
-                        _list.AllBooks();
+                        _list.ListAllBooks();
                         break;
                     case MainMenu.Expiring:
-                        _list.ExpiringBooks();
+                        _list.ListExpiringBooks();
                         break;
                     case MainMenu.Seed:
                         _seed.GenerateData(100, _borrow);
