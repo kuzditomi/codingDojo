@@ -16,16 +16,18 @@ namespace Library.BookOperationsTests
         private Mock<IScreenHelper> _screenHelper;
         private Mock<IMenuHelper> _menuHelper;
         private Mock<IInputReader<int>> _inputReader;
+        private Mock<IConsoleReader> _reader;
         private List _list;
 
         [SetUp]
         public void Setup()
         {
+            _reader = new Mock<IConsoleReader>();
             _bookRepository = new Mock<IBookRepository>();
             _screenHelper = new Mock<IScreenHelper>();
             _menuHelper = new Mock<IMenuHelper>();
             _inputReader = new Mock<IInputReader<int>>();
-            _list = new List(_bookRepository.Object, _screenHelper.Object, _menuHelper.Object);
+            _list = new List(_bookRepository.Object, _screenHelper.Object, _menuHelper.Object, _inputReader.Object);
         }
 
         [Test]
@@ -72,7 +74,9 @@ namespace Library.BookOperationsTests
         public void ListExpiringBooks_ExpiredBooksGetListed()
         {
             //Arrange
-            _inputReader.Setup(i => i.Read(3)).Returns(3);
+            _reader.Setup(r => r.ReadInput()).Returns("3");
+            _inputReader.Setup(i => i.Read()).Returns(3);
+
             var books = new List<Book>();
             var book1 = new Book
             {

@@ -4,16 +4,27 @@ using System.Text.RegularExpressions;
 
 namespace Library.Helpers
 {
-    abstract class InputReaderBase<T> : IInputReader<T>
+    public abstract class InputReaderBase<T> : IInputReader<T>
     {
-        private T ReadFromInput(int boundary)
+        public IConsoleReader Reader { get; set; }
+
+        public InputReaderBase(IConsoleReader reader)
+        {
+            Reader = reader;
+        }
+
+        public InputReaderBase()
+        {
+        }
+
+        private T ReadFromInput()
         {
             bool canConvert;
             string input;
             do
             {
-                input = Console.ReadLine();
-                canConvert = CanConvert(input, boundary);
+                input = Reader.ReadInput();
+                canConvert = CanConvert(input);
                 if (!canConvert)
                     Console.WriteLine("Please type the required data: ");
             } while (!canConvert);
@@ -21,22 +32,33 @@ namespace Library.Helpers
             return Convert(input);
         }
 
-        protected abstract bool CanConvert(string input, int boundary);
+        protected abstract bool CanConvert(string input);
         protected abstract T Convert(string input);
 
-        public T Read(int boundary = 0)
+        public T Read()
         {
-            return ReadFromInput(boundary);
+            return ReadFromInput();
         }
     }
 
-    class StringInputReader : InputReaderBase<string>
+    public class ReadConsoleInput : IConsoleReader
     {
-        private static StringInputReader _reader;
-        private StringInputReader() { }
-        public static StringInputReader Reader => _reader ?? (_reader = new StringInputReader());
+        public string ReadInput()
+        {
+            return Console.ReadLine();
+        }
+    }
 
-        protected override bool CanConvert(string input, int boundary)
+    public class StringInputReader : InputReaderBase<string>
+    {
+        public IConsoleReader Reader { get; set; }
+
+        public StringInputReader(IConsoleReader reader)
+        {
+            Reader = reader;
+        }
+
+        protected override bool CanConvert(string input)
         {
             return input != "";
         }
@@ -47,13 +69,16 @@ namespace Library.Helpers
         }
     }
 
-    class BookDataInputReader : InputReaderBase<string>
+    public class BookDataInputReader : InputReaderBase<string>
     {
-        private static BookDataInputReader _reader;
-        private BookDataInputReader() { }
-        public static BookDataInputReader Reader => _reader ?? (_reader = new BookDataInputReader());
+        public IConsoleReader Reader { get; set; }
 
-        protected override bool CanConvert(string input, int boundary)
+        public BookDataInputReader(IConsoleReader reader)
+        {
+            Reader = reader;
+        }
+
+        protected override bool CanConvert(string input)
         {
             int n;
             var valid = true;
@@ -69,13 +94,16 @@ namespace Library.Helpers
         }
     }
 
-    class NumberInputReader : InputReaderBase<int>
+    public class NumberInputReader : InputReaderBase<int>
     {
-        private static NumberInputReader _reader;
-        private NumberInputReader() { }
-        public static NumberInputReader Reader => _reader ?? (_reader = new NumberInputReader());
+        public IConsoleReader Reader { get; set; }
 
-        protected override bool CanConvert(string input, int boundary)
+        public NumberInputReader(IConsoleReader reader)
+        {
+            Reader = reader;
+        }
+
+        protected override bool CanConvert(string input)
         {
             return Regex.IsMatch(input, @"^[0-9]+$");
         }
@@ -86,15 +114,18 @@ namespace Library.Helpers
         }
     }
 
-    class ReadMenuSelection : InputReaderBase<int>
+    public class ReadMenuSelection : InputReaderBase<int>
     {
-        private static ReadMenuSelection _reader;
-        private ReadMenuSelection() { }
-        public static ReadMenuSelection Reader => _reader ?? (_reader = new ReadMenuSelection());
+        public IConsoleReader Reader { get; set; }
 
-        protected override bool CanConvert(string input, int boundary)
+        public ReadMenuSelection(IConsoleReader reader)
         {
-            var pattern = string.Format("^[0-{0}]$", boundary);
+            Reader = reader;
+        }
+
+        protected override bool CanConvert(string input)
+        {
+            var pattern = string.Format("^[0-{0}]$");
             return input != null && Regex.IsMatch(input, @pattern);
         }
 

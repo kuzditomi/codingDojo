@@ -2,6 +2,6 @@
 {
     public interface IInputReader<T>
     {
-        T Read(int boundary);
+        T Read();
     }
 }

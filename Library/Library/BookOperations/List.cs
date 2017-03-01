@@ -11,12 +11,14 @@ namespace Library.BookOperations
         private readonly IBookRepository _bookrepository;
         private readonly IScreenHelper _screenHelper;
         private readonly IMenuHelper _menuHelper;
+        private readonly IInputReader<int> _numberReader;
 
-        public List(IBookRepository repo, IScreenHelper screenHelper, IMenuHelper menuHelper)
+        public List(IBookRepository repo, IScreenHelper screenHelper, IMenuHelper menuHelper, IInputReader<int> numberReader)
         {
             _bookrepository = repo;
             _screenHelper = screenHelper;
             _menuHelper = menuHelper;
+            _numberReader = numberReader;
         }
 
         public void ListAllBooks()
@@ -52,7 +54,7 @@ namespace Library.BookOperations
         public IEnumerable<Book> GetExpiringBooks()
         {
             var expiringBooks = new List<Book>();
-            var limit = NumberInputReader.Reader.Read();
+            var limit = _numberReader.Read();
             var books = _bookrepository.GetAllBooks();
             foreach (var book in books)
             {

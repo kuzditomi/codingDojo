@@ -13,21 +13,28 @@ namespace Library
         {
             MainMenu menuItem;
             IBookRepository repository = new SqlBookRepostiroy();
-            var screenHelper = new ScreenHelper();
-            var menuHelper = new MenuHelper();
+
+            var _consoleReader = new ReadConsoleInput();
+            var _numberReader = new NumberInputReader(_consoleReader);
+            var _stringInputReader = new StringInputReader(_consoleReader);
+            var _bookReader = new BookDataInputReader(_consoleReader);
+            var _menuReader = new ReadMenuSelection(_consoleReader);
+
+            var _screenHelper = new ScreenHelper(_numberReader, _stringInputReader, _bookReader);
+            var _menuHelper = new MenuHelper(_menuReader, _screenHelper);
             //IBookRepository repo = new FileBookRepository();
-            
-            var _add = new Add(repository, screenHelper, menuHelper);
-            var _borrow = new Borrow(repository, screenHelper, menuHelper);
-            var _list = new List(repository, screenHelper, menuHelper);
-            var _return = new Return(repository, screenHelper, menuHelper);
-            var _search = new Search(repository, screenHelper, menuHelper);
-            var _seed = new Seed(repository, screenHelper, menuHelper);
-            var _load = new Load(repository, screenHelper, menuHelper);
+
+            var _add = new Add(repository, _screenHelper, _menuHelper);
+            var _borrow = new Borrow(repository, _screenHelper, _menuHelper);
+            var _list = new List(repository, _screenHelper, _menuHelper, _numberReader);
+            var _return = new Return(repository, _screenHelper, _menuHelper);
+            var _search = new Search(repository, _screenHelper, _menuHelper);
+            var _seed = new Seed(repository, _screenHelper, _menuHelper);
+            var _load = new Load(repository, _screenHelper, _menuHelper);
 
             do
             {
-                menuItem = menuHelper.DoMainMenuSelection();
+                menuItem = _menuHelper.DoMainMenuSelection();
 
                 switch (menuItem)
                 {

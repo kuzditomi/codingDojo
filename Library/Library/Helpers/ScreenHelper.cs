@@ -7,6 +7,17 @@ namespace Library.Helpers
 {
     public class ScreenHelper : IScreenHelper
     {
+        private readonly NumberInputReader _numberReader;
+        private readonly StringInputReader _stringReader;
+        private readonly BookDataInputReader _bookReader;
+
+        public ScreenHelper(NumberInputReader numberReader, StringInputReader stringReader, BookDataInputReader bookReader)
+        {
+            _numberReader = numberReader;
+            _stringReader = stringReader;
+            _bookReader = bookReader;
+        }
+
         public void Reset()
         {
             Console.Clear();
@@ -52,32 +63,32 @@ namespace Library.Helpers
         public Reader GetNewReader()
         {
             Console.WriteLine("\r\nReader name: ");
-            return new Reader(StringInputReader.Reader.Read());
+            return new Reader(_stringReader.Read());
         }
 
         public int GetBookId()
         {
             Console.WriteLine("\r\nId of the book: ");
-            return NumberInputReader.Reader.Read();
+            return _numberReader.Read();
         }
 
         public int GetBorrowDays()
         {
             Console.WriteLine("\r\nFor how many days: ");
-            return NumberInputReader.Reader.Read();
+            return _numberReader.Read();
         }
 
         public string ReadInputString(string property)
         {
             Console.Write("\r\n{0} of book searched for: ", property);
-            return StringInputReader.Reader.Read();
+            return _stringReader.Read();
         }
 
         public Book GetNewBookDetails()
         {
             Console.WriteLine("====== Add a book ======");
             Console.Write("Name, Author, Publication Year of the book:");
-            var input = BookDataInputReader.Reader.Read();
+            var input = _bookReader.Read();
 
             var data = input.Split(',');
             return new Book(data[0].Trim(), data[1].Trim(), int.Parse(data[2].Trim()));

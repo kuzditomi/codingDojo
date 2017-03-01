@@ -5,7 +5,14 @@ namespace Library.Helpers
 {
     public class MenuHelper : IMenuHelper
     {
-        private readonly ScreenHelper _screenHelper = new ScreenHelper();
+        private ReadMenuSelection _menuReader;
+        private readonly ScreenHelper _screenHelper;
+
+        public MenuHelper(ReadMenuSelection menuReader, ScreenHelper screenHelper)
+        {
+            _menuReader = menuReader;
+            _screenHelper = screenHelper;
+        }
 
         public void NavigateToMainMenu()
         {
@@ -57,12 +64,12 @@ namespace Library.Helpers
 
         private SearchFor ReadSearchMenuSelection()
         {
-            return (SearchFor) ReadMenuSelection.Reader.Read(boundary: 5);
+            return (SearchFor) _menuReader.Read();
         }
 
         private MainMenu ReadMainMenuSelection()
         {
-            return (MainMenu) ReadMenuSelection.Reader.Read(boundary: 9);
+            return (MainMenu) _menuReader.Read();
         }
     }
 }
