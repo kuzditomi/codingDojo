@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace Library.BookOperationsTests
 {
     [TestFixture]
-    public class BookListingTests
+    public class BookFetchingTests
     {
         private Mock<IBookRepository> _bookRepository;
         private Mock<IScreenHelper> _screenHelper;

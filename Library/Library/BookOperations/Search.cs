@@ -9,9 +9,9 @@ namespace Library.BookOperations
 {
     public class Search
     {
-        private readonly IBookRepository _bookRepository;
-        private readonly IScreenHelper _screenHelper;
-        private readonly IMenuHelper _menuHelper;
+        public readonly IBookRepository _bookRepository;
+        public readonly IScreenHelper _screenHelper;
+        public readonly IMenuHelper _menuHelper;
 
         public Search(IBookRepository repo, IScreenHelper screenHelper, IMenuHelper menuHelper)
         {
@@ -46,32 +46,32 @@ namespace Library.BookOperations
             }
         }
 
-        private void SearchForTitle()
+        public void SearchForTitle()
         {
             SearchBy("Title", (b, input) => b.Title.ToLower().Contains(input.ToLower()));
         }
 
-        private void SearchForAuthor()
+        public void SearchForAuthor()
         {
             SearchBy("Author", (b, input) => b.Author.ToLower().Contains(input.ToLower()));
         }
 
-        private void SearchForReader()
+        public void SearchForReader()
         {
             SearchBy("Reader", (b, input) => b.Reader != null && b.Reader.Name.ToLower().Contains(input.ToLower()));
         }
 
-        private void SearchForYear()
+        public void SearchForYear()
         {
             SearchBy("Year", (b, input) => b.Year == int.Parse(input));
         }
 
-        private void SearchBeforeYear()
+        public void SearchBeforeYear()
         {
             SearchBy("Year", (b, input) => b.Year < int.Parse(input));
         }
 
-        private void SearchAfterYear()
+        public void SearchAfterYear()
         {
             SearchBy("Year", (b, input) => b.Year > int.Parse(input));
         }

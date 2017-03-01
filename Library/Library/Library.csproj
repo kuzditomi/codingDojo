@@ -52,10 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookOperations\List.cs" />
+    <Compile Include="BookOperations\Fetch.cs" />
     <Compile Include="BookOperations\Borrow.cs" />
     <Compile Include="BookOperations\Load.cs" />
-    <Compile Include="BookOperations\Return.cs" />
+    <Compile Include="BookOperations\TakeBack.cs" />
     <Compile Include="BookOperations\Search.cs" />
     <Compile Include="BookOperations\Add.cs" />
     <Compile Include="BookOperations\Seed.cs" />

@@ -77,7 +77,8 @@
   <ItemGroup>
     <Compile Include="BookAdditionTests.cs" />
     <Compile Include="BookBorrowingTests.cs" />
-    <Compile Include="BookListingTests.cs" />
+    <Compile Include="BookFetchingTests.cs" />
+    <Compile Include="BookSearchingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
