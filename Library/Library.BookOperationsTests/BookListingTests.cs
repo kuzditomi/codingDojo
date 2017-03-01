@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Library.BookOperations;
 using Library.Contracts;
 using Library.Contracts.Models;
 using Library.Helpers;
 using Moq;
 using NUnit.Framework;
-using List = Library.BookOperations.List;
 
 namespace Library.BookOperationsTests
 {
@@ -17,7 +17,7 @@ namespace Library.BookOperationsTests
         private Mock<IMenuHelper> _menuHelper;
         private Mock<IInputReader<int>> _inputReader;
         private Mock<IConsoleReader> _reader;
-        private List _list;
+        private Fetch _fetch;
 
         [SetUp]
         public void Setup()
@@ -27,7 +27,7 @@ namespace Library.BookOperationsTests
             _screenHelper = new Mock<IScreenHelper>();
             _menuHelper = new Mock<IMenuHelper>();
             _inputReader = new Mock<IInputReader<int>>();
-            _list = new List(_bookRepository.Object, _screenHelper.Object, _menuHelper.Object, _inputReader.Object);
+            _fetch = new Fetch(_bookRepository.Object, _screenHelper.Object, _menuHelper.Object, _inputReader.Object);
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace Library.BookOperationsTests
             _bookRepository.Setup(b => b.GetBookReader("Cím2")).Returns("Olvasó2");
 
             //Act
-            _list.ListAllBooks();
+            _fetch.ListAllBooks();
 
             //Assert
             _screenHelper.Verify(s => s.PrintBookDetails(book1, book1.Reader.Name), Times.Once);
@@ -106,7 +106,7 @@ namespace Library.BookOperationsTests
             _bookRepository.Setup(b => b.GetBookReader("Cím2")).Returns("Olvasó2");
 
             //Act
-            _list.ListExpiringBooks();
+            _fetch.ListExpiringBooks();
 
             //Assert
             _screenHelper.Verify(s => s.PrintBookDetails(book1, book1.Reader.Name), Times.Once);

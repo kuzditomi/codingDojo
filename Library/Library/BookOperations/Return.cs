@@ -4,13 +4,13 @@ using Library.Helpers;
 
 namespace Library.BookOperations
 {
-    public class Return
+    public class TakeBack
     {
         private readonly IBookRepository _bookRepository;
         private readonly IScreenHelper _screenHelper;
         private readonly IMenuHelper _menuHelper;
 
-        public Return(IBookRepository repo, IScreenHelper screenHelper, IMenuHelper menuHelper)
+        public TakeBack(IBookRepository repo, IScreenHelper screenHelper, IMenuHelper menuHelper)
         {
             _screenHelper = screenHelper;
             _menuHelper = menuHelper;

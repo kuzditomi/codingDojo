@@ -6,14 +6,14 @@ using Library.Helpers;
 
 namespace Library.BookOperations
 {
-    public class List
+    public class Fetch
     {
         private readonly IBookRepository _bookrepository;
         private readonly IScreenHelper _screenHelper;
         private readonly IMenuHelper _menuHelper;
         private readonly IInputReader<int> _numberReader;
 
-        public List(IBookRepository repo, IScreenHelper screenHelper, IMenuHelper menuHelper, IInputReader<int> numberReader)
+        public Fetch(IBookRepository repo, IScreenHelper screenHelper, IMenuHelper menuHelper, IInputReader<int> numberReader)
         {
             _bookrepository = repo;
             _screenHelper = screenHelper;
