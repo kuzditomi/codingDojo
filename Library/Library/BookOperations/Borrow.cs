@@ -1,15 +1,10 @@
 ﻿using Library.Contracts;
 using Library.Contracts.Models;
-using Library.Helpers;
+using Library.Contracts.PublicAPI.BookOperations;
+using Library.Contracts.PublicAPI.Helpers;
 
 namespace Library.BookOperations
 {
-    public interface IBorrow
-    {
-        void PerformBorrowingProcess();
-        Book BorrowSingleBook(int id, Reader reader, int daysToBorrow);
-    }
-
     public class Borrow : IBorrow
     {
         private readonly IBookRepository _bookrepository;

@@ -52,8 +52,20 @@
     <Compile Include="IBookRepository.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\Menu\MainMenu.cs" />
+    <Compile Include="Models\Menu\SearchMenu.cs" />
     <Compile Include="Models\Reader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublicAPI\BookOperations\IAdd.cs" />
+    <Compile Include="PublicAPI\BookOperations\IBorrow.cs" />
+    <Compile Include="PublicAPI\BookOperations\IFetch.cs" />
+    <Compile Include="PublicAPI\BookOperations\ILoad.cs" />
+    <Compile Include="PublicAPI\BookOperations\ISearch.cs" />
+    <Compile Include="PublicAPI\BookOperations\ISeed.cs" />
+    <Compile Include="PublicAPI\BookOperations\ITakeBack.cs" />
+    <Compile Include="PublicAPI\Helpers\IInputReader.cs" />
+    <Compile Include="PublicAPI\Helpers\IMenuHelper.cs" />
+    <Compile Include="PublicAPI\Helpers\IScreenHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

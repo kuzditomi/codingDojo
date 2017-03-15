@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Library
+namespace Library.Helpers
 {
 
     public interface ISimpeStringReader

@@ -1,4 +1,4 @@
-﻿namespace Library.Menu
+﻿namespace Library.Contracts.Models.Menu
 {
     public enum SearchFor
     {

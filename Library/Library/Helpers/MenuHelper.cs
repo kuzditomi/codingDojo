@@ -1,5 +1,6 @@
 ﻿using System;
-using Library.Menu;
+using Library.Contracts.Models.Menu;
+using Library.Contracts.PublicAPI.Helpers;
 
 namespace Library.Helpers
 {

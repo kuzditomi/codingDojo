@@ -63,14 +63,9 @@
     <Compile Include="BookOperations\Search.cs" />
     <Compile Include="BookOperations\Add.cs" />
     <Compile Include="BookOperations\Seed.cs" />
-    <Compile Include="Helpers\IInputReader.cs" />
-    <Compile Include="Helpers\IMenuHelper.cs" />
-    <Compile Include="Helpers\IScreenHelper.cs" />
     <Compile Include="Helpers\ScreenHelper.cs" />
     <Compile Include="IOC\Resolver.cs" />
-    <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Helpers\MenuHelper.cs" />
-    <Compile Include="Menu\SearchMenu.cs" />
     <Compile Include="Helpers\InputReaders.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

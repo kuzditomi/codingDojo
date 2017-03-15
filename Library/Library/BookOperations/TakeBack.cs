@@ -1,14 +1,11 @@
 ﻿using System;
 using Library.Contracts;
+using Library.Contracts.PublicAPI.BookOperations;
+using Library.Contracts.PublicAPI.Helpers;
 using Library.Helpers;
 
 namespace Library.BookOperations
 {
-    public interface ITakeBack
-    {
-        void ReturnBook();
-    }
-
     public class TakeBack : ITakeBack
     {
         private readonly IBookRepository _bookRepository;

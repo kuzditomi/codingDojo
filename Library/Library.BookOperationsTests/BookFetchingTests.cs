@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Library.BookOperations;
 using Library.Contracts;
 using Library.Contracts.Models;
+using Library.Contracts.PublicAPI.Helpers;
 using Library.Helpers;
 using Moq;
 using NUnit.Framework;

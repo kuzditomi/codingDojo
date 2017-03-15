@@ -2,18 +2,13 @@
 using System.Diagnostics;
 using System.Linq;
 using Library.Contracts;
-using Library.Helpers;
+using Library.Contracts.PublicAPI.BookOperations;
+using Library.Contracts.PublicAPI.Helpers;
 using Library.Sql;
 using Library.Sql.Models;
 
 namespace Library.BookOperations
 {
-    internal interface ILoad
-    {
-        void LazyLoad();
-        void EagerLoad();
-    }
-
     class Load : ILoad
     {
         private readonly IBookRepository _bookRepository;

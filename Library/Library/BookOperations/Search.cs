@@ -2,22 +2,13 @@
 using System.Linq;
 using Library.Contracts;
 using Library.Contracts.Models;
+using Library.Contracts.Models.Menu;
+using Library.Contracts.PublicAPI.BookOperations;
+using Library.Contracts.PublicAPI.Helpers;
 using Library.Helpers;
-using Library.Menu;
 
 namespace Library.BookOperations
 {
-    public interface ISearch
-    {
-        void SearchBooks();
-        void SearchForTitle();
-        void SearchForAuthor();
-        void SearchForReader();
-        void SearchForYear();
-        void SearchBeforeYear();
-        void SearchAfterYear();
-    }
-
     public class Search : ISearch
     {
         public readonly IBookRepository _bookRepository;

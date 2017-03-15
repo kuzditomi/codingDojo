@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using Library.Contracts;
 using Library.Contracts.Models;
+using Library.Contracts.PublicAPI.BookOperations;
+using Library.Contracts.PublicAPI.Helpers;
 using Library.Helpers;
 
 namespace Library.BookOperations
 {
-    public interface ISeed
-    {
-        void GenerateData(int amount, IBorrow borrow);
-    }
-
     public class Seed : ISeed
     {
         private readonly IBookRepository _bookRepository;

@@ -1,14 +1,9 @@
 ﻿using Library.Contracts;
-using Library.Contracts.Models;
-using Library.Helpers;
+using Library.Contracts.PublicAPI.BookOperations;
+using Library.Contracts.PublicAPI.Helpers;
 
 namespace Library.BookOperations
 {
-    public interface IAdd
-    {
-        void AddNewBook();
-    }
-
     public class Add : IAdd
     {
         private readonly IBookRepository _bookrepository;

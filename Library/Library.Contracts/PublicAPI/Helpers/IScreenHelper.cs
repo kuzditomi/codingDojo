@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Library.Contracts.Models;
 
-namespace Library.Helpers
+namespace Library.Contracts.PublicAPI.Helpers
 {
     public interface IScreenHelper
     {

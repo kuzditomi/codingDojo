@@ -3,6 +3,8 @@ using Library.Contracts;
 using Library.Helpers;
 using Library.Sql;
 using Autofac;
+using Library.Contracts.PublicAPI.BookOperations;
+using Library.Contracts.PublicAPI.Helpers;
 
 namespace Library.IOC
 {

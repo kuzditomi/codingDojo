@@ -1,4 +1,4 @@
-﻿namespace Library.Helpers
+﻿namespace Library.Contracts.PublicAPI.Helpers
 {
     public interface IInputReader<T>
     {

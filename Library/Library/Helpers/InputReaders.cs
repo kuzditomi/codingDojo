@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Library.Contracts.PublicAPI.Helpers;
 
 namespace Library.Helpers
 {

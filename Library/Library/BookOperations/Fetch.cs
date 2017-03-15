@@ -2,18 +2,12 @@
 using System.Collections.Generic;
 using Library.Contracts;
 using Library.Contracts.Models;
+using Library.Contracts.PublicAPI.BookOperations;
+using Library.Contracts.PublicAPI.Helpers;
 using Library.Helpers;
 
 namespace Library.BookOperations
 {
-    public interface IFetch
-    {
-        void ListAllBooks();
-        void ListExpiringBooks();
-        void ListBooks(IEnumerable<Book> books);
-        IEnumerable<Book> GetExpiringBooks();
-    }
-
     public class Fetch : IFetch
     {
         private readonly IBookRepository _bookrepository;

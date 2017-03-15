@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Library.Contracts.Models;
+using Library.Contracts.PublicAPI.Helpers;
 
 namespace Library.Helpers
 {

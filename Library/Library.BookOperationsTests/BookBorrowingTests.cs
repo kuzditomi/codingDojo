@@ -1,7 +1,7 @@
 ﻿using Library.BookOperations;
 using Library.Contracts;
 using Library.Contracts.Models;
-using Library.Helpers;
+using Library.Contracts.PublicAPI.Helpers;
 using Moq;
 using NUnit.Framework;
 

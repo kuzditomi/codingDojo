@@ -1,6 +1,6 @@
-﻿using Library.Menu;
+﻿using Library.Contracts.Models.Menu;
 
-namespace Library.Helpers
+namespace Library.Contracts.PublicAPI.Helpers
 {
     public interface IMenuHelper
     {
