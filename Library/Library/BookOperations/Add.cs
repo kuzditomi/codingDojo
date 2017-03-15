@@ -4,7 +4,14 @@ using Library.Helpers;
 
 namespace Library.BookOperations
 {
-    public class Add
+    public interface IAdd
+    {
+        void AddNewBook();
+        Book GetNewBookDetails();
+        void AddBook(Book book);
+    }
+
+    public class Add : IAdd
     {
         private readonly IBookRepository _bookrepository;
         private readonly IScreenHelper _screenHelper;

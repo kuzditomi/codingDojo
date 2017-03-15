@@ -1,67 +1,62 @@
 ﻿using Library.BookOperations;
-using Library.Contracts;
-using Library.File;
 using Library.Helpers;
 using Library.Menu;
-using Library.Sql;
+using Autofac;
+using Library.IOC;
 
 namespace Library
 {
     class Program
     {
-        private static readonly IInputReader<int> NumberReader = new NumberInputReader();
-        private static readonly IInputReader<string> StringInputReader = new StringInputReader();
-        private static readonly IInputReader<string> BookReader = new BookDataInputReader();
+        private static readonly Resolver Resolver = new Resolver();
+        private static IContainer Container { get; set; }
 
-        private static readonly IScreenHelper ScreenHelper = new ScreenHelper(NumberReader, StringInputReader, BookReader);
-        private static readonly IMenuHelper MenuHelper = new MenuHelper(NumberReader, ScreenHelper);
-
-        private static readonly IBookRepository Repository = new SqlBookRepostiroy();
-        private static readonly Add Add = new Add(Repository, ScreenHelper, MenuHelper);
-        private static readonly Borrow Borrow = new Borrow(Repository, ScreenHelper, MenuHelper);
-        private static readonly Fetch Fetch = new Fetch(Repository, ScreenHelper, MenuHelper, NumberReader);
-        private static readonly TakeBack TakeBack = new TakeBack(Repository, ScreenHelper, MenuHelper);
-        private static readonly Search Search = new Search(Repository, ScreenHelper, MenuHelper);
-        private static readonly Seed Seed = new Seed(Repository, ScreenHelper, MenuHelper);
-        private static readonly Load Load = new Load(Repository, ScreenHelper, MenuHelper);
 
         static void Main(string[] args)
         {
+            Container = Resolver.BuildContainer().Build();
+            var add = Container.Resolve<IAdd>();
+            var search = Container.Resolve<ISearch>();
+            var borrow = Container.Resolve<IBorrow>();
+            var takeBack = Container.Resolve<ITakeBack>();
+            var fetch = Container.Resolve<IFetch>();
+            var seed = Container.Resolve<ISeed>();
+            var load = Container.Resolve<ILoad>();
+            var menuHelper = Container.Resolve<IMenuHelper>();
             MainMenu menuItem;
-            //IBookRepository repo = new FileBookRepository();
-            
+
             do
             {
-                menuItem = MenuHelper.DoMainMenuSelection();
+                menuItem = menuHelper.DoMainMenuSelection();
 
                 switch (menuItem)
                 {
                     case MainMenu.Add:
-                        Add.AddNewBook();
+                        add.AddNewBook();
                         break;
                     case MainMenu.Search:
-                        Search.SingleBook();
+                        search.SingleBook();
                         break;
                     case MainMenu.Borrow:
-                        Borrow.PerformBorrowingProcess();
+                        borrow.PerformBorrowingProcess();
                         break;
                     case MainMenu.Return:
-                        TakeBack.ReturnBook();
+                        takeBack.ReturnBook();
                         break;
                     case MainMenu.List:
-                        Fetch.ListAllBooks();
+                        fetch.ListAllBooks();
                         break;
                     case MainMenu.Expiring:
-                        Fetch.ListExpiringBooks();
+                        fetch.ListExpiringBooks();
                         break;
                     case MainMenu.Seed:
-                        Seed.GenerateData(100, Borrow);
+                        seed.GenerateData(100, borrow);
                         break;
                     case MainMenu.LazyLoad:
-                        Load.LazyLoad();
+                        load.LazyLoad();
                         break;
                     case MainMenu.EagerLoad:
-                        Load.EagerLoad();
+                        load.EagerLoad();
                         break;
                 }
             } while (menuItem != MainMenu.Exit);

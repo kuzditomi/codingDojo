@@ -4,7 +4,12 @@ using Library.Helpers;
 
 namespace Library.BookOperations
 {
-    public class TakeBack
+    public interface ITakeBack
+    {
+        void ReturnBook();
+    }
+
+    public class TakeBack : ITakeBack
     {
         private readonly IBookRepository _bookRepository;
         private readonly IScreenHelper _screenHelper;

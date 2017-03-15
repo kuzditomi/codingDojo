@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.4.0\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -63,6 +67,7 @@
     <Compile Include="Helpers\IMenuHelper.cs" />
     <Compile Include="Helpers\IScreenHelper.cs" />
     <Compile Include="Helpers\ScreenHelper.cs" />
+    <Compile Include="IOC\Resolver.cs" />
     <Compile Include="Menu\MainMenu.cs" />
     <Compile Include="Helpers\MenuHelper.cs" />
     <Compile Include="Menu\SearchMenu.cs" />
@@ -70,6 +75,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\Texts.cs" />
+    <Compile Include="Helpers\SimpleInputReaders.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

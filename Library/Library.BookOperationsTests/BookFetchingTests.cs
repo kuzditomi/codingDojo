@@ -15,7 +15,7 @@ namespace Library.BookOperationsTests
         private Mock<IBookRepository> _bookRepository;
         private Mock<IScreenHelper> _screenHelper;
         private Mock<IMenuHelper> _menuHelper;
-        private Mock<IInputReader<int>> _inputReader;
+        private Mock<ISimpleIntInputReader> _inputReader;
         private Fetch _fetch;
 
         [SetUp]
@@ -24,7 +24,7 @@ namespace Library.BookOperationsTests
             _bookRepository = new Mock<IBookRepository>();
             _screenHelper = new Mock<IScreenHelper>();
             _menuHelper = new Mock<IMenuHelper>();
-            _inputReader = new Mock<IInputReader<int>>();
+            _inputReader = new Mock<ISimpleIntInputReader>();
             _fetch = new Fetch(_bookRepository.Object, _screenHelper.Object, _menuHelper.Object, _inputReader.Object);
         }
 

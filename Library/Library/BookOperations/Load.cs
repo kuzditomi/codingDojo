@@ -8,7 +8,13 @@ using Library.Sql.Models;
 
 namespace Library.BookOperations
 {
-    class Load
+    internal interface ILoad
+    {
+        void LazyLoad();
+        void EagerLoad();
+    }
+
+    class Load : ILoad
     {
         private readonly IBookRepository _bookRepository;
         private readonly IScreenHelper _screenHelper;

@@ -5,10 +5,10 @@ namespace Library.Helpers
 {
     public class MenuHelper : IMenuHelper
     {
-        private readonly IInputReader<int> _menuReader;
+        private readonly ISimpleIntInputReader _menuReader;
         private readonly IScreenHelper _screenHelper;
 
-        public MenuHelper(IInputReader<int> menuReader, IScreenHelper screenHelper)
+        public MenuHelper(ISimpleIntInputReader menuReader, IScreenHelper screenHelper)
         {
             _menuReader = menuReader;
             _screenHelper = screenHelper;

@@ -7,7 +7,18 @@ using Library.Menu;
 
 namespace Library.BookOperations
 {
-    public class Search
+    public interface ISearch
+    {
+        void SingleBook();
+        void SearchForTitle();
+        void SearchForAuthor();
+        void SearchForReader();
+        void SearchForYear();
+        void SearchBeforeYear();
+        void SearchAfterYear();
+    }
+
+    public class Search : ISearch
     {
         public readonly IBookRepository _bookRepository;
         public readonly IScreenHelper _screenHelper;

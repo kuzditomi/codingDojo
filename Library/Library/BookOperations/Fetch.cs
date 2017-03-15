@@ -6,14 +6,22 @@ using Library.Helpers;
 
 namespace Library.BookOperations
 {
-    public class Fetch
+    public interface IFetch
+    {
+        void ListAllBooks();
+        void ListExpiringBooks();
+        void ListBooks(IEnumerable<Book> books);
+        IEnumerable<Book> GetExpiringBooks();
+    }
+
+    public class Fetch : IFetch
     {
         private readonly IBookRepository _bookrepository;
         private readonly IScreenHelper _screenHelper;
         private readonly IMenuHelper _menuHelper;
-        private readonly IInputReader<int> _numberReader;
+        private readonly ISimpleIntInputReader _numberReader;
 
-        public Fetch(IBookRepository repo, IScreenHelper screenHelper, IMenuHelper menuHelper, IInputReader<int> numberReader)
+        public Fetch(IBookRepository repo, IScreenHelper screenHelper, IMenuHelper menuHelper, ISimpleIntInputReader numberReader)
         {
             _bookrepository = repo;
             _screenHelper = screenHelper;

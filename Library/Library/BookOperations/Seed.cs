@@ -6,7 +6,12 @@ using Library.Helpers;
 
 namespace Library.BookOperations
 {
-    public class Seed
+    public interface ISeed
+    {
+        void GenerateData(int amount, IBorrow borrow);
+    }
+
+    public class Seed : ISeed
     {
         private readonly IBookRepository _bookRepository;
         private readonly IScreenHelper _screenHelper;
@@ -21,7 +26,7 @@ namespace Library.BookOperations
 
         private readonly List<Book> _books = new List<Book>();
 
-        public void GenerateData(int amount, Borrow borrow)
+        public void GenerateData(int amount, IBorrow borrow)
         {
             GenerateBooks(amount);
             GenerateReaders(amount, borrow);
@@ -44,7 +49,7 @@ namespace Library.BookOperations
             _bookRepository.StoreMultipleBooks(_books);
         }
 
-        private static void GenerateReaders(int amount, Borrow borrow)
+        private static void GenerateReaders(int amount, IBorrow borrow)
         {
             var rnd = new Random();
             for (var i = 1; i < amount; i = i + 10)
