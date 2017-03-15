@@ -59,7 +59,6 @@
     <Compile Include="BookOperations\Search.cs" />
     <Compile Include="BookOperations\Add.cs" />
     <Compile Include="BookOperations\Seed.cs" />
-    <Compile Include="Helpers\IConsoleReader.cs" />
     <Compile Include="Helpers\IInputReader.cs" />
     <Compile Include="Helpers\IMenuHelper.cs" />
     <Compile Include="Helpers\IScreenHelper.cs" />

@@ -9,61 +9,59 @@ namespace Library
 {
     class Program
     {
+        private static readonly NumberInputReader NumberReader = new NumberInputReader();
+        private static readonly StringInputReader StringInputReader = new StringInputReader();
+        private static readonly BookDataInputReader BookReader = new BookDataInputReader();
+
+        private static readonly ScreenHelper ScreenHelper = new ScreenHelper(NumberReader, StringInputReader, BookReader);
+        private static readonly MenuHelper MenuHelper = new MenuHelper(NumberReader, ScreenHelper);
+
+        private static readonly IBookRepository Repository = new SqlBookRepostiroy();
+        private static readonly Add Add = new Add(Repository, ScreenHelper, MenuHelper);
+        private static readonly Borrow Borrow = new Borrow(Repository, ScreenHelper, MenuHelper);
+        private static readonly Fetch Fetch = new Fetch(Repository, ScreenHelper, MenuHelper, NumberReader);
+        private static readonly TakeBack TakeBack = new TakeBack(Repository, ScreenHelper, MenuHelper);
+        private static readonly Search Search = new Search(Repository, ScreenHelper, MenuHelper);
+        private static readonly Seed Seed = new Seed(Repository, ScreenHelper, MenuHelper);
+        private static readonly Load Load = new Load(Repository, ScreenHelper, MenuHelper);
+
         static void Main(string[] args)
         {
             MainMenu menuItem;
-            IBookRepository repository = new SqlBookRepostiroy();
-
-            var consoleReader = new ReadConsoleInput();
-            var numberReader = new NumberInputReader(consoleReader);
-            var stringInputReader = new StringInputReader(consoleReader);
-            var bookReader = new BookDataInputReader(consoleReader);
-            var menuReader = new ReadMenuSelection(consoleReader);
-
-            var screenHelper = new ScreenHelper(numberReader, stringInputReader, bookReader);
-            var menuHelper = new MenuHelper(menuReader, screenHelper);
             //IBookRepository repo = new FileBookRepository();
-
-            var add = new Add(repository, screenHelper, menuHelper);
-            var borrow = new Borrow(repository, screenHelper, menuHelper);
-            var fetch = new Fetch(repository, screenHelper, menuHelper, numberReader);
-            var takeBack = new TakeBack(repository, screenHelper, menuHelper);
-            var search = new Search(repository, screenHelper, menuHelper);
-            var seed = new Seed(repository, screenHelper, menuHelper);
-            var load = new Load(repository, screenHelper, menuHelper);
-
+            
             do
             {
-                menuItem = menuHelper.DoMainMenuSelection();
+                menuItem = MenuHelper.DoMainMenuSelection();
 
                 switch (menuItem)
                 {
                     case MainMenu.Add:
-                        add.AddNewBook();
+                        Add.AddNewBook();
                         break;
                     case MainMenu.Search:
-                        search.SingleBook();
+                        Search.SingleBook();
                         break;
                     case MainMenu.Borrow:
-                        borrow.PerformBorrowingProcess();
+                        Borrow.PerformBorrowingProcess();
                         break;
                     case MainMenu.Return:
-                        takeBack.ReturnBook();
+                        TakeBack.ReturnBook();
                         break;
                     case MainMenu.List:
-                        fetch.ListAllBooks();
+                        Fetch.ListAllBooks();
                         break;
                     case MainMenu.Expiring:
-                        fetch.ListExpiringBooks();
+                        Fetch.ListExpiringBooks();
                         break;
                     case MainMenu.Seed:
-                        seed.GenerateData(100, borrow);
+                        Seed.GenerateData(100, Borrow);
                         break;
                     case MainMenu.LazyLoad:
-                        load.LazyLoad();
+                        Load.LazyLoad();
                         break;
                     case MainMenu.EagerLoad:
-                        load.EagerLoad();
+                        Load.EagerLoad();
                         break;
                 }
             } while (menuItem != MainMenu.Exit);
