@@ -3,12 +3,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F5826DB9-5614-4CE4-88B1-2C7200A15D90}</ProjectGuid>
+    <ProjectGuid>{341B3F78-F3C0-4FED-A013-41D146E1231B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Library.BookOperationsTests</RootNamespace>
-    <AssemblyName>Library.BookOperationsTests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RootNamespace>Library.InputReaders</RootNamespace>
+    <AssemblyName>Library.InputReaders</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -16,7 +16,6 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,6 +39,12 @@
       <HintPath>..\packages\Castle.Core.4.0.0\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Library">
+      <HintPath>..\Library\bin\Debug\Library.exe</HintPath>
+    </Reference>
+    <Reference Include="Library.Contracts">
+      <HintPath>..\Library.Contracts\bin\Debug\Library.Contracts.dll</HintPath>
+    </Reference>
     <Reference Include="Moq, Version=4.7.1.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.7.1\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
@@ -59,25 +64,11 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="BookAdditionTests.cs" />
-    <Compile Include="BookBorrowingTests.cs" />
-    <Compile Include="BookFetchingTests.cs" />
-    <Compile Include="BookSearchingTests.cs" />
+    <Compile Include="NumberInputReaderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Library.Contracts\Library.Contracts.csproj">
-      <Project>{e527be35-ff23-424f-89c6-bcd2b18a9a39}</Project>
-      <Name>Library.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Library\Library.csproj">
-      <Project>{46f5aa2d-c622-4e7c-82a7-e520664b19b2}</Project>
-      <Name>Library</Name>
-      <Private>True</Private>
-    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
