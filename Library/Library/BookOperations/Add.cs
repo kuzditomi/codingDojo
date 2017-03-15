@@ -7,8 +7,6 @@ namespace Library.BookOperations
     public interface IAdd
     {
         void AddNewBook();
-        Book GetNewBookDetails();
-        void AddBook(Book book);
     }
 
     public class Add : IAdd
@@ -27,20 +25,10 @@ namespace Library.BookOperations
         public void AddNewBook()
         {
             _screenHelper.Reset();
-            var book = GetNewBookDetails();
-            AddBook(book);
-            _menuHelper.NavigateToMainMenu();
-        }
-
-        public Book GetNewBookDetails()
-        {
-            return _screenHelper.GetNewBookDetails();
-        }
-
-        public void AddBook(Book book)
-        {
+            var book = _screenHelper.GetNewBookDetails();
             _bookrepository.StoreABook(book);
             _screenHelper.PrintBookAddedMessage(book);
+            _menuHelper.NavigateToMainMenu();
         }
     }
 }

@@ -31,30 +31,24 @@ namespace Library.BookOperationsTests
         [Test]
         public void BorrowSingleBook_SingleBookGetsBorrowed()
         {
-            //Arrange
             var bookId = _screenHelper.Object.GetBookId();
             var reader = _screenHelper.Object.GetNewReader();
             var days = _screenHelper.Object.GetBorrowDays();
-
-            //Act
+            
             _borrow.BorrowSingleBook(bookId, reader, days);
-
-            //Assert
+            
             _bookRepository.Verify(b => b.BorrowABook(bookId, reader, days), Times.Once);
         }
 
         [Test]
         public void PerformBorrowingProcess_CanFetchBorrowingDetails()
         {
-            //Arrange
             var bookId = _screenHelper.Object.GetBookId();
             var reader = _screenHelper.Object.GetNewReader();
             var days = _screenHelper.Object.GetBorrowDays();
-
-            //Act
+            
             _borrow.PerformBorrowingProcess();
-
-            //Assert
+            
             _bookRepository.Verify(b => b.BorrowABook(bookId, reader, days), Times.Once);
         }
     }

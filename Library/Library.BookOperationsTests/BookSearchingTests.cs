@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Library.BookOperations;
@@ -31,17 +30,42 @@ namespace Library.BookOperationsTests
         [Test]
         public void SearchForTitle_FindsSingleMatchingBook()
         {
-            //Arrange
             var books = GenerateTestBooks();
             var expectedBook = books.FirstOrDefault(b => b.Title == "Cim3");
             var expectedList = new List<Book> {expectedBook};
             _screenHelper.Setup(s => s.ReadInputString("Title")).Returns("Cim3");
             _bookRepository.Setup(b => b.GetAllBooks()).Returns(books);
-
-            //Act
+            
             _search.SearchForTitle();
+            
+            _screenHelper.Verify(s => s.PrintSearchResult(expectedList), Times.Once);
+        }
 
-            //Assert
+        [Test]
+        public void SearchForAuthor_FindsSingleMatchingBook()
+        {
+            var books = GenerateTestBooks();
+            var expectedBook = books.FirstOrDefault(b => b.Author == "Szerző1");
+            var expectedList = new List<Book> {expectedBook};
+            _screenHelper.Setup(s => s.ReadInputString("Author")).Returns("Szerző1");
+            _bookRepository.Setup(b => b.GetAllBooks()).Returns(books);
+            
+            _search.SearchForAuthor();
+            
+            _screenHelper.Verify(s => s.PrintSearchResult(expectedList), Times.Once);
+        }
+
+        [Test]
+        public void SearchForYear_FindsSingleMatchingBook()
+        {
+            var books = GenerateTestBooks();
+            var expectedBooks = books.Where(b => b.Year == 2000).ToList();
+            var expectedList = expectedBooks;
+            _screenHelper.Setup(s => s.ReadInputString("Year")).Returns("2000");
+            _bookRepository.Setup(b => b.GetAllBooks()).Returns(books);
+            
+            _search.SearchForYear();
+            
             _screenHelper.Verify(s => s.PrintSearchResult(expectedList), Times.Once);
         }
 
@@ -54,7 +78,8 @@ namespace Library.BookOperationsTests
                 Author = "Szerző1",
                 Available = true,
                 DueDate = DateTime.Today,
-                Reader = null
+                Reader = null,
+                Year = 2000
             };
             var book2 = new Book
             {
@@ -63,7 +88,8 @@ namespace Library.BookOperationsTests
                 Author = "Szerző2",
                 Available = false,
                 DueDate = DateTime.Today.AddDays(2),
-                Reader = new Reader() { Id = 2, Name = "Olvasó2" }
+                Reader = new Reader() { Id = 2, Name = "Olvasó2" },
+                Year = 2000
             };
             var book3 = new Book
             {
@@ -72,7 +98,8 @@ namespace Library.BookOperationsTests
                 Author = "Szerző3",
                 Available = true,
                 DueDate = DateTime.Today,
-                Reader = null
+                Reader = null,
+                Year = 2002
             };
             var book4 = new Book
             {
@@ -81,7 +108,8 @@ namespace Library.BookOperationsTests
                 Author = "Szerző4",
                 Available = false,
                 DueDate = DateTime.Today.AddDays(10),
-                Reader = new Reader { Id = 4, Name = "Olvasó4" }
+                Reader = new Reader { Id = 4, Name = "Olvasó4" },
+                Year = 2003
             };
 
             return new List<Book> { book1, book2, book3, book4 };

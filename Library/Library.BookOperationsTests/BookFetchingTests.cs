@@ -31,7 +31,6 @@ namespace Library.BookOperationsTests
         [Test]
         public void ListAllBooks_AllBooksGetListed()
         {
-            //Arrange
             var books = new List<Book>();
             var book1 = new Book
             {
@@ -59,11 +58,9 @@ namespace Library.BookOperationsTests
 
             _bookRepository.Setup(b => b.GetBookReader("Cím")).Returns("Olvasó");
             _bookRepository.Setup(b => b.GetBookReader("Cím2")).Returns("Olvasó2");
-
-            //Act
+            
             _fetch.ListAllBooks();
-
-            //Assert
+            
             _screenHelper.Verify(s => s.PrintBookDetails(book1, book1.Reader.Name), Times.Once);
             _screenHelper.Verify(s => s.PrintBookDetails(book2, book2.Reader.Name), Times.Once);
         }
@@ -71,7 +68,6 @@ namespace Library.BookOperationsTests
         [Test]
         public void ListExpiringBooks_ExpiredBooksGetListed()
         {
-            //Arrange
             _inputReader.Setup(i => i.Read()).Returns(3);
 
             var books = new List<Book>();
@@ -101,11 +97,9 @@ namespace Library.BookOperationsTests
 
             _bookRepository.Setup(b => b.GetBookReader("Cím")).Returns("Olvasó");
             _bookRepository.Setup(b => b.GetBookReader("Cím2")).Returns("Olvasó2");
-
-            //Act
+            
             _fetch.ListExpiringBooks();
-
-            //Assert
+            
             _screenHelper.Verify(s => s.PrintBookDetails(book1, book1.Reader.Name), Times.Once);
             _screenHelper.Verify(s => s.PrintBookDetails(book2, book2.Reader.Name), Times.Never);
         }

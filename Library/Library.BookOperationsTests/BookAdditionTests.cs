@@ -28,7 +28,6 @@ namespace Library.BookOperationsTests
         [Test]
         public void AddBook_SingleBookGetsAdded()
         {
-            //Arrange
             var book = new Book
             {
                 Id = 1,
@@ -39,35 +38,11 @@ namespace Library.BookOperationsTests
                 DueDate = new DateTime(2000,01,01),
                 Reader = null
             };
-
-            //Act
-            _add.AddBook(book);
-
-            //Assert
+            _screenHelper.Setup(s => s.GetNewBookDetails()).Returns(book);
+            
+            _add.AddNewBook();
+            
             _bookRepository.Verify(br=>br.StoreABook(book), Times.Once());
-        }
-
-        [Test]
-        public void GetNewBookDetails_CanFetchNewBookDetails()
-        {
-            //Arrange
-            var expectedBook = new Book
-            {
-                Id = 1,
-                Author = "Szerző",
-                Title = "Cim",
-                Year = 2000,
-                Available = true,
-                DueDate = new DateTime(2000, 01, 01),
-                Reader = null
-            };
-            _screenHelper.Setup(s => s.GetNewBookDetails()).Returns(expectedBook);
-
-            //Act
-            var storedBook = _add.GetNewBookDetails();
-
-            //Assert
-            Assert.AreEqual(expectedBook, storedBook);
         }
     }
 }
