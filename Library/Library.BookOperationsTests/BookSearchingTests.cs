@@ -5,6 +5,7 @@ using Library.BookOperations;
 using Library.Contracts;
 using Library.Contracts.Models;
 using Library.Helpers;
+using Library.Menu;
 using Moq;
 using NUnit.Framework;
 
@@ -56,17 +57,68 @@ namespace Library.BookOperationsTests
         }
 
         [Test]
-        public void SearchForYear_FindsSingleMatchingBook()
+        public void SearchForYear_FindsMultipleMatchingBooks()
         {
             var books = GenerateTestBooks();
             var expectedBooks = books.Where(b => b.Year == 2000).ToList();
-            var expectedList = expectedBooks;
             _screenHelper.Setup(s => s.ReadInputString("Year")).Returns("2000");
             _bookRepository.Setup(b => b.GetAllBooks()).Returns(books);
             
             _search.SearchForYear();
             
-            _screenHelper.Verify(s => s.PrintSearchResult(expectedList), Times.Once);
+            _screenHelper.Verify(s => s.PrintSearchResult(expectedBooks), Times.Once);
+        }
+
+        [Test]
+        public void SearchBeforeYear_DoesNotFindAnyMatchingBooks()
+        {
+            var books = GenerateTestBooks();
+            var expectedBooks = books.Where(b => b.Year < 1).ToList();
+            _screenHelper.Setup(s => s.ReadInputString("Year")).Returns("1");
+            _bookRepository.Setup(b => b.GetAllBooks()).Returns(books);
+            
+            _search.SearchBeforeYear();
+            
+            _screenHelper.Verify(s => s.PrintSearchResult(expectedBooks), Times.Once);
+        }
+
+        [Test]
+        public void SearchAfterYear_FindsMultipleMatchingBooks()
+        {
+            var books = GenerateTestBooks();
+            var expectedBooks = books.Where(b => b.Year > 1000).ToList();
+            _screenHelper.Setup(s => s.ReadInputString("Year")).Returns("1000");
+            _bookRepository.Setup(b => b.GetAllBooks()).Returns(books);
+            
+            _search.SearchAfterYear();
+            
+            _screenHelper.Verify(s => s.PrintSearchResult(expectedBooks), Times.Once);
+        }
+
+        [Test]
+        public void SearchForReader_FindsSingleMatchingBook()
+        {
+            var books = GenerateTestBooks();
+            var expectedBooks = books.Where(b => b.Reader?.Name == "Olvasó2").ToList();
+            _screenHelper.Setup(s => s.ReadInputString("Reader")).Returns("Olvasó2");
+            _bookRepository.Setup(b => b.GetAllBooks()).Returns(books);
+            
+            _search.SearchForReader();
+            
+            _screenHelper.Verify(s => s.PrintSearchResult(expectedBooks), Times.Once);
+        }
+
+        [Test]
+        [TestCase(SearchFor.Title)]
+        [TestCase(SearchFor.Reader)]
+        [TestCase(SearchFor.Author)]
+        [TestCase(SearchFor.Year)]
+        public void SearchBooks_PicksUpProperMenuCase(SearchFor menuItem)
+        {
+            _menuHelper.Setup(m => m.DoSearchMenuSelection()).Returns(menuItem);
+
+            _search.SearchBooks();
+            _screenHelper.Verify(s => s.ReadInputString(menuItem.ToString()), Times.Once);
         }
 
         private IEnumerable<Book> GenerateTestBooks()

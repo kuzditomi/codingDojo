@@ -35,7 +35,7 @@ namespace Library
                         add.AddNewBook();
                         break;
                     case MainMenu.Search:
-                        search.SingleBook();
+                        search.SearchBooks();
                         break;
                     case MainMenu.Borrow:
                         borrow.PerformBorrowingProcess();

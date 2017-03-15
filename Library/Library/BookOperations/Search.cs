@@ -9,7 +9,7 @@ namespace Library.BookOperations
 {
     public interface ISearch
     {
-        void SingleBook();
+        void SearchBooks();
         void SearchForTitle();
         void SearchForAuthor();
         void SearchForReader();
@@ -31,7 +31,7 @@ namespace Library.BookOperations
             _menuHelper = menuHelper;
         }
 
-        public void SingleBook()
+        public void SearchBooks()
         {
             var searchMenuItem = _menuHelper.DoSearchMenuSelection();
             switch (searchMenuItem)
