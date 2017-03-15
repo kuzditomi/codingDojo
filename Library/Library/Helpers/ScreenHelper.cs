@@ -7,11 +7,11 @@ namespace Library.Helpers
 {
     public class ScreenHelper : IScreenHelper
     {
-        private readonly NumberInputReader _numberReader;
-        private readonly StringInputReader _stringReader;
-        private readonly BookDataInputReader _bookReader;
+        private readonly IInputReader<int> _numberReader;
+        private readonly IInputReader<string> _stringReader;
+        private readonly IInputReader<string> _bookReader;
 
-        public ScreenHelper(NumberInputReader numberReader, StringInputReader stringReader, BookDataInputReader bookReader)
+        public ScreenHelper(IInputReader<int> numberReader, IInputReader<string> stringReader, IInputReader<string> bookReader)
         {
             _numberReader = numberReader;
             _stringReader = stringReader;

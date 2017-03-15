@@ -9,12 +9,12 @@ namespace Library
 {
     class Program
     {
-        private static readonly NumberInputReader NumberReader = new NumberInputReader();
-        private static readonly StringInputReader StringInputReader = new StringInputReader();
-        private static readonly BookDataInputReader BookReader = new BookDataInputReader();
+        private static readonly IInputReader<int> NumberReader = new NumberInputReader();
+        private static readonly IInputReader<string> StringInputReader = new StringInputReader();
+        private static readonly IInputReader<string> BookReader = new BookDataInputReader();
 
-        private static readonly ScreenHelper ScreenHelper = new ScreenHelper(NumberReader, StringInputReader, BookReader);
-        private static readonly MenuHelper MenuHelper = new MenuHelper(NumberReader, ScreenHelper);
+        private static readonly IScreenHelper ScreenHelper = new ScreenHelper(NumberReader, StringInputReader, BookReader);
+        private static readonly IMenuHelper MenuHelper = new MenuHelper(NumberReader, ScreenHelper);
 
         private static readonly IBookRepository Repository = new SqlBookRepostiroy();
         private static readonly Add Add = new Add(Repository, ScreenHelper, MenuHelper);
