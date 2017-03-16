@@ -1,6 +1,4 @@
-﻿using Library.BookOperations;
-using Library.Helpers;
-using Autofac;
+﻿using Autofac;
 using Library.Contracts.Models.Menu;
 using Library.Contracts.PublicAPI.BookOperations;
 using Library.Contracts.PublicAPI.Helpers;

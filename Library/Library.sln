@@ -17,8 +17,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C3AADC5D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.BookOperationsTests", "Library.BookOperationsTests\Library.BookOperationsTests.csproj", "{F5826DB9-5614-4CE4-88B1-2C7200A15D90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.InputReaders", "Library.InputReaders\Library.InputReaders.csproj", "{341B3F78-F3C0-4FED-A013-41D146E1231B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,10 +43,6 @@ Global
 		{F5826DB9-5614-4CE4-88B1-2C7200A15D90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5826DB9-5614-4CE4-88B1-2C7200A15D90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5826DB9-5614-4CE4-88B1-2C7200A15D90}.Release|Any CPU.Build.0 = Release|Any CPU
-		{341B3F78-F3C0-4FED-A013-41D146E1231B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{341B3F78-F3C0-4FED-A013-41D146E1231B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{341B3F78-F3C0-4FED-A013-41D146E1231B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{341B3F78-F3C0-4FED-A013-41D146E1231B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +51,5 @@ Global
 		{F4952211-74CE-42BB-BD50-0FF47B76C9B1} = {B2A3FE93-07CB-416E-B2B7-95DB4AC2601E}
 		{985C77DE-A3AB-4929-AB8D-F7CC795D32BC} = {B2A3FE93-07CB-416E-B2B7-95DB4AC2601E}
 		{F5826DB9-5614-4CE4-88B1-2C7200A15D90} = {C3AADC5D-DC12-42DD-AAC6-441B31513B55}
-		{341B3F78-F3C0-4FED-A013-41D146E1231B} = {C3AADC5D-DC12-42DD-AAC6-441B31513B55}
 	EndGlobalSection
 EndGlobal

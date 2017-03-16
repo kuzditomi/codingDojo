@@ -4,7 +4,6 @@ using Library.Contracts;
 using Library.Contracts.Models;
 using Library.Contracts.PublicAPI.BookOperations;
 using Library.Contracts.PublicAPI.Helpers;
-using Library.Helpers;
 
 namespace Library.BookOperations
 {

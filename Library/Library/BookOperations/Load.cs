@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using Library.Contracts;
 using Library.Contracts.PublicAPI.BookOperations;
 using Library.Contracts.PublicAPI.Helpers;
 using Library.Sql;
@@ -11,13 +10,11 @@ namespace Library.BookOperations
 {
     class Load : ILoad
     {
-        private readonly IBookRepository _bookRepository;
         private readonly IScreenHelper _screenHelper;
         private readonly IMenuHelper _menuHelper;
 
-        public Load(IBookRepository repo, IScreenHelper screenHelper, IMenuHelper menuHelper)
+        public Load(IScreenHelper screenHelper, IMenuHelper menuHelper)
         {
-            _bookRepository = repo;
             _screenHelper = screenHelper;
             _menuHelper = menuHelper;
         }
