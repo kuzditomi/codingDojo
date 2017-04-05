@@ -93,5 +93,17 @@ namespace Library.Sql
                 Street = "Street-" + Guid.NewGuid().ToString().Substring(0, 5)
             };
         }
+
+        // TODO: create on interface and use DI in web project
+        public Contracts.Models.Book GetBook(int bookId)
+        {
+            using (var context = new DataContext())
+            {
+                var book = context.Books.Include(n => n.Reader)
+                    .SingleOrDefault(n => n.BookId == bookId);
+
+                return converter.ConverToContractBook(book);
+            }
+        }
     }
 }

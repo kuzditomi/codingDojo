@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Library.Contracts.Models.Book>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@Html.ActionLink("[EDIT]", "Edit", new { bookId = book.Id})</td>
+            </tr>
+        }
+    </tbody>
+</table>

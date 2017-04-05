@@ -1,0 +1,26 @@
+﻿@model Library.Contracts.Models.Book
+
+@{
+    ViewBag.Title = "Edit book";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+Edit book: @Model.Title
+
+@using (Html.BeginForm("Edit", "Book", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.Id)
+    <div class="row">
+        <div class="col-lg-2">
+            Title:
+        </div>
+        <div class="col-lg-10">
+            @Html.TextBoxFor(m => m.Title)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <button type="submit">MEHET</button>
+        </div>
+    </div>
+}

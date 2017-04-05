@@ -5,6 +5,7 @@ using Library.Sql;
 using Autofac;
 using Library.Contracts.PublicAPI.BookOperations;
 using Library.Contracts.PublicAPI.Helpers;
+using Library.File;
 
 namespace Library.IOC
 {
@@ -16,6 +17,7 @@ namespace Library.IOC
             builder.RegisterType<ScreenHelper>().As<IScreenHelper>();
             builder.RegisterType<MenuHelper>().As<IMenuHelper>();
             builder.RegisterType<SqlBookRepostiroy>().As<IBookRepository>();
+            //builder.RegisterType<FileBookRepository>().As<IBookRepository>();
             //builder.RegisterGeneric(typeof(NumberInputReader)).As(typeof(IInputReader<int>));
             //builder.RegisterGeneric(typeof(StringInputReader)).As(typeof(IInputReader<string>));
             //builder.RegisterGeneric(typeof(BookDataInputReader)).As(typeof(IInputReader<string>));
