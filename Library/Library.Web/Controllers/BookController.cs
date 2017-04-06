@@ -1,16 +1,37 @@
 ﻿using System.Web.Mvc;
 using Library.Contracts.Models;
-using Library.File;
 using Library.Sql;
 
 namespace Library.Web.Controllers
 {
     public class BookController : Controller
     {
-        // GET: Book
         public ActionResult Index()
         {
-            //          var bookRepository = new FileBookRepository();
+            return View();
+        }
+
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        public ActionResult Borrow()
+        {
+            return View();
+        }
+
+        public ActionResult Return()
+        {
+            return View();
+        }
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        public ActionResult List()
+        {
             var bookRepository = new SqlBookRepostiroy();
             var books = bookRepository.GetAllBooks();
 

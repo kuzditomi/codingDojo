@@ -197,7 +197,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -245,9 +244,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -269,6 +265,11 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Book\Index.cshtml" />
+    <Content Include="Views\Book\Add.cshtml" />
+    <Content Include="Views\Book\Search.cshtml" />
+    <Content Include="Views\Book\Borrow.cshtml" />
+    <Content Include="Views\Book\Return.cshtml" />
+    <Content Include="Views\Book\List.cshtml" />
     <Content Include="Views\Book\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -286,10 +287,6 @@
     <ProjectReference Include="..\Library.Contracts\Library.Contracts.csproj">
       <Project>{e527be35-ff23-424f-89c6-bcd2b18a9a39}</Project>
       <Name>Library.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Library.File\Library.File.csproj">
-      <Project>{985c77de-a3ab-4929-ab8d-f7cc795d32bc}</Project>
-      <Name>Library.File</Name>
     </ProjectReference>
     <ProjectReference Include="..\Library.Sql\Library.Sql.csproj">
       <Project>{f4952211-74ce-42bb-bd50-0ff47b76c9b1}</Project>
