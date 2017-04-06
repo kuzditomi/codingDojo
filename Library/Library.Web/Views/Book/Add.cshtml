@@ -3,16 +3,36 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+Fill book details
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-<div>
-    <p>Add a book</p>
-</div>
-</body>
-</html>
+@using (Html.BeginForm("Add", "Book", FormMethod.Post))
+{
+    <div class="row">
+        <div>
+            Title:
+        </div>
+        <div>
+            @Html.TextBox("tbTitle")
+        </div>
+
+        <div>
+            Author:
+        </div>
+        <div>
+            @Html.TextBox("tbAuthor")
+        </div>
+
+        <div>
+            Year:
+        </div>
+        <div>
+            @Html.TextBox("tbYear")
+        </div>
+
+    </div>
+    <div>
+        <div>
+            <button type="submit">MEHET</button>
+        </div>
+    </div>
+}
