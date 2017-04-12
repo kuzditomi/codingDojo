@@ -95,10 +95,16 @@ namespace Library.Sql
         }
 
         // TODO: create on interface and use DI in web project
-        public Contracts.Models.Book GetBook(int bookId)
+        public Book GetBookById(int bookId)
         {
             var books = GetAllBooks();
             return books.FirstOrDefault(b => b.Id == bookId);
+        }
+
+        public Book GetBookByTitle(string title)
+        {
+            var books = GetAllBooks();
+            return books.FirstOrDefault(b => b.Title == title);
         }
     }
 }
