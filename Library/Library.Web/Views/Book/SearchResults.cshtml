@@ -7,6 +7,7 @@
 <table>
     <thead>
         <tr>
+            <th>ID</th>
             <th>Title</th>
             <th>Author</th>
             <th>Year</th>
@@ -14,19 +15,20 @@
         </tr>
     </thead>
     <tbody>
-            <tr>
-                <td>@Model.Title</td>
-                <td>@Model.Author</td>
-                <td>@Model.Year</td>
-                @if (@Model.Reader?.Name != null)
-                {
-                    <td>@Model.Reader.Name</td>
-                }
-                else
-                {
-                    <td> Library</td>
-                }
-                <td>@Html.ActionLink(" [EDIT]", "Edit", new { bookId = Model.Id })</td>
-            </tr>
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.Title</td>
+            <td>@Model.Author</td>
+            <td>@Model.Year</td>
+            @if (@Model.Reader?.Name != null)
+            {
+                <td>@Model.Reader.Name</td>
+            }
+            else
+            {
+                <td>  -  </td>
+            }
+            <td>@Html.ActionLink(" [EDIT]", "Edit", new { bookId = Model.Id })</td>
+        </tr>
     </tbody>
 </table>

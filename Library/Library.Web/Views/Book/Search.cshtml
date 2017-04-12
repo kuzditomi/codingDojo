@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Library.Web.Models.SearchViewModel
+@{
     ViewBag.Title = "Search books";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -12,7 +13,7 @@ Search book by Id
             Book ID:
         </div>
         <div>
-            @Html.TextBox("tbId")
+            @Html.TextBoxFor(m => m.Query, new { type = "number" })
         </div>
     </div>
     <div>

@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
 using Library.Contracts.Models;
 using Library.IOC;
-using Library.Sql;
 using Autofac;
 using Library.Contracts;
+using Library.Web.Models;
 
 namespace Library.Web.Controllers
 {
@@ -73,13 +73,13 @@ namespace Library.Web.Controllers
         [HttpGet]
         public ActionResult Search()
         {
-            return View();
+            return View(new SearchViewModel());
         }
 
         [HttpPost]
-        public ActionResult Search(string tbId)
+        public ActionResult Search(SearchViewModel input)
         {
-            return RedirectToAction("SearchResults", new { id = int.Parse(tbId) });
+            return RedirectToAction("SearchResults", new { id = input.Query });
         }
 
         public ActionResult List()
