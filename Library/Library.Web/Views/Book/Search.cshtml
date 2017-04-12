@@ -2,16 +2,22 @@
     ViewBag.Title = "Search books";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-        <p>Search books</p>
+Search book by Id
+
+@using (Html.BeginForm("Search", "Book", FormMethod.Post))
+{
+    <div class="row">
+        <div>
+            Book ID:
+        </div>
+        <div>
+            @Html.TextBox("tbId")
+        </div>
     </div>
-</body>
-</html>
+    <div>
+        <div>
+            <button type="submit">SUBMIT</button>
+        </div>
+    </div>
+}

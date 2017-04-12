@@ -34,7 +34,7 @@ namespace Library.Sql
         {
             using (var context = new DataContext())
             {
-                var book = context.Books.FirstOrDefault(b => b.ReaderId == id);
+                var book = context.Books.FirstOrDefault(b => b.BookId == id);
                 if (book != null)
                 {
                     book.Reader = converter.ConverToSqlReader(reader);
@@ -97,13 +97,8 @@ namespace Library.Sql
         // TODO: create on interface and use DI in web project
         public Contracts.Models.Book GetBook(int bookId)
         {
-            using (var context = new DataContext())
-            {
-                var book = context.Books.Include(n => n.Reader)
-                    .SingleOrDefault(n => n.BookId == bookId);
-
-                return converter.ConverToContractBook(book);
-            }
+            var books = GetAllBooks();
+            return books.FirstOrDefault(b => b.Id == bookId);
         }
     }
 }

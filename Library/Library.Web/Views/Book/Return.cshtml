@@ -3,16 +3,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-        <p>Return a book</p>
+@using (Html.BeginForm("Return", "Book", FormMethod.Post))
+{
+    <div class="row">
+        <div>
+            Book ID:
+        </div>
+        <div>
+            @Html.TextBox("tbId")
+        </div>
     </div>
-</body>
-</html>
+    <div>
+        <div>
+            <button type="submit">SUBMIT</button>
+        </div>
+    </div>
+}
