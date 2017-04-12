@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.4.4.0\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -292,6 +295,10 @@
     <ProjectReference Include="..\Library.Sql\Library.Sql.csproj">
       <Project>{f4952211-74ce-42bb-bd50-0ff47b76c9b1}</Project>
       <Name>Library.Sql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library\Library.csproj">
+      <Project>{46f5aa2d-c622-4e7c-82a7-e520664b19b2}</Project>
+      <Name>Library</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

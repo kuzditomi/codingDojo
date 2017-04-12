@@ -142,5 +142,15 @@ namespace Library.File
         {
             System.IO.File.Delete(FileName);
         }
+
+        public Book GetBookByTitle(string title)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Book GetBookById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

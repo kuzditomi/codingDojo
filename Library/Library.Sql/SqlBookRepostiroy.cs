@@ -94,7 +94,7 @@ namespace Library.Sql
             };
         }
 
-        // TODO: create on interface and use DI in web project
+        // TODO: use DI in web project
         public Book GetBookById(int bookId)
         {
             var books = GetAllBooks();

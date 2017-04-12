@@ -1,11 +1,24 @@
 ﻿using System.Web.Mvc;
 using Library.Contracts.Models;
+using Library.IOC;
 using Library.Sql;
+using Autofac;
+using Library.Contracts;
 
 namespace Library.Web.Controllers
 {
     public class BookController : Controller
     {
+        private new static readonly Resolver Resolver = new Resolver();
+        private static IContainer Container { get; set; }
+        private readonly IBookRepository _bookRepository;
+
+        public BookController()
+        {
+            Container = Resolver.BuildContainer().Build();
+            _bookRepository = Container.Resolve<IBookRepository>();
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -20,10 +33,9 @@ namespace Library.Web.Controllers
         [HttpPost]
         public ActionResult Add(string tbTitle, string tbAuthor, string tbYear)
         {
-            var bookRepository = new SqlBookRepostiroy();
             var book = new Book(tbTitle, tbAuthor, int.Parse(tbYear));
-            bookRepository.StoreABook(book);
-            var bookId = bookRepository.GetBookByTitle(tbTitle).Id;
+            _bookRepository.StoreABook(book);
+            var bookId = _bookRepository.GetBookByTitle(tbTitle).Id;
 
             return RedirectToAction("SearchResults", new {id = bookId });
         }
@@ -37,11 +49,10 @@ namespace Library.Web.Controllers
         [HttpPost]
         public ActionResult Borrow(string tbId, string tbName, string tbDays)
         {
-            var bookRepository = new SqlBookRepostiroy();
             var reader = new Reader(tbName);
-            bookRepository.BorrowABook(int.Parse(tbId), reader, int.Parse(tbDays));
+            _bookRepository.BorrowABook(int.Parse(tbId), reader, int.Parse(tbDays));
 
-            var book = bookRepository.GetBookById(int.Parse(tbId));
+            var book = _bookRepository.GetBookById(int.Parse(tbId));
             return RedirectToAction("SearchResults", new { id = book.Id });
         }
 
@@ -54,8 +65,7 @@ namespace Library.Web.Controllers
         [HttpPost]
         public ActionResult Return(string tbId)
         {
-            var bookRepository = new SqlBookRepostiroy();
-            var book = bookRepository.ReturnABook(int.Parse(tbId));
+            var book = _bookRepository.ReturnABook(int.Parse(tbId));
 
             return RedirectToAction("SearchResults", new { id = book.Id });
         }
@@ -74,16 +84,14 @@ namespace Library.Web.Controllers
 
         public ActionResult List()
         {
-            var bookRepository = new SqlBookRepostiroy();
-            var books = bookRepository.GetAllBooks();
+            var books = _bookRepository.GetAllBooks();
 
             return View(books);
         }
 
         public ActionResult Edit(int bookId)
         {
-            var bookRepository = new SqlBookRepostiroy();
-            var book = bookRepository.GetBookById(bookId);
+            var book = _bookRepository.GetBookById(bookId);
 
             return View(book);
         }
@@ -91,19 +99,17 @@ namespace Library.Web.Controllers
         [HttpPost]
         public ActionResult Edit(Book bookToEdit)
         {
-            var bookRepository = new SqlBookRepostiroy();
-            var book = bookRepository.GetBookById(bookToEdit.Id);
+            var book = _bookRepository.GetBookById(bookToEdit.Id);
 
             book.Title = bookToEdit.Title;
-            bookRepository.StoreABook(book);
+            _bookRepository.StoreABook(book);
 
             return View(book);
         }
 
         public ActionResult SearchResults(int id)
         {
-            var bookRepository = new SqlBookRepostiroy();
-            var book = bookRepository.GetBookById(id);
+            var book = _bookRepository.GetBookById(id);
 
             return View(book);
         }

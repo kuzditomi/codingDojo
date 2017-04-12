@@ -11,7 +11,7 @@ namespace Library.IOC
 {
     public class Resolver
     {
-        public ContainerBuilder BuildContainer()
+        public static ContainerBuilder BuildContainer()
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<ScreenHelper>().As<IScreenHelper>();
