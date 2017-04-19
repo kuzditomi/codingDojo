@@ -2,6 +2,8 @@
 {
     public class SearchViewModel
     {
-        public int Query { get; set; }
+        public string Title { get; set; }
+        //public string Author { get; set; }
+        //public int Year { get; set; }
     }
 }

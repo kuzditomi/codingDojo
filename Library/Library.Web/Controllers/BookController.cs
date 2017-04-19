@@ -18,7 +18,7 @@ namespace Library.Web.Controllers
             Container = Resolver.BuildContainer().Build();
             _bookRepository = Container.Resolve<IBookRepository>();
         }
-
+        
         public ActionResult Index()
         {
             return View();
@@ -69,17 +69,13 @@ namespace Library.Web.Controllers
 
             return RedirectToAction("SearchResults", new { id = book.Id });
         }
-
+        
         [HttpGet]
-        public ActionResult Search()
+        public PartialViewResult Search(SearchViewModel input)
         {
-            return View(new SearchViewModel());
-        }
+            var book = _bookRepository.GetBookByTitle(input.Title);
 
-        [HttpPost]
-        public ActionResult Search(SearchViewModel input)
-        {
-            return RedirectToAction("SearchResults", new { id = input.Query });
+            return PartialView("SearchResult", book);
         }
 
         public ActionResult List()
@@ -107,11 +103,11 @@ namespace Library.Web.Controllers
             return View(book);
         }
 
-        public ActionResult SearchResults(int id)
+        public ActionResult SearchResults(string title)
         {
-            var book = _bookRepository.GetBookById(id);
+            var book = _bookRepository.GetBookByTitle(title);
 
-            return View(book);
+            return Content("alma", "string");
         }
     }
 }

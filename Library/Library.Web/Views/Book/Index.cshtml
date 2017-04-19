@@ -1,17 +1,28 @@
-﻿@{
+﻿@model Library.Web.Models.SearchViewModel
+
+@{
     ViewBag.Title = "Index page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-        <p> Hello, this is the library. </p>
-        <p> Choose a menu option above </p>
+Search books
+@using (Ajax.BeginForm("Search", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "resultdiv" }))
+    //ajax optionbs-ben onBegin, onFail, stb xmlhttprequest statechange-ek. pl-4es
+    //ezek hívhatnak js function-t
+    //onbegin-re letiltani a submit gombot, stb, fail-re kiirni hogy nincs talalat
+    //loading-ra beepitett loadingdiv, stb
+    {
+    <div class="row">
+        By Title:
+
+        @Html.TextBoxFor(m => m.Title)
+        @*<input type="text" id="inputtitle" />*@
+        <button type="submit">Search</button>
     </div>
-</body>
-</html>
+}
+
+<div id="resultdiv"></div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+}
