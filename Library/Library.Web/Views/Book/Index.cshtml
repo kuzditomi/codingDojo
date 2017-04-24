@@ -5,23 +5,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-Search books
-@using (Ajax.BeginForm("Search", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "resultdiv" }))
-    //ajax optionbs-ben onBegin, onFail, stb xmlhttprequest statechange-ek. pl-4es
-    //ezek hívhatnak js function-t
-    //onbegin-re letiltani a submit gombot, stb, fail-re kiirni hogy nincs talalat
-    //loading-ra beepitett loadingdiv, stb
-    {
+@using (Ajax.BeginForm("Search", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "resultdiv", OnBegin = "disableSearchButton", OnSuccess = "enableSearchButton" }))
+{
     <div class="row">
+        Search books<br/>
         By Title:
-
         @Html.TextBoxFor(m => m.Title)
         @*<input type="text" id="inputtitle" />*@
-        <button type="submit">Search</button>
+        <button type="submit" id="btnSearch">Search</button>
     </div>
 }
 
 <div id="resultdiv"></div>
+
+<script>
+    function disableSearchButton() {
+        document.getElementById("btnSearch").disabled = true;
+    }
+    function enableSearchButton() {
+        document.getElementById("btnSearch").disabled = false;
+    }
+</script>
 
 @section scripts{
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>

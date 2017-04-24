@@ -3,5 +3,25 @@
 @{
     Layout = null;
 }
-@Model.Id;@Model.Title;@Model.Author;@Model.Year;@Model.Reader.Name
-@*táblázatot itt összerakni*@
+
+<br/>
+<div>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Year</th>
+            <th>Reader</th>
+        </tr>
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.Title</td>
+            <td>@Model.Author</td>
+            <td>@Model.Year</td>
+            <td>@Model.Reader.Name</td>
+            <td>@Html.ActionLink(" [EDIT]", "Edit", new { bookId = Model.Id })</td>
+            <td>@Html.ActionLink(" [BORROW]", "Borrow", new { bookId = Model.Id })</td>
+        </tr>
+    </table>
+</div>
