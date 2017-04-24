@@ -152,5 +152,10 @@ namespace Library.File
         {
             throw new NotImplementedException();
         }
+
+        List<Book> IBookRepository.GetBookByTitle(string title)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

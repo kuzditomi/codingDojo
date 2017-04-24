@@ -10,7 +10,7 @@ namespace Library.Contracts
         Book BorrowABook(int id, Reader reader, int daysToBorrow);
         Book ReturnABook(int id);
         IEnumerable<Book> GetAllBooks();
-        Book GetBookByTitle(string title);
+        List<Book> GetBookByTitle(string title);
         Book GetBookById(int id);
         string GetBookReader(string title);
     }

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using Library.Contracts.Models;
 using Library.IOC;
 using Autofac;
@@ -35,9 +36,14 @@ namespace Library.Web.Controllers
         {
             var book = new Book(tbTitle, tbAuthor, int.Parse(tbYear));
             _bookRepository.StoreABook(book);
-            var bookId = _bookRepository.GetBookByTitle(tbTitle).Id;
+            var firstOrDefault = _bookRepository.GetBookByTitle(tbTitle).FirstOrDefault();
+            if (firstOrDefault != null)
+            {
+                var bookId = firstOrDefault.Id;
 
-            return RedirectToAction("SearchResults", new {id = bookId });
+                return RedirectToAction("SearchResults", new {id = bookId });
+            }
+            return RedirectToAction("SearchResults");
         }
 
         [HttpGet]
@@ -73,9 +79,9 @@ namespace Library.Web.Controllers
         [HttpGet]
         public PartialViewResult Search(SearchViewModel input)
         {
-            var book = _bookRepository.GetBookByTitle(input.Title);
+            var books = _bookRepository.GetBookByTitle(input.Title);
 
-            return PartialView("SearchResult", book);
+            return PartialView("SearchResult", books);
         }
 
         public ActionResult List()

@@ -108,10 +108,11 @@ namespace Library.Sql
             return books.FirstOrDefault(b => b.Id == bookId);
         }
 
-        public Book GetBookByTitle(string title)
+        public List<Book> GetBookByTitle(string title)
         {
             var books = GetAllBooks();
-            return books.FirstOrDefault(b => b.Title == title);
+
+            return books.Where(book => book.Title != null && book.Title.ToLower().Contains(title.ToLower())).ToList();
         }
     }
 }
