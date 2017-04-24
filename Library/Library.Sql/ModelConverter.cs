@@ -19,7 +19,7 @@
                 BookId = book.Id,
                 DueDate = book.DueDate,
                 Reader = sqlReader,
-                ReaderId = book.Id
+                ReaderId = book.Reader.Id
             };
             return sqlBook;
         }

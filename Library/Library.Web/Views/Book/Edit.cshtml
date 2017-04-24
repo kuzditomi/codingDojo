@@ -11,15 +11,19 @@ Edit book: @Model.Title
 {
     @Html.HiddenFor(m => m.Id)
     <div class="row">
-        <div class="col-lg-2">
+        <div>
             Title:
-        </div>
-        <div class="col-lg-10">
             @Html.TextBoxFor(m => m.Title)
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-2">
+        <div>
+            Author:
+            @Html.TextBoxFor(m => m.Author)
+        </div>
+        <div>
+            Year:
+            @Html.TextBoxFor(m => m.Year)
+        </div>
+        <div>
             <button type="submit">SUBMIT</button>
         </div>
     </div>

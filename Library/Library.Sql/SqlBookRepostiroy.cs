@@ -9,20 +9,27 @@ namespace Library.Sql
 {
     public class SqlBookRepostiroy : IBookRepository
     {
-        ModelConverter converter = new ModelConverter();
+        readonly ModelConverter _converter = new ModelConverter();
 
         public void StoreABook(Book book)
         {
             using (var context = new DataContext())
             {
-                context.Books.Add(converter.ConverToSqlBook(book));
+                if (book.Id != 0)
+                {
+                    var bookToEdit = _converter.ConverToSqlBook(GetBookById(book.Id));
+                    context.Books.Attach(bookToEdit);
+                    context.Books.Remove(bookToEdit);
+                    context.SaveChanges();
+                }
+                context.Books.Add(_converter.ConverToSqlBook(book));
                 context.SaveChanges();
             }
         }
 
         public void StoreMultipleBooks(List<Book> books)
         {
-            var bookDtos = books.Select(converter.ConverToSqlBook).ToList();
+            var bookDtos = books.Select(_converter.ConverToSqlBook).ToList();
             using (var context = new DataContext())
             {
                 context.Books.AddRange(bookDtos);
@@ -37,12 +44,12 @@ namespace Library.Sql
                 var book = context.Books.FirstOrDefault(b => b.BookId == id);
                 if (book != null)
                 {
-                    book.Reader = converter.ConverToSqlReader(reader);
+                    book.Reader = _converter.ConverToSqlReader(reader);
                     book.Available = false;
                     book.DueDate = DateTime.Now.AddDays(daysToBorrow);
                     book.Reader.Address = GenerateAddress();
                     context.SaveChanges();
-                    return converter.ConverToContractBook(book);
+                    return _converter.ConverToContractBook(book);
                 }
                 return null;
             }
@@ -58,7 +65,7 @@ namespace Library.Sql
                     book.Available = true;
                     book.Reader = null;
                     context.SaveChanges();
-                    return converter.ConverToContractBook(book);
+                    return _converter.ConverToContractBook(book);
                 }
                 return null;
             }
@@ -70,7 +77,7 @@ namespace Library.Sql
             {
                 var books = context.Books.Include("Reader.Address").ToArray();
                 var bookList = books.OrderBy(book => book.BookId).ToList();
-                return bookList.Select(converter.ConverToContractBook).ToList();
+                return bookList.Select(_converter.ConverToContractBook).ToList();
             }
         }
 

@@ -98,6 +98,8 @@ namespace Library.Web.Controllers
             var book = _bookRepository.GetBookById(bookToEdit.Id);
 
             book.Title = bookToEdit.Title;
+            book.Author = bookToEdit.Author;
+            book.Year = bookToEdit.Year;
             _bookRepository.StoreABook(book);
 
             return View(book);
