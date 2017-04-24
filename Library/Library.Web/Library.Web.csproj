@@ -277,6 +277,7 @@
     <Content Include="Views\Book\Edit.cshtml" />
     <Content Include="Views\Book\SearchResults.cshtml" />
     <Content Include="Views\Book\SearchResult.cshtml" />
+    <Content Include="Views\Book\DeleteResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

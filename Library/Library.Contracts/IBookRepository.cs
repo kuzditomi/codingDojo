@@ -11,6 +11,7 @@ namespace Library.Contracts
         Book ReturnABook(int id);
         IEnumerable<Book> GetAllBooks();
         List<Book> GetBookByTitle(string title);
+        void DeleteBook(Book id);
         Book GetBookById(int id);
         string GetBookReader(string title);
     }

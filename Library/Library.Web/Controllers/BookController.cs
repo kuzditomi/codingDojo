@@ -84,6 +84,14 @@ namespace Library.Web.Controllers
             return PartialView("SearchResult", books);
         }
 
+        public ActionResult Delete(int bookId)
+        {
+            var book = _bookRepository.GetBookById(bookId);
+            _bookRepository.DeleteBook(book);
+
+            return View("DeleteResult", book);
+        }
+
         public ActionResult List()
         {
             var books = _bookRepository.GetAllBooks();

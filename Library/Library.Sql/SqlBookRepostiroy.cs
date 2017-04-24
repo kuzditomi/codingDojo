@@ -20,7 +20,6 @@ namespace Library.Sql
                     var bookToEdit = _converter.ConverToSqlBook(GetBookById(book.Id));
                     context.Books.Attach(bookToEdit);
                     context.Books.Remove(bookToEdit);
-                    context.SaveChanges();
                 }
                 context.Books.Add(_converter.ConverToSqlBook(book));
                 context.SaveChanges();
@@ -101,7 +100,20 @@ namespace Library.Sql
             };
         }
 
-        // TODO: use DI in web project
+        public void DeleteBook(Book book)
+        {
+            using (var context = new DataContext())
+            {
+                if (book.Id != 0)
+                {
+                    var bookToEdit = _converter.ConverToSqlBook(GetBookById(book.Id));
+                    context.Books.Attach(bookToEdit);
+                    context.Books.Remove(bookToEdit);
+                    context.SaveChanges();
+                }
+            }
+        }
+
         public Book GetBookById(int bookId)
         {
             var books = GetAllBooks();
@@ -111,8 +123,7 @@ namespace Library.Sql
         public List<Book> GetBookByTitle(string title)
         {
             var books = GetAllBooks();
-
-            return books.Where(book => book.Title != null && book.Title.ToLower().Contains(title.ToLower())).ToList();
+            return books.Where(book => book?.Title != null && book.Title.ToLower().Contains(title.ToLower())).ToList();
         }
     }
 }

@@ -148,6 +148,11 @@ namespace Library.File
             throw new NotImplementedException();
         }
 
+        public void DeleteBook(Book id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Book GetBookById(int id)
         {
             throw new NotImplementedException();
