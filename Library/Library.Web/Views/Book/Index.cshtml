@@ -4,60 +4,66 @@
     ViewBag.Title = "Index page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div><h1>Yo!</h1></div>
+<table>
+    <tr>
+        <td class="colA">
+            @using (Ajax.BeginForm("Search", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "resultdiv", OnBegin = "disableSearchButton", OnComplete = "enableSearchButton" }))
+            {
+                <div id="searchBox">
+                    <h3>Search book</h3>
+                    <div>
+                        Title:
+                        @Html.TextBoxFor(m => m.Title)
+                    </div>
 
-@using (Ajax.BeginForm("Search", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "resultdiv", OnBegin = "disableSearchButton", OnComplete = "enableSearchButton" }))
-{
-    <div id="searchBox">
-        <h3>Yo! Search a book</h3>
-        <div>
-            Title:
-            @Html.TextBoxFor(m => m.Title)
-        </div>
+                    <div>
+                        Author:
+                        @Html.TextBoxFor(m => m.Author)
+                    </div>
 
-        <div>
-            Author:
-            @Html.TextBoxFor(m => m.Author)
-        </div>
+                    <div>
+                        Year:
+                        @Html.TextBoxFor(m => m.Year)
+                    </div>
+                    <div>
+                        <button type="submit" id="btnSearch">Search</button>
+                    </div>
+                </div>
+            }
+            <div id="resultdiv"></div>
+        </td>
+        <td class="colB">
+            @using (Ajax.BeginForm("Add", new AjaxOptions { HttpMethod = "POST", OnComplete = "indicateSuccess" }))
+            {
+                <div>
+                    <h3>Add book</h3>
+                    <div>
+                        Title:
+                        @Html.TextBoxFor(m => m.Title)
+                    </div>
 
-        <div>
-            Year:
-            @Html.TextBoxFor(m => m.Year)
-        </div>
-        <div>
-            <button type="submit" id="btnSearch">Search</button>
-        </div>
-    </div>
-}
+                    <div>
+                        Author:
+                        @Html.TextBoxFor(m => m.Author)
+                    </div>
 
-<div id="resultdiv"></div>
+                    <div>
+                        Year:
+                        @Html.TextBoxFor(m => m.Year)
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <button type="submit">Add</button>
+                        <div id="addSuccessBox" hidden><h5>@Html.TextBox("addSuccess")</h5></div>
+                    </div>
+                </div>
+            }
+        </td>
+    </tr>
+</table>
 
-@using (Ajax.BeginForm("Add", new AjaxOptions { HttpMethod = "POST", OnComplete = "indicateSuccess" }))
-{
-    <br /><br /><br />
-    <div>
-        <h3>Or add a new one</h3>
-        <div>
-            Title:
-            @Html.TextBoxFor(m => m.Title)
-        </div>
-
-        <div>
-            Author:
-            @Html.TextBoxFor(m => m.Author)
-        </div>
-
-        <div>
-            Year:
-            @Html.TextBoxFor(m => m.Year)
-        </div>
-    </div>
-    <div>
-        <div>
-            <button type="submit">Add</button>
-            <div id="addSuccessBox" hidden><h5>@Html.TextBox("addSuccess")</h5></div>
-        </div>
-    </div>
-}
 
 <script>
     function disableSearchButton() {
@@ -76,3 +82,17 @@
 @section scripts{
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 }
+
+<style type="text/css">
+    table {
+        width: 100%;
+    }
+
+    td.colA {
+        width: 70%;
+    }
+
+    td.colB {
+        width: 30%;
+    }
+</style>
