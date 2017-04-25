@@ -7,15 +7,57 @@
 
 @using (Ajax.BeginForm("Search", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "resultdiv", OnBegin = "disableSearchButton", OnComplete = "enableSearchButton" }))
 {
-    <div class="row">
-        Search books<br/>
-        By Title:
-        @Html.TextBoxFor(m => m.Title)
-        <button type="submit" id="btnSearch">Search</button>
+    <div id="searchBox">
+        <h3>Yo! Search a book</h3>
+        <div>
+            Title:
+            @Html.TextBoxFor(m => m.Title)
+        </div>
+
+        <div>
+            Author:
+            @Html.TextBoxFor(m => m.Author)
+        </div>
+
+        <div>
+            Year:
+            @Html.TextBoxFor(m => m.Year)
+        </div>
+        <div>
+            <button type="submit" id="btnSearch">Search</button>
+        </div>
     </div>
 }
 
 <div id="resultdiv"></div>
+
+@using (Ajax.BeginForm("Add", new AjaxOptions { HttpMethod = "POST", OnComplete = "indicateSuccess" }))
+{
+    <br /><br /><br />
+    <div>
+        <h3>Or add a new one</h3>
+        <div>
+            Title:
+            @Html.TextBoxFor(m => m.Title)
+        </div>
+
+        <div>
+            Author:
+            @Html.TextBoxFor(m => m.Author)
+        </div>
+
+        <div>
+            Year:
+            @Html.TextBoxFor(m => m.Year)
+        </div>
+    </div>
+    <div>
+        <div>
+            <button type="submit">Add</button>
+            <div id="addSuccessBox" hidden><h5>@Html.TextBox("addSuccess")</h5></div>
+        </div>
+    </div>
+}
 
 <script>
     function disableSearchButton() {
@@ -23,6 +65,11 @@
     }
     function enableSearchButton() {
         document.getElementById("btnSearch").disabled = false;
+    }
+    function indicateSuccess() {
+        document.getElementById("addSuccessBox").hidden = false;
+        document.getElementById("addSuccessBox").innerText = "Addition successful";
+
     }
 </script>
 

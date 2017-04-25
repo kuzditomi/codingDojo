@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using Library.Contracts.Models;
 using Library.IOC;
@@ -105,7 +104,7 @@ namespace Library.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Book bookToEdit)
+        public PartialViewResult Edit(Book bookToEdit)
         {
             var book = _bookRepository.GetBookById(bookToEdit.Id);
 
@@ -114,7 +113,9 @@ namespace Library.Web.Controllers
             book.Year = bookToEdit.Year;
             _bookRepository.StoreABook(book);
 
-            return View(book);
+            var books = _bookRepository.GetBookByTitle(bookToEdit.Title);
+
+            return PartialView("EditResult", books);
         }
     }
 }
