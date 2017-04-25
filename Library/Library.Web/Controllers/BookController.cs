@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Library.Contracts.Models;
 using Library.IOC;
@@ -19,7 +20,7 @@ namespace Library.Web.Controllers
             Container = Resolver.BuildContainer().Build();
             _bookRepository = Container.Resolve<IBookRepository>();
         }
-        
+
         public ActionResult Index()
         {
             return View();
@@ -32,18 +33,13 @@ namespace Library.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(string tbTitle, string tbAuthor, string tbYear)
+        public PartialViewResult Add(SearchViewModel input)
         {
-            var book = new Book(tbTitle, tbAuthor, int.Parse(tbYear));
+            var book = new Book(input.Title, input.Author, input.Year);
             _bookRepository.StoreABook(book);
-            var firstOrDefault = _bookRepository.GetBookByTitle(tbTitle).FirstOrDefault();
-            if (firstOrDefault != null)
-            {
-                var bookId = firstOrDefault.Id;
 
-                return RedirectToAction("SearchResults", new {id = bookId });
-            }
-            return RedirectToAction("SearchResults");
+            var books = _bookRepository.GetBookByTitle(input.Title);
+            return PartialView("AddResult", books);
         }
 
         [HttpGet]
@@ -53,13 +49,14 @@ namespace Library.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Borrow(string tbId, string tbName, string tbDays)
+        public PartialViewResult Borrow(string tbId, string tbName, string tbDays)
         {
             var reader = new Reader(tbName);
             _bookRepository.BorrowABook(int.Parse(tbId), reader, int.Parse(tbDays));
 
             var book = _bookRepository.GetBookById(int.Parse(tbId));
-            return RedirectToAction("SearchResults", new { id = book.Id });
+            var books = new List<Book> { book };
+            return PartialView("SearchResult", books);
         }
 
         [HttpGet]
@@ -69,13 +66,14 @@ namespace Library.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Return(string tbId)
+        public PartialViewResult Return(string tbId)
         {
             var book = _bookRepository.ReturnABook(int.Parse(tbId));
+            var books = new List<Book> { book };
 
-            return RedirectToAction("SearchResults", new { id = book.Id });
+            return PartialView("SearchResult", books);
         }
-        
+
         [HttpGet]
         public PartialViewResult Search(SearchViewModel input)
         {
@@ -117,13 +115,6 @@ namespace Library.Web.Controllers
             _bookRepository.StoreABook(book);
 
             return View(book);
-        }
-
-        public ActionResult SearchResults(string title)
-        {
-            var book = _bookRepository.GetBookByTitle(title);
-
-            return Content("alma", "string");
         }
     }
 }

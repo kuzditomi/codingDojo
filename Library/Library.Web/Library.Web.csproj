@@ -270,14 +270,13 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Book\Index.cshtml" />
     <Content Include="Views\Book\Add.cshtml" />
-    <Content Include="Views\Book\Search.cshtml" />
     <Content Include="Views\Book\Borrow.cshtml" />
     <Content Include="Views\Book\Return.cshtml" />
     <Content Include="Views\Book\List.cshtml" />
     <Content Include="Views\Book\Edit.cshtml" />
-    <Content Include="Views\Book\SearchResults.cshtml" />
     <Content Include="Views\Book\SearchResult.cshtml" />
     <Content Include="Views\Book\DeleteResult.cshtml" />
+    <Content Include="Views\Book\AddResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

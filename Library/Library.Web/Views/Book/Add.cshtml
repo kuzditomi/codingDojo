@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Library.Web.Models.SearchViewModel
+
+@{
     ViewBag.Title = "Add books";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -12,21 +14,21 @@ Fill book details
             Title:
         </div>
         <div>
-            @Html.TextBox("tbTitle")
+            @Html.TextBoxFor(m => m.Title)
         </div>
 
         <div>
             Author:
         </div>
         <div>
-            @Html.TextBox("tbAuthor")
+            @Html.TextBoxFor(m => m.Author)
         </div>
 
         <div>
             Year:
         </div>
         <div>
-            @Html.TextBox("tbYear")
+            @Html.TextBoxFor(m => m.Year)
         </div>
 
     </div>
