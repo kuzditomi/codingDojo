@@ -148,6 +148,16 @@ namespace Library.File
             throw new NotImplementedException();
         }
 
+        public List<Book> GetBookByAuthor(string author)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Book> GetBookByYear(int year)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DeleteBook(Book id)
         {
             throw new NotImplementedException();

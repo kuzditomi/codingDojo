@@ -125,5 +125,17 @@ namespace Library.Sql
             var books = GetAllBooks();
             return books.Where(book => book?.Title != null && book.Title.ToLower().Contains(title.ToLower())).ToList();
         }
+
+        public List<Book> GetBookByAuthor(string author)
+        {
+            var books = GetAllBooks();
+            return books.Where(book => book?.Author != null && book.Author.ToLower().Contains(author.ToLower())).ToList();
+        }
+
+        public List<Book> GetBookByYear(int year)
+        {
+            var books = GetAllBooks();
+            return books.Where(book => book.Year == year).ToList();
+        }
     }
 }
