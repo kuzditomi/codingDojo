@@ -24,21 +24,15 @@ namespace Library.Web.Controllers
         {
             return View();
         }
-
-        [HttpGet]
-        public ActionResult Add()
-        {
-            return View();
-        }
-
+        
         [HttpPost]
-        public PartialViewResult Add(SearchViewModel input)
+        public List<Book> Add(SearchViewModel input)
         {
             var book = new Book(input.Title, input.Author, input.Year);
             _bookRepository.StoreABook(book);
 
             var books = _bookRepository.GetBookByTitle(input.Title);
-            return PartialView("AddResult", books);
+            return books;
         }
 
         [HttpGet]
@@ -57,20 +51,11 @@ namespace Library.Web.Controllers
             var books = new List<Book> { book };
             return PartialView("SearchResult", books);
         }
-
-        [HttpGet]
-        public ActionResult Return()
+        
+        public ActionResult Return(int bookId)
         {
-            return View();
-        }
-
-        [HttpPost]
-        public PartialViewResult Return(string tbId)
-        {
-            var book = _bookRepository.ReturnABook(int.Parse(tbId));
-            var books = new List<Book> { book };
-
-            return PartialView("SearchResult", books);
+            _bookRepository.ReturnABook(bookId);
+            return View("Index");
         }
 
         [HttpGet]
@@ -88,18 +73,10 @@ namespace Library.Web.Controllers
 
             return View("DeleteResult", book);
         }
-
-        public ActionResult List()
-        {
-            var books = _bookRepository.GetAllBooks();
-
-            return View(books);
-        }
-
+        
         public ActionResult Edit(int bookId)
         {
             var book = _bookRepository.GetBookById(bookId);
-
             return View(book);
         }
 

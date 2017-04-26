@@ -26,8 +26,15 @@
                     <td>@book.Author</td>
                     <td>@book.Year</td>
                     <td>@book.Reader.Name</td>
-                    <td>@Html.ActionLink(" [EDIT]", "Edit", new { bookId = @book.Id })</td>
-                    <td>@Html.ActionLink(" [BORROW]", "Borrow", new { bookId = @book.Id })</td>
+                    <td>@Html.ActionLink(" [EDIT]", "Edit", new {bookId = @book.Id})</td>
+                    @if (@book.Reader != null)
+                    {
+                        <td>@Html.ActionLink(" [RETURN]", "Return", new { bookId = @book.Id })</td>
+                    }
+                    else
+                    {
+                        <td>@Html.ActionLink(" [BORROW]", "Borrow", new { bookId = @book.Id })</td>
+                    }
                     <td>@Html.ActionLink(" [DELETE]", "Delete", new { bookId = @book.Id })</td>
                 </tr>
             }
