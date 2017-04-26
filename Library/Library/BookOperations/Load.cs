@@ -8,7 +8,7 @@ using Library.Sql.Models;
 
 namespace Library.BookOperations
 {
-    class Load : ILoad
+    public class Load : ILoad
     {
         private readonly IScreenHelper _screenHelper;
         private readonly IMenuHelper _menuHelper;

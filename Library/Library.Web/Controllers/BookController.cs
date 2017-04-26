@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Library.Contracts.Models;
-using Library.IOC;
-using Autofac;
 using Library.Contracts;
 using Library.Web.Models;
 
@@ -10,21 +8,18 @@ namespace Library.Web.Controllers
 {
     public class BookController : Controller
     {
-        private new static readonly Resolver Resolver = new Resolver();
-        private static IContainer Container { get; set; }
         private readonly IBookRepository _bookRepository;
 
-        public BookController()
+        public BookController(IBookRepository bookRepository)
         {
-            Container = Resolver.BuildContainer().Build();
-            _bookRepository = Container.Resolve<IBookRepository>();
+            _bookRepository = bookRepository;
         }
 
         public ActionResult Index()
         {
             return View();
         }
-        
+
         [HttpPost]
         public List<Book> Add(SearchViewModel input)
         {
@@ -51,7 +46,7 @@ namespace Library.Web.Controllers
             var books = new List<Book> { book };
             return PartialView("SearchResult", books);
         }
-        
+
         public ActionResult Return(int bookId)
         {
             _bookRepository.ReturnABook(bookId);
@@ -61,16 +56,16 @@ namespace Library.Web.Controllers
         [HttpGet]
         public PartialViewResult Search(SearchViewModel input)
         {
-            List<Book> books=new List<Book>();
+            List<Book> books = new List<Book>();
             if (input.Title != null)
             {
                 books = _bookRepository.GetBookByTitle(input.Title);
             }
-            else if(input.Author!= null)
+            else if (input.Author != null)
             {
                 books = _bookRepository.GetBookByAuthor(input.Author);
             }
-            else if(input.Year != 0)
+            else if (input.Year != 0)
             {
                 books = _bookRepository.GetBookByYear(input.Year);
             }
@@ -85,7 +80,7 @@ namespace Library.Web.Controllers
 
             return View("DeleteResult", book);
         }
-        
+
         public ActionResult Edit(int bookId)
         {
             var book = _bookRepository.GetBookById(bookId);

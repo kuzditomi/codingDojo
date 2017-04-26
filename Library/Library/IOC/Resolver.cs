@@ -30,6 +30,8 @@ namespace Library.IOC
             builder.RegisterType<Search>().As<ISearch>();
             builder.RegisterType<Seed>().As<ISeed>();
             builder.RegisterType<Load>().As<ILoad>();
+            
+
             return builder;
         }
     }
