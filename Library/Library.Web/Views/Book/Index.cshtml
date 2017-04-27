@@ -4,66 +4,65 @@
     ViewBag.Title = "Index page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div><h1>Yo!</h1></div>
-<table>
-    <tr>
-        <td class="colA">
-            @using (Ajax.BeginForm("Search", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "resultdiv", OnBegin = "disableSearchButton", OnComplete = "enableSearchButton" }))
-            {
-                <div id="searchBox">
-                    <h3>Search book</h3>
-                    <div>
-                        Title:
-                        @Html.TextBoxFor(m => m.Title)
-                    </div>
-
-                    <div>
-                        Author:
-                        @Html.TextBoxFor(m => m.Author)
-                    </div>
-
-                    <div>
-                        Year:
-                        @Html.TextBoxFor(m => m.Year)
-                    </div>
-                    <div>
-                        <button type="submit" id="btnSearch">Search</button>
-                    </div>
-                </div>
-            }
-            <div id="resultdiv"></div>
-        </td>
-        <td class="colB">
-            @using (Ajax.BeginForm("Add", new AjaxOptions { HttpMethod = "POST", OnComplete = "indicateSuccess" }))
-            {
+<div>
+    <h1>Yo!</h1>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        @using (Ajax.BeginForm("Search", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "resultdiv", OnBegin = "disableSearchButton", OnComplete = "enableSearchButton" }))
+        {
+            <div id="searchBox">
+                <h3>Search book</h3>
                 <div>
-                    <h3>Add book</h3>
-                    <div>
-                        Title:
-                        @Html.TextBoxFor(m => m.Title)
-                    </div>
+                    Title:
+                    @Html.TextBoxFor(m => m.Title)
+                </div>
 
-                    <div>
-                        Author:
-                        @Html.TextBoxFor(m => m.Author)
-                    </div>
+                <div>
+                    Author:
+                    @Html.TextBoxFor(m => m.Author)
+                </div>
 
-                    <div>
-                        Year:
-                        @Html.TextBoxFor(m => m.Year)
-                    </div>
+                <div>
+                    Year:
+                    @Html.TextBoxFor(m => m.Year)
                 </div>
                 <div>
-                    <div>
-                        <button type="submit">Add</button>
-                        <div id="addSuccessBox" hidden><h5>@Html.TextBox("addSuccess")</h5></div>
-                    </div>
+                    <button type="submit" id="btnSearch">Search</button>
                 </div>
-            }
-        </td>
-    </tr>
-</table>
+            </div>
+        }
+        <div id="resultdiv"></div>
+    </div>
+    <div class="col-md-4">
+        @using (Ajax.BeginForm("Add", new AjaxOptions { HttpMethod = "POST", OnComplete = "indicateSuccess" }))
+            {
+            <div>
+                <h3>Add book</h3>
+                <div>
+                    Title:
+                    @Html.TextBoxFor(m => m.Title)
+                </div>
 
+                <div>
+                    Author:
+                    @Html.TextBoxFor(m => m.Author)
+                </div>
+
+                <div>
+                    Year:
+                    @Html.TextBoxFor(m => m.Year)
+                </div>
+            </div>
+            <div>
+                <div>
+                    <button type="submit">Add</button>
+                    <div id="addSuccessBox" hidden><h5>@Html.TextBox("addSuccess")</h5></div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 
 <script>
     function disableSearchButton() {
@@ -82,17 +81,3 @@
 @section scripts{
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 }
-
-<style type="text/css">
-    table {
-        width: 100%;
-    }
-
-    td.colA {
-        width: 70%;
-    }
-
-    td.colB {
-        width: 30%;
-    }
-</style>
