@@ -21,13 +21,13 @@ namespace Library.Web.Controllers
         }
 
         [HttpPost]
-        public List<Book> Add(SearchViewModel input)
+        public PartialViewResult Add(SearchViewModel input)
         {
             var book = new Book(input.Title, input.Author, input.Year);
             _bookRepository.StoreABook(book);
 
             var books = _bookRepository.GetBookByTitle(input.Title);
-            return books;
+            return PartialView("AddResult", books);
         }
 
         [HttpGet]

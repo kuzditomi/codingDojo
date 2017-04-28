@@ -10,78 +10,80 @@
         display: inline;
     }
 </style>
+
 <div>
     <h1>Yo!</h1>
 </div>
+
 <div class="row">
     <div class="col-md-8" id="searchBox">
         <h3>Search book</h3>
-        @using (Ajax.BeginForm("SearchForTitle", null, null, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "resultdiv", OnBegin = "disableSearchButton", OnComplete = "enableSearchButton" }))
+        @using (Ajax.BeginForm("SearchForTitle", null, null, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "resultdiv", OnBegin = "cleanup", OnComplete = "enableButtons" }))
         {
             <form class="form-inline">
                 <div class="form-group">
-                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control inline" , @type = "text", @placeholder = "Title" })
-                    <button type="submit" id="btnSearch" class="btn btn-default">Search</button>
+                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control inline", @type = "text", @placeholder = "Title", @id = "tbTitleSearch" })
+                    <button type="submit" id="btnTitleSearch" class="btn btn-default">Search</button>
                 </div>
             </form>
         }
-        @using (Ajax.BeginForm("SearchForAuthor", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "resultdiv", OnBegin = "disableSearchButton", OnComplete = "enableSearchButton" }))
-            {
+        @using (Ajax.BeginForm("SearchForAuthor", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "resultdiv", OnBegin = "cleanup", OnComplete = "enableButtons" }))
+        {
             <form class="form-inline">
                 <div class="form-group">
-                    @Html.TextBoxFor(m => m.Author, new { @class = "form-control inline", @type = "text", @placeholder = "Author" })
-                    <button type="submit" id="btnSearch" class="btn btn-default">Search</button>
+                    @Html.TextBoxFor(m => m.Author, new { @class = "form-control inline", @type = "text", @placeholder = "Author", @id = "tbAuthorSearch" })
+                    <button type="submit" id="btnAuthorSearch" class="btn btn-default">Search</button>
                 </div>
             </form>
         }
-        @using (Ajax.BeginForm("SearchForYear", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "resultdiv", OnBegin = "disableSearchButton", OnComplete = "enableSearchButton" }))
-            {
+        @using (Ajax.BeginForm("SearchForYear", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "resultdiv", OnBegin = "cleanup", OnComplete = "enableButtons" }))
+        {
             <form class="form-inline">
                 <div class="form-group">
-                    @Html.TextBoxFor(m => m.Year, new { @class = "form-control inline", @type = "number", @placeholder = "Year" })
-                    <button type="submit" id="btnSearch" class="btn btn-default">Search</button>
+                    @Html.TextBoxFor(m => m.Year, new { @class = "form-control inline", @type = "number", @placeholder = "Year", @id = "tbYearSearch" })
+                    <button type="submit" id="btnYearSearch" class="btn btn-default">Search</button>
                 </div>
             </form>
         }
-        
-        <div id="resultdiv"></div>
     </div>
 
     <div class="col-md-4">
-        @using (Ajax.BeginForm("Add", new AjaxOptions { HttpMethod = "POST", OnComplete = "indicateSuccess" }))
-            {
+        @using (Ajax.BeginForm("Add", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "resultdiv", OnBegin = "cleanup", OnComplete = "enableButtons" }))
+        {
             <form class="form-inline">
                 <div class="form-group">
                     <h3>Add book</h3>
-                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control", @type = "text", @placeholder = "Title" })
-                    @Html.TextBoxFor(m => m.Author, new { @class = "form-control", @type = "text", @placeholder = "Author" })
-                    @Html.TextBoxFor(m => m.Year, new { @class = "form-control", @type = "number", @placeholder = "Year" })
-                </div>
-                <div>
-                    <div>
-                        <button type="submit" id="btnSearch" class="btn btn-default">Search</button>
-                        <div id="addSuccessBox" hidden>
-                            <h5>@Html.TextBox("addSuccess")</h5>
-                        </div>
-                    </div>
+                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control", @type = "text", @placeholder = "Title", @id = "tbTitleAdd" })
+                    @Html.TextBoxFor(m => m.Author, new { @class = "form-control", @type = "text", @placeholder = "Author", @id = "tbAuthorAdd" })
+                    @Html.TextBoxFor(m => m.Year, new { @class = "form-control", @type = "number", @placeholder = "Year", @id = "tbYearAdd" })
+                    <button type="submit" id="btnAdd" class="btn btn-default">Search</button>
                 </div>
             </form>
         }
     </div>
-
 </div>
 
-<script>
-    function disableSearchButton() {
-        document.getElementById("btnSearch").disabled = true;
-    }
-    function enableSearchButton() {
-        document.getElementById("btnSearch").disabled = false;
-    }
-    function indicateSuccess() {
-        document.getElementById("addSuccessBox").hidden = false;
-        document.getElementById("addSuccessBox").innerText = "Addition successful";
+<div id="resultdiv"></div>
 
+<script>
+    function enableButtons() {
+        document.getElementById("btnTitleSearch").disabled = false;
+        document.getElementById("btnAuthorSearch").disabled = false;
+        document.getElementById("btnYearSearch").disabled = false;
+        document.getElementById("btnAdd").disabled = false;
+    }
+    function cleanup() {
+        document.getElementById("tbTitleSearch").value = "";
+        document.getElementById("tbAuthorSearch").value = "";
+        document.getElementById("tbYearSearch").value = "";
+        document.getElementById("tbTitleAdd").value = "";
+        document.getElementById("tbAuthorAdd").value = "";
+        document.getElementById("tbYearAdd").value = "";
+
+        document.getElementById("btnTitleSearch").disabled = true;
+        document.getElementById("btnAuthorSearch").disabled = true;
+        document.getElementById("btnYearSearch").disabled = true;
+        document.getElementById("btnAdd").disabled = true;
     }
 </script>
 
