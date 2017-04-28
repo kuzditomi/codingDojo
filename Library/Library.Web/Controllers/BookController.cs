@@ -31,26 +31,35 @@ namespace Library.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Borrow()
+        public ActionResult Borrow(int bookId)
         {
-            return View();
+            var book = _bookRepository.GetBookById(bookId);
+            var bookModel = new BorrowViewModel
+            {
+                Id = book.Id,
+                Title = book.Title
+            };
+
+            return View(bookModel);
         }
 
         [HttpPost]
-        public PartialViewResult Borrow(string tbId, string tbName, string tbDays)
+        public PartialViewResult Borrow(BorrowViewModel bookModel)
         {
-            var reader = new Reader(tbName);
-            _bookRepository.BorrowABook(int.Parse(tbId), reader, int.Parse(tbDays));
+            var reader = new Reader(bookModel.Reader);
+            _bookRepository.BorrowABook(bookModel.Id, reader, bookModel.Days);
 
-            var book = _bookRepository.GetBookById(int.Parse(tbId));
+            var book = _bookRepository.GetBookById(bookModel.Id);
             var books = new List<Book> { book };
-            return PartialView("SearchResult", books);
+            return PartialView("BorrowResult", books);
         }
 
         public ActionResult Return(int bookId)
         {
             _bookRepository.ReturnABook(bookId);
-            return View("Index");
+            var book = _bookRepository.GetBookById(bookId);
+            var books = _bookRepository.GetBookByTitle(book.Title);
+            return View("ReturnResult", books);
         }
 
         [HttpGet]

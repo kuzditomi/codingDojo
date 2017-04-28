@@ -1,41 +1,19 @@
-﻿@{
-    ViewBag.Title = "Borrow books";
+﻿@model Library.Web.Models.BorrowViewModel
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-Fill book details
-
-@using (Html.BeginForm("Borrow", "Book", FormMethod.Post))
+@using (Ajax.BeginForm("Borrow", null, null, new AjaxOptions { HttpMethod = "POST"}))
 {
-    <div class="row">
-        <div>
-            Book ID:
+    <form class="form-inline">
+        <div class="form-group">
+            <h4>Borrowing book @Model.Title</h4>
+            @Html.HiddenFor(m=>m.Id)
+            @Html.HiddenFor(m=>m.Title)
+            @Html.TextBoxFor(m => m.Reader, new {@class = "form-control inline", @type = "text", @placeholder = "Reader"})
+            @Html.TextBoxFor(m => m.Days, new {@class = "form-control inline", @type = "text", @placeholder = "Days"})
+            <button type="submit" id="btnSearch" class="btn btn-default">Submit</button>
         </div>
-        <div>
-            @Html.TextBox("tbId")
-        </div>
-    </div>
-
-    <div class="row">
-        <div>
-            Reader name:
-        </div>
-        <div>
-            @Html.TextBox("tbName")
-        </div>
-    </div>
-
-    <div class="row">
-        <div>
-            Number of days:
-        </div>
-        <div>
-            @Html.TextBox("tbDays")
-        </div>
-    </div>
-    <div>
-        <div>
-            <button type="submit">SUBMIT</button>
-        </div>
-    </div>
+    </form>
 }

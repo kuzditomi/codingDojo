@@ -210,6 +210,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BorrowViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
@@ -279,6 +280,8 @@
     <Content Include="Views\Book\SearchResult.cshtml" />
     <Content Include="Views\Book\DeleteResult.cshtml" />
     <Content Include="Views\Book\EditResult.cshtml" />
+    <Content Include="Views\Book\BorrowResult.cshtml" />
+    <Content Include="Views\Book\ReturnResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

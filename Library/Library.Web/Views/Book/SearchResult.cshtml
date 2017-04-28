@@ -30,7 +30,7 @@
                     <td>@book.Year</td>
                     <td>@book.Reader.Name</td>
                     <td>@Html.ActionLink(" [EDIT]", "Edit", new {bookId = @book.Id})</td>
-                    @if (@book.Reader.Id != 0)
+                    @if (@book.Reader.Name != null)
                     {
                         <td>@Html.ActionLink(" [RETURN]", "Return", new { bookId = @book.Id })</td>
                     }

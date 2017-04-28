@@ -8,7 +8,6 @@ using Library.Contracts;
 using Library.Contracts.PublicAPI.BookOperations;
 using Library.Contracts.PublicAPI.Helpers;
 using Library.Helpers;
-using Library.IOC;
 using Library.Sql;
 
 namespace Library.Web

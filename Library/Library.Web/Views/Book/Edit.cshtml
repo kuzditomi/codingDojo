@@ -5,26 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-Edit book: @Model.Title
-
-@using (Html.BeginForm("Edit", "Book", FormMethod.Post))
+@using (Ajax.BeginForm("Edit", new AjaxOptions { HttpMethod = "POST" }))
 {
-    @Html.HiddenFor(m => m.Id)
-    <div class="row">
-        <div>
-            Title:
-            @Html.TextBoxFor(m => m.Title)
+    <form class="form-inline">
+        <div class="form-group">
+            <h4>Editing book @Model.Title</h4>
+            @Html.HiddenFor(m => m.Id)
+            @Html.TextBoxFor(m => m.Title, new { @class = "form-control inline", @type = "text", @placeholder = "Title" })
+            @Html.TextBoxFor(m => m.Author, new { @class = "form-control inline", @type = "text", @placeholder = "Author" })
+            @Html.TextBoxFor(m => m.Year, new { @class = "form-control inline", @type = "text", @placeholder = "Year" })
+            <button type="submit" id="btnSearch" class="btn btn-default">Submit</button>
         </div>
-        <div>
-            Author:
-            @Html.TextBoxFor(m => m.Author)
-        </div>
-        <div>
-            Year:
-            @Html.TextBoxFor(m => m.Year)
-        </div>
-        <div>
-            <button type="submit">SUBMIT</button>
-        </div>
-    </div>
+    </form>
 }

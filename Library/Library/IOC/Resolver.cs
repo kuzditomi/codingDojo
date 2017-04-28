@@ -5,7 +5,6 @@ using Library.Sql;
 using Autofac;
 using Library.Contracts.PublicAPI.BookOperations;
 using Library.Contracts.PublicAPI.Helpers;
-using Library.File;
 
 namespace Library.IOC
 {
