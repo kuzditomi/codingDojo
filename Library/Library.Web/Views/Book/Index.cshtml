@@ -4,64 +4,71 @@
     ViewBag.Title = "Index page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<style>
+    .inline {
+        display: inline;
+    }
+</style>
 <div>
     <h1>Yo!</h1>
 </div>
 <div class="row">
-    <div class="col-md-8">
-        @using (Ajax.BeginForm("Search", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "resultdiv", OnBegin = "disableSearchButton", OnComplete = "enableSearchButton" }))
+    <div class="col-md-8" id="searchBox">
+        <h3>Search book</h3>
+        @using (Ajax.BeginForm("SearchForTitle", null, null, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "resultdiv", OnBegin = "disableSearchButton", OnComplete = "enableSearchButton" }))
         {
-            <div id="searchBox">
-                <h3>Search book</h3>
-                <div>
-                    Title:
-                    @Html.TextBoxFor(m => m.Title)
+            <form class="form-inline">
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control inline" , @type = "text", @placeholder = "Title" })
+                    <button type="submit" id="btnSearch" class="btn btn-default">Search</button>
                 </div>
-
-                <div>
-                    Author:
-                    @Html.TextBoxFor(m => m.Author)
-                </div>
-
-                <div>
-                    Year:
-                    @Html.TextBoxFor(m => m.Year)
-                </div>
-                <div>
-                    <button type="submit" id="btnSearch">Search</button>
-                </div>
-            </div>
+            </form>
         }
+        @using (Ajax.BeginForm("SearchForAuthor", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "resultdiv", OnBegin = "disableSearchButton", OnComplete = "enableSearchButton" }))
+            {
+            <form class="form-inline">
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Author, new { @class = "form-control inline", @type = "text", @placeholder = "Author" })
+                    <button type="submit" id="btnSearch" class="btn btn-default">Search</button>
+                </div>
+            </form>
+        }
+        @using (Ajax.BeginForm("SearchForYear", new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "resultdiv", OnBegin = "disableSearchButton", OnComplete = "enableSearchButton" }))
+            {
+            <form class="form-inline">
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Year, new { @class = "form-control inline", @type = "number", @placeholder = "Year" })
+                    <button type="submit" id="btnSearch" class="btn btn-default">Search</button>
+                </div>
+            </form>
+        }
+        
         <div id="resultdiv"></div>
     </div>
+
     <div class="col-md-4">
         @using (Ajax.BeginForm("Add", new AjaxOptions { HttpMethod = "POST", OnComplete = "indicateSuccess" }))
             {
-            <div>
-                <h3>Add book</h3>
-                <div>
-                    Title:
-                    @Html.TextBoxFor(m => m.Title)
+            <form class="form-inline">
+                <div class="form-group">
+                    <h3>Add book</h3>
+                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control", @type = "text", @placeholder = "Title" })
+                    @Html.TextBoxFor(m => m.Author, new { @class = "form-control", @type = "text", @placeholder = "Author" })
+                    @Html.TextBoxFor(m => m.Year, new { @class = "form-control", @type = "number", @placeholder = "Year" })
                 </div>
-
                 <div>
-                    Author:
-                    @Html.TextBoxFor(m => m.Author)
+                    <div>
+                        <button type="submit" id="btnSearch" class="btn btn-default">Search</button>
+                        <div id="addSuccessBox" hidden>
+                            <h5>@Html.TextBox("addSuccess")</h5>
+                        </div>
+                    </div>
                 </div>
-
-                <div>
-                    Year:
-                    @Html.TextBoxFor(m => m.Year)
-                </div>
-            </div>
-            <div>
-                <div>
-                    <button type="submit">Add</button>
-                    <div id="addSuccessBox" hidden><h5>@Html.TextBox("addSuccess")</h5></div>
-                </div>
-            </div>
+            </form>
         }
     </div>
+
 </div>
 
 <script>

@@ -54,22 +54,23 @@ namespace Library.Web.Controllers
         }
 
         [HttpGet]
-        public PartialViewResult Search(SearchViewModel input)
+        public PartialViewResult SearchForTitle(SearchViewModel input)
         {
-            List<Book> books = new List<Book>();
-            if (input.Title != null)
-            {
-                books = _bookRepository.GetBookByTitle(input.Title);
-            }
-            else if (input.Author != null)
-            {
-                books = _bookRepository.GetBookByAuthor(input.Author);
-            }
-            else if (input.Year != 0)
-            {
-                books = _bookRepository.GetBookByYear(input.Year);
-            }
+            var books = _bookRepository.GetBookByTitle(input.Title);
+            return PartialView("SearchResult", books);
+        }
 
+        [HttpGet]
+        public PartialViewResult SearchForAuthor(SearchViewModel input)
+        {
+            var books = _bookRepository.GetBookByAuthor(input.Author);
+            return PartialView("SearchResult", books);
+        }
+
+        [HttpGet]
+        public PartialViewResult SearchForYear(SearchViewModel input)
+        {
+            var books = _bookRepository.GetBookByYear(input.Year);
             return PartialView("SearchResult", books);
         }
 
