@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Library.Web</id>
+    <title>Library</title>
+    <version>1.0.0</version>
+    <authors>kpeti86</authors>
+    <owners>kpeti86</owners>
+    <licenseUrl>http://library.kpeti86.com</licenseUrl>
+    <projectUrl>http://library.kpeti86.com</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A sample project</description>
+    <releaseNotes>This release contains the following changes...</releaseNotes>
+  </metadata>
+</package>
